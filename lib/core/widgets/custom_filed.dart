@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 
 class CustomTextFiled extends StatelessWidget {
@@ -43,7 +44,7 @@ class CustomTextFiled extends StatelessWidget {
           validator: validate,
           style: const TextStyle(fontSize: 18.0),
           keyboardType: filedType ?? TextInputType.name,
-          cursorColor: Colors.black,
+          cursorColor: PRIMARY_COLOR,
           inputFormatters: [
             FilteringTextInputFormatter.deny(RegExp(filterPattern!))
           ],

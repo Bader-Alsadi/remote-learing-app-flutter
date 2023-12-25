@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 
 class CustomElevatedBottom extends StatelessWidget {
   CustomElevatedBottom(
@@ -20,10 +21,10 @@ class CustomElevatedBottom extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
                 side: BorderSide(
-                  color: backColor ?? Colors.black,
+                  color: backColor ?? BLACK_COLOR,
                 ),
               ),
-              backgroundColor: backColor ?? Colors.white,
+              backgroundColor: backColor ?? BLACK_COLOR,
             ),
             // onPressed: () {},
             onPressed: onPressedFun ?? () {},

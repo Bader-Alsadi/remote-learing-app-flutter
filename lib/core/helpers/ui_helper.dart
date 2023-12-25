@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 
 String? validateName(String? value) {
-  String pattern = r'(^[a-zA-Zا-ي]*$)';
+  // String pattern = r'(^[a-zA-Zا-ي]*$)';
+  String pattern = '[a-zA-Zء-ي ]+';
+
   RegExp regExp = RegExp(pattern);
   if (value?.isEmpty ?? true) {
     return "حقل الاسم متطلب";
@@ -82,14 +85,14 @@ InputDecoration getInputDecoration(
     required Color errorColor,
     Widget? suffixIcon}) {
   return InputDecoration(
-    suffixIconColor: Colors.black,
+    suffixIconColor: PRIMARY_COLOR,
     suffixIcon: suffixIcon,
     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-    fillColor: darkMode ? Colors.black54 : Colors.white,
+    fillColor: darkMode ? Colors.black54 : WHITH_COLOR,
     hintText: hint,
     focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.0),
-        borderSide: const BorderSide(color: Colors.black, width: 2.0)),
+        borderSide: const BorderSide(color: PRIMARY_COLOR, width: 2.0)),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: errorColor),
       borderRadius: BorderRadius.circular(25.0),

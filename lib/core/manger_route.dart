@@ -7,7 +7,7 @@ class RouteManger {
     switch (settings.name) {
       case LoginPage.ROUTE:
         {
-          return MaterialPageRoute(builder: (context) => const LoginPage());
+          return MaterialPageRoute(builder: (context) =>  LoginPage());
         }
     }
   }
