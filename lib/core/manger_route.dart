@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 
 class RouteManger {
@@ -8,6 +9,11 @@ class RouteManger {
       case LoginPage.ROUTE:
         {
           return MaterialPageRoute(builder: (context) =>  LoginPage());
+        }
+        case Dashboard.ROUTE:
+        {
+          String role= settings.arguments as String;
+          return MaterialPageRoute(builder: (context) =>  Dashboard(role: role,));
         }
     }
   }

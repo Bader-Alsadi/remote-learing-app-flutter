@@ -8,14 +8,15 @@ class AuthVM {
 
   Future<Map> login(ReposteryData repo, Map<String, dynamic> data) async {
     Map resutle = await repo.login(APIurl.LOGIN, data);
-    Map serverData = resutle["data"];
 
     if (!resutle["status"]) {
       return resutle;
     }
+    Map serverData = resutle["data"];
     getStInstance.write("name", serverData["name"]);
     getStInstance.write("email", serverData["email"]);
     getStInstance.write("token", serverData["token"]);
+    getStInstance.write("role", serverData["role_type"]);
     return resutle;
   }
 }

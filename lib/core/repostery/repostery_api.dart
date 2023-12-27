@@ -21,7 +21,20 @@ class ReposteryAPI extends ReposteryData {
   @override
   Future<Map<String, dynamic>> login(
       String source, Map<String, dynamic> data) async {
-    final response = await dioInstance.post(source, data: data);
-    return response.data;
+    String message = "";
+    Response? response;
+    try {
+      response = await dioInstance.post(source, data: data);
+      return response!.data;
+    } on DioException catch (e) {
+      if (e.response == null) {
+        return {
+          "status": false,
+          "message": "There is not net work connection or wrong url"
+        };
+      } else {
+        return e.response!.data;
+      }
+    }
   }
 }

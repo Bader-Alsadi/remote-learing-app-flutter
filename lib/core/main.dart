@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/manger_route.dart';
+import 'package:remote_learing_app_frontend/core/them/app_them.dart';
+import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init("user");
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+   MyApp({super.key});
+GetStorage instance = GetStorageHelper.instance("user");
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      theme: ThemeData(),
-      home: LoginPage(),
+      debugShowCheckedModeBanner: false,
+      theme: appThem,
+      home:instance.read("token")==null? LoginPage() :Dashboard(role: "bader"),
       onGenerateRoute: RouteManger.genrtedRoute,
     );
   }
