@@ -21,7 +21,6 @@ class ReposteryAPI extends ReposteryData {
   @override
   Future<Map<String, dynamic>> login(
       String source, Map<String, dynamic> data) async {
-    String message = "";
     Response? response;
     try {
       response = await dioInstance.post(source, data: data);

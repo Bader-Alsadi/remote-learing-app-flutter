@@ -27,3 +27,7 @@ const TextStyle TEXT_NORMAL = TextStyle(
   fontWeight: FontWeight.w600,
 );
 
+const TextStyle TEXT_BIG = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w800,
+);

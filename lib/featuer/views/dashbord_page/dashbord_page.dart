@@ -13,36 +13,12 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Circalicon(
-            iconData: Icons.arrow_back_ios_new_rounded,
+        appBar: AppBar(
+          title: Text(
+            role,
+            style: TextStyle(color: BLACK_COLOR),
           ),
         ),
-        centerTitle: true,
-        title: Text(
-          role,
-          style: TextStyle(color: BLACK_COLOR),
-        ),
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: SMALL_SPACER / 2),
-        margin: EdgeInsets.symmetric(vertical: SMALL_SPACER),
-        child: ListView(
-          children: [
-            SerachBar(
-              hint: "searsh bar",
-              controller: seashCo,
-              suffixIcon: Icon(Icons.search),
-            ),
-            SizedBox(
-              height: SMALL_SPACER,
-            ),
-            CourseCard()
-          ],
-        ),
-      ),
-    );
+        body: Center(child: Text(role)));
   }
 }

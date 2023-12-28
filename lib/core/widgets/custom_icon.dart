@@ -11,6 +11,7 @@ class Circalicon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: THIRD_COLOR, width: 2.0)),

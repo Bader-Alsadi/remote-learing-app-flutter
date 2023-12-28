@@ -5,6 +5,7 @@ import 'package:remote_learing_app_frontend/core/manger_route.dart';
 import 'package:remote_learing_app_frontend/core/them/app_them.dart';
 import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/show_course_page/show_course_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ GetStorage instance = GetStorageHelper.instance("user");
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       theme: appThem,
-      home:instance.read("token")==null? LoginPage() :Dashboard(role: "bader"),
+      home:instance.read("token")==null? LoginPage() :ShowCourseInfo(),
       onGenerateRoute: RouteManger.genrtedRoute,
     );
   }

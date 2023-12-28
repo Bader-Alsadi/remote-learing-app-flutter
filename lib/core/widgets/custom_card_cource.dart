@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_image_title.dart';
 
 class CourseCard extends StatelessWidget {
-  CourseCard({super.key});
+  CourseCard(
+      {super.key,
+      required this.courseName,
+      required this.courseImage,
+      required this.instructorImage,
+      required this.courseDescription});
+  String courseImage;
+  String instructorImage;
+  String courseName;
+  String courseDescription;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: MediaQuery.sizeOf(context).height * .20,
+      height: MediaQuery.sizeOf(context).height * .25,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,7 +30,7 @@ class CourseCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Image.asset(
-                  "assets/images/courses/course1.jpeg",
+                  courseImage,
                   height: 120,
                   width: 150,
                   fit: BoxFit.fill,
@@ -32,39 +44,24 @@ class CourseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "course 1",
+                    courseName,
                     style: TEXT_NORMAL,
                   ),
                   Text(
-                    "this corse speek about c++his corse speek about c++",
+                    courseDescription,
                     style: TEXT_NORMAL,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     height: SMALL_SPACER,
                   ),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(
-                          "assets/images/courses/course1.jpeg",
-                        ),
-                      ),
-                      SizedBox(
-                        width: MIN_SPACER,
-                      ),
-                      Text(
-                        "course 1",
-                        style: TEXT_NORMAL,
-                      ),
-                    ],
-                  )
+                  ImageAndTitle(
+                    imagePath: instructorImage,
+                    title: "course 1",
+                  ),
                 ],
               )),
             ],
-          ),
-          SizedBox(
-            height: SMALL_SPACER,
           ),
           LinearPercentIndicator(
             padding: EdgeInsets.all(0),
@@ -73,6 +70,19 @@ class CourseCard extends StatelessWidget {
             animation: true,
             lineHeight: 10,
             barRadius: Radius.circular(15),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "4/5 Module",
+                style: TEXT_NORMAL,
+              ),
+              Text(
+                "89%",
+                style: TEXT_NORMAL,
+              ),
+            ],
           ),
         ],
       ),
