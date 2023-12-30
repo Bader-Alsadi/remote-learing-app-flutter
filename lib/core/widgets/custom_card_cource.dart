@@ -8,10 +8,12 @@ import 'package:remote_learing_app_frontend/core/widgets/custom_image_title.dart
 class CourseCard extends StatelessWidget {
   CourseCard(
       {super.key,
+      required this.title,
       required this.courseName,
       required this.courseImage,
       required this.instructorImage,
       required this.courseDescription});
+  String title;
   String courseImage;
   String instructorImage;
   String courseName;
@@ -57,7 +59,7 @@ class CourseCard extends StatelessWidget {
                   ),
                   ImageAndTitle(
                     imagePath: instructorImage,
-                    title: "course 1",
+                    title: title,
                   ),
                 ],
               )),

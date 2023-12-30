@@ -7,8 +7,17 @@ class ReposteryAPI extends ReposteryData {
 
   @override
   Future<Map<String, dynamic>> fetcheData(String source) async {
-    final response = await dioInstance.post(source);
-    return response.data;
+    Response? response;
+    try {
+      response = await dioInstance.get(source);
+      return response.data;
+    } on DioException catch (e) {
+      if (e.response == null) {
+        return {"status": false, "message": "The opretion is faild"};
+      } else {
+        return {"message": e.response!.data};
+      }
+    }
   }
 
   @override
@@ -27,10 +36,7 @@ class ReposteryAPI extends ReposteryData {
       return response!.data;
     } on DioException catch (e) {
       if (e.response == null) {
-        return {
-          "status": false,
-          "message": "There is not net work connection or wrong url"
-        };
+        return {"status": false, "message": "The opretion is faild"};
       } else {
         return e.response!.data;
       }

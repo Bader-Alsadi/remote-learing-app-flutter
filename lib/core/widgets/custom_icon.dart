@@ -10,15 +10,20 @@ class Circalicon extends StatelessWidget {
   IconData iconData;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: THIRD_COLOR, width: 2.0)),
-      child: Icon(
-        iconData,
-        color: BLACK_COLOR,
-        size: 20,
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: THIRD_COLOR, width: 2.0)),
+        child: Icon(
+          iconData,
+          color: BLACK_COLOR,
+          size: 20,
+        ),
       ),
     );
   }

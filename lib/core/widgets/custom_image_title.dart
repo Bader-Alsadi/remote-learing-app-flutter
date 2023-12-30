@@ -3,11 +3,7 @@ import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 
 class ImageAndTitle extends StatelessWidget {
-   ImageAndTitle({
-    super.key,
-    required this.imagePath,
-    required this.title
-  });
+  ImageAndTitle({super.key, required this.imagePath, required this.title});
   String imagePath;
   String title;
 
@@ -23,9 +19,11 @@ class ImageAndTitle extends StatelessWidget {
         SizedBox(
           width: MIN_SPACER,
         ),
-        Text(
-          title,
-          style: TEXT_NORMAL,
+        Flexible(
+          child: Text(
+            title,
+            style: GRAY_TEXT,
+          ),
         ),
       ],
     );

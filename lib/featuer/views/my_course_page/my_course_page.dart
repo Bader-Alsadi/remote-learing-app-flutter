@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_card_cource.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_serash_bar.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_course.dart';
 
 class MyCourse extends StatelessWidget {
-  MyCourse({super.key, required this.role});
+  MyCourse({super.key});
   static const String ROUTE = "dashbord";
-  late String role;
   TextEditingController seashCo = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final IVM = Provider.of<InstroctorVM>(context);
+    if (!IVM.isloaded)
+      IVM.feachDate(ReposteryAPI(), 7).then(
+        (value) {
+          IVM.insturoctor = value;
+        },
+      );
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Circalicon(
-            iconData: Icons.arrow_back_ios_new_rounded,
-          ),
-        ),
         centerTitle: true,
         title: Text(
           "My Courses",
@@ -28,7 +33,7 @@ class MyCourse extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: SMALL_SPACER / 2),
-        margin: EdgeInsets.symmetric(vertical: SMALL_SPACER),
+        margin: EdgeInsets.only(top: SMALL_SPACER),
         child: ListView(
           children: [
             SerachBar(
@@ -39,18 +44,29 @@ class MyCourse extends StatelessWidget {
             SizedBox(
               height: SMALL_SPACER,
             ),
-            InkWell(
-              onTap: () {
-                
-              },
-              child: CourseCard(
-                courseImage: "assets/images/courses/course1.jpeg",
-                instructorImage: "assets/images/courses/course1.jpeg",
-                courseName: "course 1",
-                courseDescription:
-                    "this corse speek about c++his corse speek about c++",
-              ),
-            ),
+            IVM.subjects.isEmpty
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: IVM.subjects
+                        .map((e) => InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, InstroctorSubject.ROUTE);
+                              },
+                              child: CourseCard(
+                                  title:
+                                      "${e.department!.name!} , ${e.department!.semaster!.name!} ",
+                                  courseName: e.name!,
+                                  courseImage:
+                                      "assets/images/courses/course1.jpeg",
+                                  instructorImage:
+                                      "assets/images/courses/course1.jpeg",
+                                  courseDescription: e.description!),
+                            ))
+                        .toList(),
+                  ),
           ],
         ),
       ),
