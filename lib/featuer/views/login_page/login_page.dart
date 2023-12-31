@@ -1,6 +1,7 @@
 // ignore_for_file: unused_field, prefer_final_fields
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
@@ -10,6 +11,7 @@ import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/auth_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -31,6 +33,11 @@ class LoginPage extends StatelessWidget {
             autovalidateMode: _validate,
             child: Column(
               children: [
+                Image.asset(
+                  "assets/images/courses/login.png",
+                  height: 200,
+                ).animate(
+                    autoPlay: true, effects: [FadeEffect(duration: 800.ms)]),
                 Text(
                   "Welcom Back",
                   style: TITLE,
@@ -56,9 +63,7 @@ class LoginPage extends StatelessWidget {
                     suffixIcon: InkWell(
                         onTap: () {
                           isDipaly = !isDipaly;
-
                           setState(() {});
-                          print(isDipaly);
                         },
                         child: Icon(isDipaly
                             ? Icons.visibility_off
@@ -92,8 +97,11 @@ class LoginPage extends StatelessWidget {
                       };
                       Map resutle = await avm.login(ReposteryAPI(), data);
                       if (resutle["status"]) {
-                        Navigator.pushReplacementNamed(context, Dashboard.ROUTE,
-                            arguments: resutle["data"]["role_type"]);
+                        Navigator.pushReplacementNamed(
+                          context,
+                          RootPage.ROUTE,
+                        );
+                        print("cdc");
                       }
                       showSnackBar(context, resutle["message"]);
                     }

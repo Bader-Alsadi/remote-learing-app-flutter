@@ -29,6 +29,7 @@ const List<TabItem> items = [
 
 class RootPage extends StatefulWidget {
   const RootPage({Key? key}) : super(key: key);
+  static const String ROUTE = "root page";
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

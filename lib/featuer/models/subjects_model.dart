@@ -9,6 +9,7 @@ class Subject {
   String? year;
   String? scientificMethod;
   Department? department;
+  bool isloaded=false;
 
   Subject(
       {this.id,

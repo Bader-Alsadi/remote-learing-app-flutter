@@ -13,6 +13,8 @@ class AuthVM {
       return resutle;
     }
     Map serverData = resutle["data"];
+    print(resutle);
+    getStInstance.write("id", serverData["id"]);
     getStInstance.write("name", serverData["name"]);
     getStInstance.write("email", serverData["email"]);
     getStInstance.write("token", serverData["token"]);
