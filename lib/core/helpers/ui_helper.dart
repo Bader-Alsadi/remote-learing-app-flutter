@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 
@@ -93,4 +94,12 @@ showSnackBar(BuildContext context, String message) {
         content: Text(message),
       ),
     );
+}
+Widget? AnimatedButoom({required bool isloaded}) {
+  return isloaded
+      ? null
+      : SpinKitFadingGrid(
+          size: 20,
+          color: WHITH_COLOR,
+        );
 }

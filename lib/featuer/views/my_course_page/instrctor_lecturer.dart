@@ -7,7 +7,6 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_image_title.dart';
-import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 

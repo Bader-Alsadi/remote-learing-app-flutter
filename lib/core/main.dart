@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         debugShowCheckedModeBanner: false,
         theme: appThem,
-        home: instance.read("token") == null ? LoginPage() : RootPage(),
+        home: instance.read("token") == null ? Start1() : RootPage(),
         onGenerateRoute: RouteManger.genrtedRoute,
       ),
     );

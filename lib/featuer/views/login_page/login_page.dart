@@ -10,7 +10,6 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/auth_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -22,6 +21,7 @@ class LoginPage extends StatelessWidget {
   TextEditingController password = TextEditingController();
   bool isDipaly = true;
   AuthVM avm = AuthVM();
+  bool isloaded = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                   height: SMALL_SPACER * .6,
                 ),
                 Text(
-                  "Please login first before you start you intesrted trip",
+                  "Please login first before you start your intesrted trip",
                   style: SUB_TITLE,
                 ),
                 CustomTextFiled(
@@ -86,27 +86,47 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                CustomElevatedBottom(
-                  lable: "save",
-                  backColor: PRIMARY_COLOR,
-                  onPressedFun: () async {
-                    if (FormKey.currentState!.validate()) {
-                      Map<String, dynamic> data = {
-                        "email": email.text.trim(),
-                        "password": password.text
-                      };
-                      Map resutle = await avm.login(ReposteryAPI(), data);
-                      if (resutle["status"]) {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          RootPage.ROUTE,
+                StatefulBuilder(
+                  builder: (context, setstate) => CustomElevatedBottom(
+                    child: AnimatedButoom(isloaded: isloaded),
+                    lable: "save",
+                    backColor: PRIMARY_COLOR,
+                    onPressedFun: () async {
+                      if (FormKey.currentState!.validate()) {
+                        Map<String, dynamic> data = {
+                          "email": email.text.trim(),
+                          "password": password.text
+                        };
+                        isloaded = false;
+                        Map resutle;
+                        avm.login(ReposteryAPI(), data).then((value) {
+                          resutle = value;
+                          if (resutle["status"])
+                            Navigator.pushReplacementNamed(
+                              context,
+                              RootPage.ROUTE,
+                            );
+                          isloaded = true;
+                          showSnackBar(context, resutle["message"]);
+                          setstate(
+                            () {},
+                          );
+                        });
+                        setstate(
+                          () {},
                         );
-                        print("cdc");
+                        // Map resutle = await avm.login(ReposteryAPI(), data);
+                        // if (resutle["status"]) {
+                        //   Navigator.pushReplacementNamed(
+                        //     context,
+                        //     RootPage.ROUTE,
+                        //   );
+                        //   print("cdc");
+                        // }
                       }
-                      showSnackBar(context, resutle["message"]);
-                    }
-                  },
-                ),
+                    },
+                  ),
+                )
               ],
             ),
           ),
@@ -115,3 +135,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
+
+

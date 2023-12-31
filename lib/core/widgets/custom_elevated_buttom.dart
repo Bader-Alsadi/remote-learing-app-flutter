@@ -8,6 +8,7 @@ class CustomElevatedBottom extends StatelessWidget {
   CustomElevatedBottom(
       {super.key,
       this.backColor,
+       this.child,
       this.titleColor,
       this.onPressedFun,
       this.lable = "",
@@ -15,6 +16,7 @@ class CustomElevatedBottom extends StatelessWidget {
   String? lable;
   Color? backColor;
   Color? titleColor;
+  Widget? child;
   Function()? onPressedFun;
   double? mairgn;
 
@@ -37,7 +39,7 @@ class CustomElevatedBottom extends StatelessWidget {
               backgroundColor: backColor ?? BLACK_COLOR,
             ),
             onPressed: onPressedFun ?? () {},
-            child: Text(
+            child:child?? Text(
               "  $lable  ",
               style: TextStyle(
                 fontSize: 16,
