@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
@@ -12,7 +14,6 @@ class ReposteryAPI extends ReposteryData {
       response = await dioInstance.get(source);
       return response.data;
     } on DioException catch (e) {
-      
       if (e.response == null) {
         return {"status": false, "message": "The opretion is faild"};
       } else {
@@ -35,6 +36,8 @@ class ReposteryAPI extends ReposteryData {
     try {
       response = await dioInstance.post(source, data: data);
       return response!.data;
+    } on SocketException {
+      return {"status": false, "message": "NetWork connection"};
     } on DioException catch (e) {
       if (e.response == null) {
         return {"status": false, "message": "The opretion is faild"};

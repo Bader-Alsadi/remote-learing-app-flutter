@@ -62,7 +62,7 @@ class MyCourse extends StatelessWidget {
                               },
                               child: CourseCard(
                                   title:
-                                      "${e.department!.name!} , ${e.department!.semaster!.name!} ",
+                                      "${e.department!.name!}",
                                   courseName: e.name!,
                                   courseImage:
                                       "assets/images/courses/course1.jpeg",

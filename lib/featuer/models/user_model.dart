@@ -1,36 +1,37 @@
+import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
+
 class User {
   int? id;
   String? name;
   String? email;
-  String? createdAt;
-  String? updatedAt;
-  String? tooken;
+  List<Subject>? subjects;
 
-  User(
-      {id,
-      name,
-      email,
-      createdAt,
-      updatedAt,
-      tooken});
+  User({this.id, this.name, this.email, this.subjects});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    tooken = json['tooken'];
+    try {
+      // id = json['id'];
+      name = json['name'];
+      email = json['email'];
+      if (json['subjects'] != null) {
+        subjects = <Subject>[];
+        json['subjects'].forEach((v) {
+          subjects!.add(new Subject.fromJson(v));
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
-    data['id'] = id;
-    data['name'] = name;
-    data['email'] = email;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['tooken'] = tooken;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    if (this.subjects != null) {
+      data['subjects'] = this.subjects!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

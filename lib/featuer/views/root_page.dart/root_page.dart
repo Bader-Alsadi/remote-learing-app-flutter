@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/my_course_page.dart';
 
 const List<TabItem> items = [
@@ -42,9 +43,7 @@ class _MyHomePageState extends State<RootPage> {
     return Scaffold(
       backgroundColor: WHITH_COLOR,
       body: [
-        Center(
-          child: Text(selectPage.toString()),
-        ),
+        Dashboard(),
         Center(
           child: Text(selectPage.toString()),
         ),

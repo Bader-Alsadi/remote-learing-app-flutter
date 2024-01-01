@@ -15,18 +15,17 @@ class RouteManger {
         }
       case Dashboard.ROUTE:
         {
-          String role = settings.arguments as String;
-          return MaterialPageRoute(
-              builder: (context) => Dashboard(
-                    role: role,
-                  ));
+          return MaterialPageRoute(builder: (context) => Dashboard());
         }
       case InstroctorSubject.ROUTE:
         {
-          Subject subject  = settings.arguments as Subject;
-          return MaterialPageRoute(builder: (context) => InstroctorSubject(subject: subject,));
+          Subject subject = settings.arguments as Subject;
+          return MaterialPageRoute(
+              builder: (context) => InstroctorSubject(
+                    subject: subject,
+                  ));
         }
-         case RootPage.ROUTE:
+      case RootPage.ROUTE:
         {
           return MaterialPageRoute(builder: (context) => RootPage());
         }

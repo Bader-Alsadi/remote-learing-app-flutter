@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      
       body: SingleChildScrollView(
         child: Container(
           child: Form(
@@ -135,6 +135,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
-

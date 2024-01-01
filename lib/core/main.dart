@@ -23,8 +23,10 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   GetStorage instance = GetStorageHelper.instance("user");
+  bool? isfrist;
   @override
   Widget build(BuildContext context) {
+    isfrist = instance.read("isFrist") ?? true;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<InstroctorVM>(
@@ -38,7 +40,11 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         debugShowCheckedModeBanner: false,
         theme: appThem,
-        home: instance.read("token") == null ? Start1() : RootPage(),
+        home: isfrist!
+            ? Start1()
+            : instance.read("token") == null
+                ? LoginPage()
+                : RootPage(),
         onGenerateRoute: RouteManger.genrtedRoute,
       ),
     );

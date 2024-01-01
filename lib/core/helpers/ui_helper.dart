@@ -20,7 +20,7 @@ String? validateEmail(String? value) {
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(value ?? '')) {
+  if (!regex.hasMatch(value!.trim() ?? '')) {
     return "Ebter valid Email";
   } else {
     return null;
@@ -91,15 +91,21 @@ showSnackBar(BuildContext context, String message) {
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        content: Text(message),
+        showCloseIcon: true,
+        backgroundColor: PRIMARY_COLOR,
+        content: Text(
+          message,
+          style: TextStyle(color: WHITH_COLOR),
+        ),
       ),
     );
 }
+
 Widget? AnimatedButoom({required bool isloaded}) {
   return isloaded
       ? null
       : SpinKitFadingGrid(
-          size: 20,
+          size: 25,
           color: WHITH_COLOR,
         );
 }

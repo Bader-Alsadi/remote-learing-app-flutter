@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/data/on_board_data.dart';
@@ -68,6 +70,7 @@ class _Start1State extends State<Start1> {
               backColor: PRIMARY_COLOR,
               lable: "Get Started",
               onPressedFun: () {
+               GetStorageHelper.instance("user").write("isFrist",false);
                 Navigator.pushReplacementNamed(context, LoginPage.ROUTE);
               },
             ),
