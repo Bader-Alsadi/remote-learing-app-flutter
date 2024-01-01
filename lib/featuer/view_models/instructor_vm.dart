@@ -7,19 +7,18 @@ import 'package:remote_learing_app_frontend/featuer/models/user_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 
 class InstroctorVM with ChangeNotifier {
-  User? insturoctor;
   List<Subject> subjects = [];
+  late User insturoctor;
   bool isloaded = false;
   Dio instanceDio = DioHL.instance();
+
   Future<User> feachDate(ReposteryData repo, int id) async {
     Map result = await repo.fetcheData("${APIurl.INSTROUCTOR_INFO}/$id");
-    print(result);
-    if (!result["status"]) {
-      isloaded = true;
-      return User();
-    }
-    User insturoctor = User.fromJson(result["data"] as Map<String, dynamic>);
-    subjects = insturoctor.subjects!;
+    print("instructor: $result");
+    if (result["status"]) {
+      insturoctor = User.fromJson(result["data"] as Map<String, dynamic>);
+      subjects = insturoctor.subjects!;
+    }else insturoctor =User();
     notifyListeners();
     isloaded = true;
 

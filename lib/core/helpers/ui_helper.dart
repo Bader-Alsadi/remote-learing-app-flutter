@@ -16,6 +16,19 @@ String? validateName(String? value) {
   return null;
 }
 
+String? validatepassword(String? value) {
+  // String pattern = r'(^[a-zA-Zا-ي]*$)';
+  String pattern = '[0-9a-zA-Zء-ي ]+';
+
+  RegExp regExp = RegExp(pattern);
+  if (value!.isEmpty ) {
+    return "password required";
+  } else if (!regExp.hasMatch(value ?? '')) {
+    return "الاسم ينبغي ان يكون من ١-ي او من a-z";
+  }
+  return null;
+}
+
 String? validateEmail(String? value) {
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

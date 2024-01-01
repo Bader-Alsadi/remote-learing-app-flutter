@@ -22,6 +22,7 @@ class InstroctorSubject extends StatelessWidget {
       LVM.feachDate(ReposteryAPI(), subject.id!).then(
         (value) {
           LVM.lectrers = value;
+          subject.isloaded = true;
         },
       );
     return Scaffold(
@@ -35,9 +36,11 @@ class InstroctorSubject extends StatelessWidget {
       ),
       body: LVM.lectrers.isEmpty
           ? Center(
-              child: SpinKitFadingCircle(
-                color: PRIMARY_COLOR,
-              ),
+              child: subject.isloaded
+                  ? Text("no lecturers")
+                  : SpinKitFadingCircle(
+                      color: PRIMARY_COLOR,
+                    ),
             )
           : SingleChildScrollView(
               child: Container(

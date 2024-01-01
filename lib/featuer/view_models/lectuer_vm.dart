@@ -15,12 +15,14 @@ class LecturerVM with ChangeNotifier {
     //   return null;
     // }
     print(result);
-    dynamic serverData = result["data"];
-    lectrers = serverData
-        .map<Lecturer>((e) => Lecturer.fromJson(e as Map<String, dynamic>))
-        .toList();
+    if (result["status"]) {
+      dynamic serverData = result["data"];
+      lectrers = serverData
+          .map<Lecturer>((e) => Lecturer.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } else
+      lectrers = [];
     notifyListeners();
-
     return lectrers;
   }
 }

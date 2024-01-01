@@ -57,6 +57,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 StatefulBuilder(builder: (context, setState) {
                   return CustomTextFiled(
+                    validate: validatepassword,
                     title: "Password",
                     lable: "Enter your password",
                     obscureText: isDipaly,
