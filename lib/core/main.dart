@@ -12,7 +12,6 @@ import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrct
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/my_course_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/on_bord.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
-import 'package:remote_learing_app_frontend/featuer/views/show_course_page/show_course_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

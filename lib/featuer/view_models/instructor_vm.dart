@@ -14,8 +14,11 @@ class InstroctorVM with ChangeNotifier {
   Future<User> feachDate(ReposteryData repo, int id) async {
     Map result = await repo.fetcheData("${APIurl.INSTROUCTOR_INFO}/$id");
     print(result);
-    User insturoctor =
-        User.fromJson(result["data"] as Map<String, dynamic>);
+    if (!result["status"]) {
+      isloaded = true;
+      return User();
+    }
+    User insturoctor = User.fromJson(result["data"] as Map<String, dynamic>);
     subjects = insturoctor.subjects!;
     notifyListeners();
     isloaded = true;

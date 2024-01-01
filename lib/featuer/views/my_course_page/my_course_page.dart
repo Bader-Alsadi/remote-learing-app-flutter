@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_card_cource.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
@@ -14,6 +16,7 @@ class MyCourse extends StatelessWidget {
   MyCourse({super.key});
   static const String ROUTE = "dashbord";
   TextEditingController seashCo = TextEditingController();
+  GetStorage instance = GetStorageHelper.instance("user");
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,11 @@ class MyCourse extends StatelessWidget {
       ),
       body: IVM.subjects.isEmpty
           ? Center(
-              child: SpinKitCircle(
-                color: PRIMARY_COLOR,
-              ),
+              child: IVM.isloaded
+                  ? Text("no course yet")
+                  : SpinKitCircle(
+                      color: PRIMARY_COLOR,
+                    ),
             )
           : Container(
               padding: EdgeInsets.symmetric(horizontal: SMALL_SPACER / 2),
@@ -55,14 +60,12 @@ class MyCourse extends StatelessWidget {
                     children: IVM.subjects
                         .map((e) => InkWell(
                               onTap: () {
-                                
                                 Navigator.pushNamed(
                                     context, InstroctorSubject.ROUTE,
                                     arguments: e);
                               },
                               child: CourseCard(
-                                  title:
-                                      "${e.department!.name!}",
+                                  title: "${e.department!.name!}",
                                   courseName: e.name!,
                                   courseImage:
                                       "assets/images/courses/course1.jpeg",

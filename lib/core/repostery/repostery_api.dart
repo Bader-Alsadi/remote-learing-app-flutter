@@ -14,11 +14,7 @@ class ReposteryAPI extends ReposteryData {
       response = await dioInstance.get(source);
       return response.data;
     } on DioException catch (e) {
-      if (e.response == null) {
-        return {"status": false, "message": "The opretion is faild"};
-      } else {
-        return {"message": e.response!.data};
-      }
+      return responseDioException(e);
     }
   }
 
@@ -35,15 +31,23 @@ class ReposteryAPI extends ReposteryData {
     Response? response;
     try {
       response = await dioInstance.post(source, data: data);
-      return response!.data;
+      return response.data;
     } on SocketException {
       return {"status": false, "message": "NetWork connection"};
     } on DioException catch (e) {
-      if (e.response == null) {
-        return {"status": false, "message": "The opretion is faild"};
-      } else {
-        return e.response!.data;
+      return responseDioException(e);
+    }
+  }
+
+  Map<String, dynamic> responseDioException(DioException e) {
+    if (e.response == null) {
+      return {"status": false, "message": "The opretion is faild"};
+    } else {
+      print("state code : ${e.response!.statusCode}");
+      if (e.response!.statusCode == 500) {
+        return {"status": false, "message": "Serve error"};
       }
+      return e.response!.data as Map<String, dynamic>;
     }
   }
 }
