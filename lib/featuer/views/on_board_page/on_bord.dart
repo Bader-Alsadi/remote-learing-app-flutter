@@ -59,7 +59,7 @@ class _Start1State extends State<Start1> {
                           borderRadius: BorderRadius.circular(7.5),
                           color: index == selsctePage
                               ? PRIMARY_COLOR
-                              : THIRD_COLOR),
+                              : GRAY_COLOR),
                     ),
                   )),
             ),
@@ -70,7 +70,7 @@ class _Start1State extends State<Start1> {
               backColor: PRIMARY_COLOR,
               lable: "Get Started",
               onPressedFun: () {
-               GetStorageHelper.instance("user").write("isFrist",false);
+                GetStorageHelper.instance("user").write("isFrist", false);
                 Navigator.pushReplacementNamed(context, LoginPage.ROUTE);
               },
             ),

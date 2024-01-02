@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
@@ -14,17 +15,25 @@ class InstroctorSubject extends StatelessWidget {
   InstroctorSubject({super.key, required this.subject});
   static const String ROUTE = "instrictor_subject";
   Subject subject;
+  bool isconnectd = false;
   @override
   Widget build(BuildContext context) {
     print("${subject.id}");
     final LVM = Provider.of<LecturerVM>(context);
-    if (!subject.isloaded)
-      LVM.feachDate(ReposteryAPI(), subject.id!).then(
-        (value) {
-          LVM.lectrers = value;
-          subject.isloaded = true;
-        },
-      );
+    InternetConnectionChecker().hasConnection.then((value) {
+      if (!value) {
+        print("connectd: $value");
+        if (subject.Lecturers.isEmpty)
+          LVM.feachDate(ReposteryAPI(), subject).then(
+            (value) {
+              isconnectd = true;
+              LVM.lectrers = value;
+            },
+          );
+      } else {
+        print("connectd: $value");
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -34,9 +43,9 @@ class InstroctorSubject extends StatelessWidget {
           ),
         ),
       ),
-      body: LVM.lectrers.isEmpty
+      body: subject.Lecturers.isEmpty
           ? Center(
-              child: subject.isloaded
+              child: isconnectd
                   ? Text("no lecturers")
                   : SpinKitFadingCircle(
                       color: PRIMARY_COLOR,
@@ -49,10 +58,6 @@ class InstroctorSubject extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text(
-                    //   LVM.insturoctor!.name!,
-                    //   style: TEXT_BIG,
-                    // ),
                     SizedBox(
                       height: MIN_SPACER,
                     ),
@@ -61,17 +66,15 @@ class InstroctorSubject extends StatelessWidget {
                       title: "Bader Alsdy | moblie devloper",
                     ),
                     Column(
-                      children: LVM.lectrers
-                          .map((e) => Container(
-                                child: ExpansionTileC(
-                                  title: e.title!,
-                                  date: e.lecturerData!.split(" ").first,
-                                  vidoe: "",
-                                  hours: "s",
-                                  note: e.description!,
-                                ),
-                              ))
-                          .toList(),
+                      children: subject.Lecturers.map((e) => Container(
+                            child: ExpansionTileC(
+                              title: e.title!,
+                              date: e.lecturerData!.split(" ").first,
+                              vidoe: "",
+                              hours: "s",
+                              note: e.description!,
+                            ),
+                          )).toList(),
                     ),
                   ],
                 ),

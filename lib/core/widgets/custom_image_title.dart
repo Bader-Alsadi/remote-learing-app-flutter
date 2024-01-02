@@ -28,7 +28,7 @@ class ImageAndTitle extends StatelessWidget {
         Flexible(
           child: Text(
             title,
-            style: GRAY_TEXT.copyWith(color: textColor ?? THIRD_COLOR),
+            style: GRAY_TEXT.copyWith(color: textColor ?? GRAY_COLOR),
           ),
         ),
       ],

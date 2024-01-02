@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
@@ -13,12 +15,23 @@ class AuthVM {
       return resutle;
     }
     Map serverData = resutle["data"];
-    print(resutle);
+    _adduserDetails(serverData);
+
+    return resutle;
+  }
+
+  _adduserDetails(Map serverData) {
+    debugPrint(serverData.toString());
     getStInstance.write("id", serverData["id"]);
     getStInstance.write("name", serverData["name"]);
     getStInstance.write("email", serverData["email"]);
     getStInstance.write("token", serverData["token"]);
     getStInstance.write("role", serverData["role_type"]);
-    return resutle;
+    if (serverData["role_type"] == "Student") {
+      getStInstance.write("deparment_id", serverData["deparment_id"]);
+      getStInstance.write("department", serverData["department"]);
+      getStInstance.write("level", serverData["level"]);
+      getStInstance.write("semester", serverData["semester"]);
+    }
   }
 }

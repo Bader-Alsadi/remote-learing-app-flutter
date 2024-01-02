@@ -45,6 +45,8 @@ dependencies:
   flutter_spinkit: ^5.2.0
   flutter_animate: ^4.3.0
   dio_cache_interceptor: ^3.5.0
+  internet_connection_checker: ^1.0.0+1
+  flutter_svg: ^2.0.9
   
 
 dev_dependencies:

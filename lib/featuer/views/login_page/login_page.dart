@@ -116,14 +116,6 @@ class LoginPage extends StatelessWidget {
                         setstate(
                           () {},
                         );
-                        // Map resutle = await avm.login(ReposteryAPI(), data);
-                        // if (resutle["status"]) {
-                        //   Navigator.pushReplacementNamed(
-                        //     context,
-                        //     RootPage.ROUTE,
-                        //   );
-                        //   print("cdc");
-                        // }
                       }
                     },
                   ),

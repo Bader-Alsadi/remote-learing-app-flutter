@@ -14,7 +14,7 @@ class IconWithText extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: THIRD_COLOR,
+            color: GRAY_COLOR,
           ),
           Text(title)
         ],

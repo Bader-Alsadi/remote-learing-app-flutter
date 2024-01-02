@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
@@ -12,13 +11,15 @@ class CustomElevatedBottom extends StatelessWidget {
       this.titleColor,
       this.onPressedFun,
       this.lable = "",
-      this.mairgn = 40.0});
+      this.mairgn = 40.0,
+      });
   String? lable;
   Color? backColor;
   Color? titleColor;
   Widget? child;
   Function()? onPressedFun;
   double? mairgn;
+  double? width;
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,6 @@ class Lecturer {
   Null? note;
   String? lecturerData;
   int? subjectId;
-  bool isloaded =false;
 
   Lecturer(
       {this.id,

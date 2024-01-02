@@ -21,7 +21,7 @@ class Dashboard extends StatelessWidget {
           title: ImageAndTitle(
             textColor: BLACK_COLOR,
             imagePath: "assets/images/courses/course1.jpeg",
-            title: "welcome, ${instance.read("name")} !",
+            title: "welcome, ${instance.read("role")} !",
           ),
         ),
         body: SingleChildScrollView(

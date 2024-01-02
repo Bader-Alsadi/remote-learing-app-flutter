@@ -21,12 +21,10 @@ class ExpansionTileC extends StatelessWidget {
         title,
         style: TEXT_BIG.copyWith(color: BLACK_COLOR),
       ),
-      
-      leading: Text(date, style: TEXT_NORMAL.copyWith(color: THIRD_COLOR)),
+      leading: Text(date, style: TEXT_NORMAL.copyWith(color: GRAY_COLOR)),
       trailing: Icon(Icons.file_download_outlined, color: BLACK_COLOR),
       children: [
         Text(
-          
           note,
           style: SUB_TITLE,
           softWrap: true,

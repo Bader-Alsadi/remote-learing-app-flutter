@@ -21,7 +21,7 @@ String? validatepassword(String? value) {
   String pattern = '[0-9a-zA-Zء-ي ]+';
 
   RegExp regExp = RegExp(pattern);
-  if (value!.isEmpty ) {
+  if (value!.isEmpty) {
     return "password required";
   } else if (!regExp.hasMatch(value ?? '')) {
     return "الاسم ينبغي ان يكون من ١-ي او من a-z";
@@ -54,7 +54,7 @@ InputDecoration getInputDecoration(
     required Color errorColor,
     Widget? suffixIcon}) {
   return InputDecoration(
-    suffixIconColor: THIRD_COLOR,
+    suffixIconColor: GRAY_COLOR,
     suffixIcon: suffixIcon,
     contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
     fillColor: darkMode ? Colors.black54 : WHITH_COLOR,
@@ -72,7 +72,7 @@ InputDecoration getInputDecoration(
       borderRadius: BorderRadius.circular(25.0),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: THIRD_COLOR),
+      borderSide: BorderSide(color: GRAY_COLOR),
       borderRadius: BorderRadius.circular(25.0),
     ),
   );
@@ -82,18 +82,18 @@ InputDecoration getInputDecorationSB(
     {required String hint, required bool darkMode, Widget? suffixIcon}) {
   double borderRadius = 15;
   return InputDecoration(
-    suffixIconColor: THIRD_COLOR,
+    suffixIconColor: GRAY_COLOR,
     suffixIcon: suffixIcon,
     contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
     fillColor: darkMode ? Colors.black54 : WHITH_COLOR,
     hintText: hint,
     hintStyle: GRAY_TEXT,
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: THIRD_COLOR),
+      borderSide: BorderSide(color: GRAY_COLOR),
       borderRadius: BorderRadius.circular(borderRadius),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: THIRD_COLOR),
+      borderSide: BorderSide(color: GRAY_COLOR),
       borderRadius: BorderRadius.circular(borderRadius),
     ),
   );

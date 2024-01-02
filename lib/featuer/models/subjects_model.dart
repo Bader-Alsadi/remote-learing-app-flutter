@@ -1,4 +1,5 @@
 import 'package:remote_learing_app_frontend/featuer/models/department_modle.dart';
+import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 
 class Subject {
   int? id;
@@ -9,7 +10,8 @@ class Subject {
   String? year;
   String? scientificMethod;
   Department? department;
-  bool isloaded=false;
+  List<Lecturer> Lecturers = [];
+  bool isloaded = false;
 
   Subject(
       {this.id,

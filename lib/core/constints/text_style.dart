@@ -18,12 +18,13 @@ const TextStyle FEILD_TITLE = TextStyle(
 );
 
 const TextStyle GRAY_TEXT = TextStyle(
-  color: THIRD_COLOR,
+  color: GRAY_COLOR,
   fontSize: 15,
+  fontWeight: FontWeight.w600,
 );
 
 const TextStyle TEXT_NORMAL = TextStyle(
-  fontSize: 15,
+  fontSize: 16,
   fontWeight: FontWeight.w600,
 );
 

@@ -34,7 +34,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           padding: EdgeInsets.symmetric(
               vertical: MIN_SPACER, horizontal: MIN_SPACER),
           decoration: BoxDecoration(
-              color: THIRD_COLOR.withOpacity(0.3),
+              color: GRAY_COLOR.withOpacity(0.3),
               borderRadius: BorderRadius.circular(SMALL_SPACER)),
           child: TabBar(
             indicator: BoxDecoration(
