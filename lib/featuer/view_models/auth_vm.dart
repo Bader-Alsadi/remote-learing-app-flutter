@@ -8,6 +8,8 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 class AuthVM {
   GetStorage getStInstance = GetStorageHelper.instance("user");
 
+ 
+
   Future<Map> login(ReposteryData repo, Map<String, dynamic> data) async {
     Map resutle = await repo.login(APIurl.LOGIN, data);
 

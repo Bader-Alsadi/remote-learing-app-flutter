@@ -21,7 +21,7 @@ class MyCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final IVM = Provider.of<InstroctorVM>(context);
-    if (!IVM.isloaded)
+    if (!IVM.isloaded || IVM.subjects.isEmpty)
       IVM.feachDate(ReposteryAPI(), 7).then(
         (value) {
           IVM.insturoctor = value;

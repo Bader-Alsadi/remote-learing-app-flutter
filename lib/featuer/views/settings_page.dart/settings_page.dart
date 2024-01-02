@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/widgets/coustom_settings_row.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -74,7 +75,16 @@ class SettingsPage extends StatelessWidget {
               "Account Details",
               style: TEXT_NORMAL,
             ),
-            
+            RowSettings(
+              title: "Profile",
+              subTitle: "show youe dettails",
+              imagePath: "assets/icons/user.svg",
+            ),
+            RowSettings(
+              title: "Exist",
+              subTitle: " ",
+              imagePath: "assets/icons/exit.svg",
+            ),
           ],
         ),
       ),
