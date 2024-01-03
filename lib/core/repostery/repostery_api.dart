@@ -15,7 +15,7 @@ class ReposteryAPI extends ReposteryData {
   Future<Map<String, dynamic>> fetcheData(String source) async {
     Response? response;
     try {
-      response = await dioInstance.get(source);
+      response = await dioInstance.get(source, options: getOptionshedar());
       return response.data;
     } on DioException catch (e) {
       return responseDioException(e);
@@ -25,8 +25,41 @@ class ReposteryAPI extends ReposteryData {
   @override
   Future<Map<String, dynamic>> stroeData(
       String source, Map<String, dynamic> data) async {
-    final response = await dioInstance.post(source, data: data);
-    return response.data;
+    Response? response;
+    try {
+      response = await dioInstance.post(source,
+          data: data, options: getOptionshedar());
+      return response.data;
+    } on DioException catch (e) {
+      return responseDioException(e);
+    }
+  }
+
+   @override
+  Future<Map<String, dynamic>> updateData(
+      String source, Map<String, dynamic> data) async {
+    Response? response;
+    try {
+      response = await dioInstance.post(source,
+          data: data, options: getOptionshedar());
+      return response.data;
+    } on DioException catch (e) {
+      return responseDioException(e);
+    }
+  }
+
+
+  @override
+  Future<Map<String, dynamic>> deleteData(
+      String source) async {
+    Response? response;
+    try {
+      response = await dioInstance.delete(source,
+         options: getOptionshedar());
+      return response.data;
+    } on DioException catch (e) {
+      return responseDioException(e);
+    }
   }
 
   @override
@@ -34,8 +67,7 @@ class ReposteryAPI extends ReposteryData {
       String source, Map<String, dynamic> data) async {
     Response? response;
     try {
-      response = await dioInstance.post(source,
-          data: data, options: getOptionshedar());
+      response = await dioInstance.post(source, data: data);
       return response.data;
     } on DioException catch (e) {
       return responseDioException(e);

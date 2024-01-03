@@ -2,7 +2,7 @@ class Lecturer {
   int? id;
   String? title;
   String? description;
-  Null? note;
+  String? note;
   String? lecturerData;
   int? subjectId;
 
@@ -30,7 +30,7 @@ class Lecturer {
     data['description'] = this.description;
     data['note'] = this.note;
     data['lecturer_data'] = this.lecturerData;
-    data['subject_id'] = this.subjectId;
+    data['enrollment_id'] = this.subjectId;
     return data;
   }
 }

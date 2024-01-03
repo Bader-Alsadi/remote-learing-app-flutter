@@ -1,44 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
+import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon_title.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 
 class ExpansionTileC extends StatelessWidget {
-  ExpansionTileC({
-    super.key,
-    required this.title,
-    required this.date,
-    required this.note,
-    required this.hours,
-    required this.vidoe,
-  });
+  ExpansionTileC(
+      {super.key,
+      required this.title,
+      required this.date,
+      required this.note,
+      required this.hours,
+      required this.vidoe,
+      required this.LVM,
+      required this.subjectID,
+      required this.lecturerID});
   String title, date, note, hours, vidoe;
+  int subjectID, lecturerID;
+  LecturerVM LVM;
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      tilePadding: EdgeInsets.all(0),
-      title: Text(
-        title,
-        style: TEXT_BIG.copyWith(color: BLACK_COLOR),
+    return Slidable(
+      startActionPane: ActionPane(motion: ScrollMotion(), children: [
+        SlidableAction(
+          onPressed: (context) async {
+            final result =
+                await LVM.deleteLectuer(ReposteryAPI(), subjectID, lecturerID);
+            showSnackBar(context, result["message"]);
+          },
+          icon: Icons.delete,
+          backgroundColor: SECONDRY_COLOR,
+        ),
+        SlidableAction(
+          onPressed: (context) async {
+              final result =
+                await LVM.deleteLectuer(ReposteryAPI(), subjectID, lecturerID);
+            showSnackBar(context, result["message"]);
+
+          },
+          foregroundColor: SECONDRY_COLOR,
+          icon: Icons.edit_calendar_rounded,
+          backgroundColor: THIRD_COLOR,
+        )
+      ]),
+      child: ExpansionTile(
+        tilePadding: EdgeInsets.all(0),
+        title: Text(
+          title,
+          style: TEXT_BIG.copyWith(color: BLACK_COLOR),
+        ),
+        leading: Text(date, style: TEXT_NORMAL.copyWith(color: GRAY_COLOR)),
+        trailing: InkWell(
+            onTap: () {},
+            child: Icon(Icons.file_download_outlined, color: BLACK_COLOR)),
+        children: [
+          Text(
+            note,
+            style: SUB_TITLE,
+            softWrap: true,
+            textAlign: TextAlign.justify,
+          ),
+          IconWithText(
+            icon: Icons.access_time_outlined,
+            title: "${hours} hours",
+          ),
+          IconWithText(
+            icon: Icons.slow_motion_video_rounded,
+            title: "${vidoe} vidoe",
+          ),
+        ],
       ),
-      leading: Text(date, style: TEXT_NORMAL.copyWith(color: GRAY_COLOR)),
-      trailing: Icon(Icons.file_download_outlined, color: BLACK_COLOR),
-      children: [
-        Text(
-          note,
-          style: SUB_TITLE,
-          softWrap: true,
-          textAlign: TextAlign.justify,
-        ),
-        IconWithText(
-          icon: Icons.access_time_outlined,
-          title: "${hours} hours",
-        ),
-        IconWithText(
-          icon: Icons.slow_motion_video_rounded,
-          title: "${vidoe} vidoe",
-        ),
-      ],
     );
   }
 }

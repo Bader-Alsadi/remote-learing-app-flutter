@@ -50,14 +50,14 @@ class ShowCourseInfo extends StatelessWidget {
               CustomTabBar(
                 list: [
                   Container(
-                    child: ExpansionTileC(
-                      title: "Introdction into c++ ",
-                      date: "week",
-                      vidoe: "5",
-                      hours: "5",
-                      note:
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting indu Lorem Ipsum is simply dummy text of the printing and typesetting indu Lorem Ipsum is simply dummy text of the printing and typesetting indu.",
-                    ),
+                    // child: ExpansionTileC(
+                    //   title: "Introdction into c++ ",
+                    //   date: "week",
+                    //   vidoe: "5",
+                    //   hours: "5",
+                    //   note:
+                    //       "Lorem Ipsum is simply dummy text of the printing and typesetting indu Lorem Ipsum is simply dummy text of the printing and typesetting indu Lorem Ipsum is simply dummy text of the printing and typesetting indu.",
+                    // ),
                   ),
                   Container(
                     color: BLACK_COLOR,

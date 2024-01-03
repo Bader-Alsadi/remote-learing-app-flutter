@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_card_cource.dart';
-import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_serash_bar.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
@@ -21,12 +21,17 @@ class MyCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final IVM = Provider.of<InstroctorVM>(context);
-    if (!IVM.isloaded || IVM.subjects.isEmpty)
-      IVM.feachDate(ReposteryAPI(), 7).then(
-        (value) {
-          IVM.insturoctor = value;
-        },
-      );
+    InternetConnectionChecker().hasConnection.then((value) {
+      if (!value) {
+        if (IVM.subjects.isEmpty)
+          IVM.feachDate(ReposteryAPI(), instance.read("id")).then(
+            (value) {
+              IVM.insturoctor = value;
+            },
+          );
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

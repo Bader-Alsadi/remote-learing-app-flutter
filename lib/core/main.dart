@@ -6,10 +6,7 @@ import 'package:remote_learing_app_frontend/core/manger_route.dart';
 import 'package:remote_learing_app_frontend/core/them/app_them.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
-import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
-import 'package:remote_learing_app_frontend/featuer/views/my_course_page/my_course_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/on_bord.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 
@@ -22,10 +19,11 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   GetStorage instance = GetStorageHelper.instance("user");
+  GetStorage isFrist = GetStorageHelper.instance("isFrist");
   bool? isfrist;
   @override
   Widget build(BuildContext context) {
-    isfrist = instance.read("isFrist") ?? true;
+    isfrist = isFrist.read("isFrist") ?? true;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<InstroctorVM>(

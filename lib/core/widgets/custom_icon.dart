@@ -6,14 +6,14 @@ class Circalicon extends StatelessWidget {
   Circalicon({
     super.key,
     required this.iconData,
+    this.onTap
   });
+  Function ()? onTap;
   IconData iconData;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
+      onTap:onTap ,
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(

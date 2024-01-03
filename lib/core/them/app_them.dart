@@ -6,6 +6,7 @@ ThemeData appThem = ThemeData(
   //   tilePadding: EdgeInsets.all(0),
   //   iconColor: WHITH_COLOR,
   // ),
+  useMaterial3: true,
   fontFamily: "Tajawal",
   appBarTheme: AppBarTheme(
     backgroundColor: WHITH_COLOR,
