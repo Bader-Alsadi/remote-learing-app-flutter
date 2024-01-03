@@ -34,6 +34,23 @@ class LecturerVM with ChangeNotifier {
     return result;
   }
 
+  updateLectuer(ReposteryData repo, int subjectID, int lectuerID,
+      Lecturer lecturer) async {
+    Map result = await repo.updateData(
+        "${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}",
+        lecturer.toJson());
+    print(result);
+    if (result["data"] != null && result["status"]) {
+      int index = lectrers.indexWhere((element) => element.id == lectuerID);
+      if (index != null) {
+        lectrers[index] = Lecturer.fromJson(result["data"]);
+      }
+      // lectrers.removeAt(index);
+      notifyListeners();
+    }
+    return result;
+  }
+
   deleteLectuer(
     ReposteryData repo,
     int subjectID,

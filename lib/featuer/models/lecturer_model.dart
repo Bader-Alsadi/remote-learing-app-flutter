@@ -20,7 +20,7 @@ class Lecturer {
     description = json['description'];
     note = json['note'];
     lecturerData = json['lecturer_data'];
-    subjectId = json['subject_id'];
+    subjectId = json['enrollment_id'];
   }
 
   Map<String, dynamic> toJson() {

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
+import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
+import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
+import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
 
 String? validateName(String? value) {
   // String pattern = r'(^[a-zA-Zا-ي]*$)';
@@ -135,3 +140,90 @@ Widget? AnimatedButoom({required bool isloaded}) {
           color: WHITH_COLOR,
         );
 }
+
+
+// showBottomSheet (BuildContext context ){
+
+//    showModalBottomSheet(
+//                       enableDrag: true,
+//                       context: context,
+//                       builder: (context) {
+//                         GlobalKey<FormState> FormKey = GlobalKey();
+//                         AutovalidateMode validation = AutovalidateMode.always;
+//                         List<TextEditingController> controllers = List.generate(
+//                             3, (index) => TextEditingController());
+//                         return SingleChildScrollView(
+//                           child: Form(
+//                             key: FormKey,
+//                             autovalidateMode: validation,
+//                             child: Column(
+//                               mainAxisSize: MainAxisSize.min,
+//                               children: [
+//                                 CustomTextFiled(
+//                                   title: "Title",
+//                                   lable: "",
+//                                   controller: controllers[0],
+//                                   validate: validaterequired,
+//                                 ),
+//                                 CustomTextFiled(
+//                                   title: "Description",
+//                                   lable: "",
+//                                   controller: controllers[1],
+//                                   validate: validaterequired,
+//                                 ),
+//                                 CustomTextFiled(
+//                                   title: "Note",
+//                                   lable: "",
+//                                   controller: controllers[2],
+//                                 ),
+//                                 Padding(
+//                                   padding: const EdgeInsets.symmetric(
+//                                     vertical: 32.0,
+//                                     horizontal: SMALL_SPACER / 2,
+//                                   ).copyWith(bottom: 0),
+//                                   child: pickDateWidget(selectData: selectData),
+//                                 ),
+//                                 StatefulBuilder(
+//                                   builder: (context, setstate) =>
+//                                       CustomElevatedBottom(
+//                                     child: AnimatedButoom(isloaded: isloaded),
+//                                     lable: "save",
+//                                     backColor: PRIMARY_COLOR,
+//                                     onPressedFun: () async {
+//                                       if (FormKey.currentState!.validate()) {
+//                                         Lecturer lecturer = Lecturer(
+//                                             title: controllers[0].text,
+//                                             description: controllers[1].text,
+//                                             note: controllers[2].text,
+//                                             subjectId: subject.id,
+//                                             lecturerData:
+//                                                 "$selectData".split(" ").first);
+//                                         isloaded = false;
+//                                         Map resutle;
+//                                         LVM
+//                                             .storeLectuer(ReposteryAPI(),
+//                                                 subject.id!, lecturer)
+//                                             .then((value) {
+//                                           resutle = value;
+//                                           if (resutle["status"])
+//                                             Navigator.pop(context);
+//                                           isloaded = true;
+//                                           showSnackBar(
+//                                               context, resutle["message"]);
+//                                           setstate(
+//                                             () {},
+//                                           );
+//                                         });
+//                                         setstate(
+//                                           () {},
+//                                         );
+//                                       }
+//                                     },
+//                                   ),
+//                                 )
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       });
+// }

@@ -40,7 +40,7 @@ class ReposteryAPI extends ReposteryData {
       String source, Map<String, dynamic> data) async {
     Response? response;
     try {
-      response = await dioInstance.post(source,
+      response = await dioInstance.put(source,
           data: data, options: getOptionshedar());
       return response.data;
     } on DioException catch (e) {

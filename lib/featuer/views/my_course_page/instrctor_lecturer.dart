@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
-import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
@@ -12,6 +12,7 @@ import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.da
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_image_title.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_pickdate.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
@@ -63,8 +64,7 @@ class InstroctorSubject extends StatelessWidget {
               return Circalicon(
                 iconData: Icons.add_card_rounded,
                 onTap: () {
-                  showBottomSheet(
-                      enableDrag: true,
+                  var showBottomSheet2 = showBottomSheet(
                       context: context,
                       builder: (context) => SingleChildScrollView(
                             child: Form(
@@ -130,6 +130,7 @@ class InstroctorSubject extends StatelessWidget {
                                               () {},
                                             );
                                           });
+                                          
                                           setstate(
                                             () {},
                                           );
@@ -141,6 +142,7 @@ class InstroctorSubject extends StatelessWidget {
                               ),
                             ),
                           ));
+                          
                 },
               );
             }),
@@ -188,48 +190,5 @@ class InstroctorSubject extends StatelessWidget {
               ),
             ),
     );
-  }
-}
-
-class pickDateWidget extends StatelessWidget {
-  pickDateWidget({
-    super.key,
-    required this.selectData,
-  });
-
-  DateTime? selectData;
-
-  @override
-  Widget build(BuildContext context) {
-    return StatefulBuilder(builder: (context, setstate) {
-      return Container(
-        // width: double.infinity,
-        alignment: Alignment.centerLeft,
-
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(
-              width: 2.0,
-              color: GRAY_COLOR,
-            )),
-        child: TextButton(
-            onPressed: () async {
-              selectData = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2020),
-                  lastDate: DateTime(2025));
-
-              if (selectData == null) {
-                showSnackBar(context, "selected date is null");
-              }
-              setstate(() {});
-            },
-            child: Text(
-              "Date : ${selectData?.year}-${selectData?.month}-${selectData?.day}",
-              style: TEXT_NORMAL.copyWith(color: BLACK_COLOR),
-            )),
-      );
-    });
   }
 }
