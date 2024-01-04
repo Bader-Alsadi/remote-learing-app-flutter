@@ -16,6 +16,8 @@ import 'package:remote_learing_app_frontend/core/widgets/custom_pickdate.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/views/material_page/material_page.dart';
 
 class InstroctorSubject extends StatelessWidget {
   InstroctorSubject({super.key, required this.subject});
@@ -130,7 +132,7 @@ class InstroctorSubject extends StatelessWidget {
                                               () {},
                                             );
                                           });
-                                          
+
                                           setstate(
                                             () {},
                                           );
@@ -142,7 +144,6 @@ class InstroctorSubject extends StatelessWidget {
                               ),
                             ),
                           ));
-                          
                 },
               );
             }),
@@ -173,15 +174,25 @@ class InstroctorSubject extends StatelessWidget {
                     ),
                     Column(
                       children: subject.Lecturers.map((e) => Container(
-                            child: ExpansionTileC(
-                              subjectID: subject.id!,
-                              lecturerID: e.id!,
-                              LVM: LVM,
-                              title: e.title!,
-                              date: e.lecturerData!.split(" ").first,
-                              vidoe: "",
-                              hours: "s",
-                              note: e.description!,
+                            child: InkWell(
+                              onLongPress: () async {
+                                MaterialVM MVM = MaterialVM();
+                                var result =
+                                    await MVM.feachDate(ReposteryAPI(), e);
+                                showSnackBar(context, result["message"]);
+                                if(result["status"])
+                                Navigator.pushNamed(context, MaterialP.ROUTE,arguments: e);
+                              },
+                              child: ExpansionTileC(
+                                subjectID: subject.id!,
+                                lecturerID: e.id!,
+                                LVM: LVM,
+                                title: e.title!,
+                                date: e.lecturerData!.split(" ").first,
+                                vidoe: "",
+                                hours: "s",
+                                note: e.description!,
+                              ),
                             ),
                           )).toList(),
                     ),

@@ -1,3 +1,6 @@
+
+import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
+
 class Lecturer {
   int? id;
   String? title;
@@ -5,7 +8,7 @@ class Lecturer {
   String? note;
   String? lecturerData;
   int? subjectId;
-
+List<Materiall>? materials;
   Lecturer(
       {this.id,
       this.title,

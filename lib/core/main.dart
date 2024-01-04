@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             ? Start1()
             : instance.read("token") == null
                 ? LoginPage()
-                : FileList(),
+                : RootPage(),
         onGenerateRoute: RouteManger.genrtedRoute,
       ),
     );
