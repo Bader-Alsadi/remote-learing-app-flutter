@@ -12,12 +12,13 @@ class AssingmentVM with ChangeNotifier {
   Dio instanceDio = DioHL.instance();
   feachDate(ReposteryData repo, Subject subject) async {
     Map result = await repo
-        .fetcheData("${APIurl.EROLLMENT}/${subject.id}${APIurl.LECTURER}");
+        .fetcheData("${APIurl.EROLLMENT}/${subject.id}${APIurl.ASSINGMENT}");
     print(result);
     if (result["status"]) {
       dynamic serverData = result["data"];
       assingments = subject.Lecturers = serverData
-          .map<Lecturer>((e) => Lecturer.fromJson(e as Map<String, dynamic>))
+          .map<Assingment>(
+              (e) => Assingment.fromJson(e as Map<String, dynamic>))
           .toList();
     } else
       assingments = [];
@@ -27,10 +28,10 @@ class AssingmentVM with ChangeNotifier {
 
   storeLectuer(ReposteryData repo, int id, Lecturer lecturer) async {
     Map result = await repo.stroeData(
-        "${APIurl.EROLLMENT}/${id}${APIurl.LECTURER}", lecturer.toJson());
+        "${APIurl.EROLLMENT}/${id}${APIurl.ASSINGMENT}", lecturer.toJson());
     print(result);
     if (result["data"] != null && result["status"])
-      assingments.add(Lecturer.fromJson(result["data"]));
+      assingments.add(Assingment.fromJson(result["data"]));
     print(assingments);
     notifyListeners();
     return result;
@@ -39,14 +40,14 @@ class AssingmentVM with ChangeNotifier {
   updateLectuer(ReposteryData repo, int subjectID, int lectuerID,
       Lecturer lecturer) async {
     Map result = await repo.updateData(
-        "${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}",
+        "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}",
         lecturer.toJson());
     print(result);
     if (result["data"] != null && result["status"]) {
       int index = assingments.indexWhere((element) => element.id == lectuerID);
       print(assingments[index].title);
       if (index != null) {
-        assingments[index] = Lecturer.fromJson(result["data"]);
+        assingments[index] = Assingment.fromJson(result["data"]);
       }
       notifyListeners();
     }
@@ -58,9 +59,9 @@ class AssingmentVM with ChangeNotifier {
     int subjectID,
     int lectuerID,
   ) async {
-    print("${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}");
+    print("${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}");
     Map result = await repo.deleteData(
-        "${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}");
+        "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}");
     print(result);
     if (result["data"] != null && result["status"]) {
       int index = assingments.indexWhere((element) => element.id == lectuerID);

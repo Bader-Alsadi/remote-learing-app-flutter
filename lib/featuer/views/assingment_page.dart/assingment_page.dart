@@ -3,10 +3,10 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
 class AssingmentPage extends StatefulWidget {
-  AssingmentPage({super.key, required this.subject, required this.LVM});
-  LecturerVM LVM;
+  AssingmentPage({super.key, required this.subject, required this.AVM});
+  AssingmentVM AVM;
   Subject subject;
 
   @override
@@ -17,15 +17,15 @@ class _LecturerPageState extends State<AssingmentPage> {
   bool isconnectd = true;
   @override
   void initState() {
-    // final LVM = Provider.of<LecturerVM>(context);
+    // final AVM = Provider.of<LecturerVM>(context);
     InternetConnectionChecker().hasConnection.then((value) {
       if (!value) {
         print("connectd: $value");
         if (widget.subject.Lecturers.isEmpty)
-          widget.LVM.feachDate(ReposteryAPI(), widget.subject).then(
+          widget.AVM.feachDate(ReposteryAPI(), widget.subject).then(
             (value) {
               isconnectd = true;
-              widget.LVM.lectrers = value;
+              widget.AVM..assingments = value;
             },
           );
       } else {
@@ -43,7 +43,7 @@ class _LecturerPageState extends State<AssingmentPage> {
                   child: ExpansionTileC(
                     subject: widget.subject,
                     lecturer: e,
-                    LVM: widget.LVM,
+                    LVM: widget.AVM,
                     title: e.title!,
                     date: e.lecturerData!.split(" ").first,
                     vidoe: "",

@@ -7,5 +7,6 @@ class APIurl {
   static const String INSTROUCTOR_INFO = "${ROOT}/instructor-info";
   static const String EROLLMENT = "${ROOT}/enrollments";
   static const String LECTURER = "/lecturers";
+  static const String ASSINGMENT = "/assingments";
   static const String MATERIAL = "/materials";
 }
