@@ -4,6 +4,7 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
+
 class AssingmentPage extends StatefulWidget {
   AssingmentPage({super.key, required this.subject, required this.AVM});
   AssingmentVM AVM;
@@ -21,7 +22,7 @@ class _LecturerPageState extends State<AssingmentPage> {
     InternetConnectionChecker().hasConnection.then((value) {
       if (!value) {
         print("connectd: $value");
-        if (widget.subject.Lecturers.isEmpty)
+        if (widget.subject.assingments.isEmpty)
           widget.AVM.feachDate(ReposteryAPI(), widget.subject).then(
             (value) {
               isconnectd = true;
@@ -34,18 +35,19 @@ class _LecturerPageState extends State<AssingmentPage> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: widget.subject.Lecturers
+        children: widget.subject.assingments
             .map((e) => Container(
                   child: ExpansionTileC(
                     subject: widget.subject,
-                    lecturer: e,
+                    assingment: e,
                     LVM: widget.AVM,
                     title: e.title!,
-                    date: e.lecturerData!.split(" ").first,
+                    date: e.deadline!.split(" ").first,
                     vidoe: "",
                     hours: "s",
                     note: e.description!,

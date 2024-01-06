@@ -6,8 +6,10 @@ import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon_title.dart';
+import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/show_doalog.dart';
 
@@ -21,19 +23,21 @@ class ExpansionTileC extends StatelessWidget {
       required this.vidoe,
       required this.LVM,
       required this.subject,
-      required this.lecturer});
+      this.lecturer,
+      this.assingment});
   String title, date, note, hours, vidoe;
   Subject subject;
-  Lecturer lecturer;
-  LecturerVM LVM;
+  Lecturer? lecturer;
+  Assingment? assingment;
+  ALVM LVM;
   @override
   Widget build(BuildContext context) {
     return Slidable(
       startActionPane: ActionPane(motion: ScrollMotion(), children: [
         SlidableAction(
           onPressed: (context) async {
-            final result = await LVM.deleteLectuer(
-                ReposteryAPI(), subject.id!, lecturer.id!);
+            final result = await LVM.deleteLectuer(ReposteryAPI(), subject.id!,
+                lecturer != null ? lecturer!.id! : assingment!.id!);
             showSnackBar(context, result["message"]);
           },
           icon: Icons.delete,

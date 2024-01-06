@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
@@ -10,7 +8,7 @@ import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_pickdate.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 
 GlobalKey<FormState> FormKey = GlobalKey();
 AutovalidateMode validation = AutovalidateMode.always;
@@ -18,8 +16,7 @@ List<TextEditingController> controllers =
     List.generate(3, (index) => TextEditingController());
 bool isloaded = true;
 DateTime? selectData = DateTime.now();
-Future<dynamic> showDialogC(
-    BuildContext context, LecturerVM LVM, Subject subject,
+Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
     {Lecturer? lecturer}) {
   setValues(lecturer);
   return showDialog(
@@ -99,7 +96,7 @@ Future<dynamic> showDialogC(
           ));
 }
 
-addLecturer(LecturerVM LVM, int subjectId, Lecturer lecturer, context,
+addLecturer(ALVM LVM, int subjectId, Lecturer lecturer, context,
     void Function(void Function()) setstate) {
   Map resutle;
   LVM.storeLectuer(ReposteryAPI(), subjectId, lecturer).then((value) {
@@ -113,9 +110,8 @@ addLecturer(LecturerVM LVM, int subjectId, Lecturer lecturer, context,
   });
 }
 
-updateLecturer(LecturerVM LVM, Lecturer lecturer, int subjectId, context,
+updateLecturer(ALVM LVM, Lecturer lecturer, int subjectId, context,
     void Function(void Function()) setstate) {
-  
   Map resutle;
   LVM
       .updateLectuer(ReposteryAPI(), subjectId, lecturer.id!, lecturer)

@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
-import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
-import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
-import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/coustom_tool_bar.dart';
-import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_image_title.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/views/assingment_page.dart/assingment_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/lecturer_page/lecturer_page.dart';
-import 'package:remote_learing_app_frontend/featuer/views/material_page/material_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/show_doalog.dart';
 
 class InstroctorSubject extends StatelessWidget {
@@ -25,6 +20,7 @@ class InstroctorSubject extends StatelessWidget {
   Widget build(BuildContext context) {
     print("${subject.id}");
     final LVM = Provider.of<LecturerVM>(context);
+    final AVM = Provider.of<AssingmentVM>(context);
     // InternetConnectionChecker().hasConnection.then((value) {
     //   if (!value) {
     //     print("connectd: $value");
@@ -116,8 +112,10 @@ class InstroctorSubject extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    color: BLACK_COLOR,
-                    child: Text("a"),
+                    child: AssingmentPage(
+                      subject: subject,
+                      AVM: AVM,
+                    ),
                   )
                 ],
                 tabsTitle: ["Lecturers", "Assingment"],

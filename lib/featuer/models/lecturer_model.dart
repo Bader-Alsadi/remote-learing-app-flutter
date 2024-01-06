@@ -10,7 +10,7 @@ class Lecturer {
   String? lecturerData;
   int? subjectId;
   List<Materiall>? materials;
-  List<Assingment>? assingments;
+
   Lecturer(
       {this.id,
       this.title,

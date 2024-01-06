@@ -5,8 +5,9 @@ import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 
-class LecturerVM with ChangeNotifier {
+class LecturerVM extends ALVM with ChangeNotifier {
   List<Lecturer> lectrers = [];
   Dio instanceDio = DioHL.instance();
   feachDate(ReposteryData repo, Subject subject) async {

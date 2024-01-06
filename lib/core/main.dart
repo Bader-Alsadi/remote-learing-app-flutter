@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/manger_route.dart';
 import 'package:remote_learing_app_frontend/core/them/app_them.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/download_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<MaterialVM>(
           create: (context) => MaterialVM(),
+        ),
+        ChangeNotifierProvider<AssingmentVM>(
+          create: (context) => AssingmentVM(),
         ),
       ],
       child: MaterialApp(

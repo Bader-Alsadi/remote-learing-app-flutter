@@ -6,8 +6,9 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 
-class AssingmentVM with ChangeNotifier {
+class AssingmentVM extends ALVM with ChangeNotifier {
   List<Assingment> assingments = [];
   Dio instanceDio = DioHL.instance();
   feachDate(ReposteryData repo, Subject subject) async {
@@ -16,7 +17,7 @@ class AssingmentVM with ChangeNotifier {
     print(result);
     if (result["status"]) {
       dynamic serverData = result["data"];
-      assingments = subject.Lecturers = serverData
+      assingments = subject.assingments = serverData
           .map<Assingment>(
               (e) => Assingment.fromJson(e as Map<String, dynamic>))
           .toList();
@@ -57,14 +58,14 @@ class AssingmentVM with ChangeNotifier {
   deleteLectuer(
     ReposteryData repo,
     int subjectID,
-    int lectuerID,
+    int assingmentID,
   ) async {
-    print("${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}");
+    print("${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${assingmentID}");
     Map result = await repo.deleteData(
-        "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}");
+        "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${assingmentID}");
     print(result);
     if (result["data"] != null && result["status"]) {
-      int index = assingments.indexWhere((element) => element.id == lectuerID);
+      int index = assingments.indexWhere((element) => element.id == assingmentID);
       assingments.removeAt(index);
       notifyListeners();
     }

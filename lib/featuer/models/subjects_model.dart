@@ -1,3 +1,4 @@
+import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/department_modle.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 
@@ -11,6 +12,7 @@ class Subject {
   String? scientificMethod;
   Department? department;
   List<Lecturer> Lecturers = [];
+  List<Assingment> assingments = [];
   bool isloaded = false;
 
   Subject(
