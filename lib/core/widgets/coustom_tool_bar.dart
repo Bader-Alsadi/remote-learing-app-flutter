@@ -30,9 +30,10 @@ class _CustomTabBarState extends State<CustomTabBar>
       children: [
         Container(
           margin: EdgeInsets.symmetric(
-              vertical: SMALL_SPACER, horizontal: SMALL_SPACER * .2),
+              vertical: SMALL_SPACER, horizontal: SMALL_SPACER / 2),
           padding: EdgeInsets.symmetric(
-              vertical: MIN_SPACER, horizontal: MIN_SPACER),
+            vertical: MIN_SPACER,
+          ),
           decoration: BoxDecoration(
               color: GRAY_COLOR.withOpacity(0.3),
               borderRadius: BorderRadius.circular(SMALL_SPACER)),
@@ -71,7 +72,6 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(left: 20),
           height: 521,
           width: double.maxFinite,
           child: TabBarView(

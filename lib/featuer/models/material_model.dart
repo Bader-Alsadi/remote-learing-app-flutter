@@ -1,9 +1,11 @@
+import 'package:dio/dio.dart';
+
 class Materiall {
   int? id;
   String? title;
   String? type;
   String? madiaType;
-  String? size;
+  double? size;
   int? lecturerId;
   String? path;
 
@@ -21,20 +23,18 @@ class Materiall {
     title = json['title'];
     type = json['type'];
     madiaType = json['madia_type'];
-    size = json['size'];
+    size = double.parse(json['size']);
     lecturerId = json['lecturer_id'];
     path = json['path'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['type'] = this.type;
-    data['madia_type'] = this.madiaType;
-    data['size'] = this.size;
-    data['lecturer_id'] = this.lecturerId;
-    data['path'] = this.path;
+  FormData toJson() {
+    final FormData data = FormData.fromMap({
+      "title": this.title,
+      "type": this.type,
+      "file": MultipartFile.fromFileSync(this.path!),
+      "lecturer_id": this.lecturerId
+    });
     return data;
   }
 }

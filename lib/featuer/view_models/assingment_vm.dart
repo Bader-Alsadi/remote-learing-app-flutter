@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
 import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
+import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 
-class LecturerVM with ChangeNotifier {
-  List<Lecturer> lectrers = [];
+class AssingmentVM with ChangeNotifier {
+  List<Assingment> assingments = [];
   Dio instanceDio = DioHL.instance();
   feachDate(ReposteryData repo, Subject subject) async {
     Map result = await repo
@@ -15,13 +16,13 @@ class LecturerVM with ChangeNotifier {
     print(result);
     if (result["status"]) {
       dynamic serverData = result["data"];
-      lectrers = subject.Lecturers = serverData
+      assingments = subject.Lecturers = serverData
           .map<Lecturer>((e) => Lecturer.fromJson(e as Map<String, dynamic>))
           .toList();
     } else
-      lectrers = [];
+      assingments = [];
     notifyListeners();
-    return lectrers;
+    return assingments;
   }
 
   storeLectuer(ReposteryData repo, int id, Lecturer lecturer) async {
@@ -29,8 +30,8 @@ class LecturerVM with ChangeNotifier {
         "${APIurl.EROLLMENT}/${id}${APIurl.LECTURER}", lecturer.toJson());
     print(result);
     if (result["data"] != null && result["status"])
-      lectrers.add(Lecturer.fromJson(result["data"]));
-    print(lectrers);
+      assingments.add(Lecturer.fromJson(result["data"]));
+    print(assingments);
     notifyListeners();
     return result;
   }
@@ -42,10 +43,10 @@ class LecturerVM with ChangeNotifier {
         lecturer.toJson());
     print(result);
     if (result["data"] != null && result["status"]) {
-      int index = lectrers.indexWhere((element) => element.id == lectuerID);
-      print(lectrers[index].title);
+      int index = assingments.indexWhere((element) => element.id == lectuerID);
+      print(assingments[index].title);
       if (index != null) {
-        lectrers[index] = Lecturer.fromJson(result["data"]);
+        assingments[index] = Lecturer.fromJson(result["data"]);
       }
       notifyListeners();
     }
@@ -62,8 +63,8 @@ class LecturerVM with ChangeNotifier {
         "${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}");
     print(result);
     if (result["data"] != null && result["status"]) {
-      int index = lectrers.indexWhere((element) => element.id == lectuerID);
-      lectrers.removeAt(index);
+      int index = assingments.indexWhere((element) => element.id == lectuerID);
+      assingments.removeAt(index);
       notifyListeners();
     }
 

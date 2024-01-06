@@ -9,6 +9,8 @@ class DownloadVM with ChangeNotifier {
 
   DownloadVM();
 
+
+
   startDownload(String path, String fileUrl) async {
     cancelToken = CancelToken();
     dowloading = true;

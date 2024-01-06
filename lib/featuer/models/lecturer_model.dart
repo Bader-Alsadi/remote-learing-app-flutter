@@ -1,4 +1,5 @@
-
+import 'package:dio/dio.dart';
+import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
 
 class Lecturer {
@@ -8,7 +9,8 @@ class Lecturer {
   String? note;
   String? lecturerData;
   int? subjectId;
-List<Materiall>? materials;
+  List<Materiall>? materials;
+  List<Assingment>? assingments;
   Lecturer(
       {this.id,
       this.title,
@@ -26,14 +28,14 @@ List<Materiall>? materials;
     subjectId = json['enrollment_id'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['note'] = this.note;
-    data['lecturer_data'] = this.lecturerData;
-    data['enrollment_id'] = this.subjectId;
+  FormData toJson() {
+    final FormData data = new FormData.fromMap({
+      "title": this.title,
+      "description": this.description,
+      "note": this.note,
+      "lecturer_data": this.lecturerData,
+      "enrollment_id": this.subjectId,
+    });
     return data;
   }
 }

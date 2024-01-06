@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
@@ -24,7 +23,7 @@ class ReposteryAPI extends ReposteryData {
 
   @override
   Future<Map<String, dynamic>> stroeData(
-      String source, Map<String, dynamic> data) async {
+      String source, FormData data) async {
     Response? response;
     try {
       response = await dioInstance.post(source,
@@ -37,7 +36,7 @@ class ReposteryAPI extends ReposteryData {
 
    @override
   Future<Map<String, dynamic>> updateData(
-      String source, Map<String, dynamic> data) async {
+      String source, FormData data) async {
     Response? response;
     try {
       response = await dioInstance.put(source,

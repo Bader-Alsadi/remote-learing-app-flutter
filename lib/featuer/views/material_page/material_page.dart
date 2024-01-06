@@ -5,12 +5,22 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as Path;
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
+import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/directoryP_path_hb.dart';
+import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/peremition_hp.dart';
+import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
+import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/download_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
 
 class MaterialP extends StatefulWidget {
   MaterialP({super.key, required this.lecturer});
@@ -24,6 +34,10 @@ class MaterialP extends StatefulWidget {
 class _FileListState extends State<MaterialP> {
   bool isPermission = false;
   var checkAllPermissions = PermissionHL();
+  GlobalKey<FormState> FormKey = GlobalKey();
+  AutovalidateMode validation = AutovalidateMode.always;
+  List<TextEditingController> controllers =
+      List.generate(2, (index) => TextEditingController());
 
   checkPermission() async {
     var permission = await checkAllPermissions.isStoragePermission();
@@ -43,15 +57,120 @@ class _FileListState extends State<MaterialP> {
   @override
   Widget build(BuildContext context) {
     List<Materiall> materials = widget.lecturer.materials!;
+    bool isloaded = true;
+    MaterialVM MVM = Provider.of<MaterialVM>(context);
+
     return Scaffold(
+        backgroundColor: WHITH_COLOR,
+        floatingActionButton: Builder(builder: (context) {
+          return FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    File? pickFile;
+                    return StatefulBuilder(builder: (context, setState) {
+                      return SingleChildScrollView(
+                        child: Dialog(
+                          child: Container(
+                            child: Form(
+                                key: FormKey,
+                                autovalidateMode: validation,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CustomTextFiled(
+                                      title: "Title",
+                                      lable: "",
+                                      controller: controllers[0],
+                                      validate: validaterequired,
+                                    ),
+                                    CustomTextFiled(
+                                      title: "Description",
+                                      lable: "",
+                                      controller: controllers[1],
+                                      validate: validaterequired,
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Flexible(
+                                          child: CustomElevatedBottom(
+                                            backColor: THIRD_COLOR,
+                                            lable: "pick file",
+                                            onPressedFun: () async {
+                                              pickFile =
+                                                  await FileHP().pickupFile();
+                                              setState(() {});
+                                              print("file: ${pickFile?.path}");
+                                            },
+                                          ),
+                                        ),
+                                        Flexible(
+                                            child: Text(
+                                          "${pickFile?.path.split("/").last}",
+                                          style: TEXT_NORMAL.copyWith(
+                                              color: BLACK_COLOR),
+                                        ))
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: SMALL_SPACER,
+                                    ),
+                                    StatefulBuilder(
+                                      builder: (context, setstate) =>
+                                          CustomElevatedBottom(
+                                        child:
+                                            AnimatedButoom(isloaded: isloaded),
+                                        lable: "save",
+                                        backColor: PRIMARY_COLOR,
+                                        onPressedFun: () async {
+                                          if (FormKey.currentState!
+                                              .validate()) {
+                                            if (pickFile != null) {
+                                              Materiall material = Materiall(
+                                                  title: controllers[0].text,
+                                                  type: controllers[0].text,
+                                                  lecturerId:
+                                                      widget.lecturer.id,
+                                                  path: pickFile!.path);
+                                              var result =
+                                                  await MVM.storeMaterial(
+                                                      ReposteryAPI(),
+                                                      widget.lecturer,
+                                                      material);
+                                              showSnackBar(
+                                                  context, result["message"]);
+                                              Navigator.pop(context);
+                                            } else {
+                                              showSnackBar(context,
+                                                  "file path is empty");
+                                            }
+                                          }
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        ),
+                      );
+                    });
+                  });
+            },
+            child: Icon(Icons.add_box_rounded),
+          );
+        }),
+        appBar: AppBar(
+          title: Text(widget.lecturer.title!),
+        ),
         body: isPermission
             ? ListView.builder(
                 itemCount: materials.length,
                 itemBuilder: (BuildContext context, int index) {
                   var data = materials[index];
                   return TileList(
-                    fileUrl: data.path!,
-                    title: data.title!,
+                    material: data,
                   );
                 })
             : TextButton(
@@ -63,9 +182,8 @@ class _FileListState extends State<MaterialP> {
 }
 
 class TileList extends StatefulWidget {
-  TileList({super.key, required this.fileUrl, required this.title});
-  final String fileUrl;
-  final String title;
+  TileList({super.key, required this.material});
+  final Materiall material;
 
   @override
   State<TileList> createState() => _TileListState();
@@ -74,7 +192,7 @@ class TileList extends StatefulWidget {
 class _TileListState extends State<TileList> {
   bool dowloading = false;
   bool fileExists = false;
-  // double progress = 0;
+  double progress = 0;
   String fileName = "";
   late String filePath;
   late CancelToken cancelToken;
@@ -90,9 +208,10 @@ class _TileListState extends State<TileList> {
     });
 
     try {
-      await Dio().get(widget.fileUrl, onReceiveProgress: (count, total) {
+      await Dio().download(widget.material.path!, filePath,
+          onReceiveProgress: (count, total) {
         setState(() {
-          // progress = (count / total);
+          progress = (count / total);
         });
       }, cancelToken: cancelToken);
       setState(() {
@@ -125,42 +244,59 @@ class _TileListState extends State<TileList> {
 
   openfile() {
     OpenFile.open(filePath);
-    print("fff $filePath");
+  }
+
+  deletafiel() async {
+    var storePath = await getPathFile.getPath();
+    filePath = '$storePath/$fileName';
+    bool fileExistCheck = await File(filePath).exists();
+    await File(filePath).delete();
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      fileName = Path.basename(widget.fileUrl);
+      fileName = Path.basename(widget.material.path!);
     });
     checkFileExit();
+  }
+
+  zScore(double progress) {
+    print("d:${(progress - 0) / (1 - 0)}");
+    return (progress - 0) / (1 - 0);
   }
 
   @override
   Widget build(BuildContext context) {
     final DVM = Provider.of<DownloadVM>(context);
 
-    return Card(
-      elevation: 10,
-      shadowColor: Colors.grey.shade100,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: SMALL_SPACER / 2),
       child: Column(
         children: [
-          Image.network(
-            widget.fileUrl,
-          ),
+          if (widget.material.madiaType! == "png")
+            Image.network(
+              widget.material.path!,
+              height: MediaQuery.sizeOf(context).height * .3,
+            ),
           ListTile(
-              title: Text(widget.fileUrl),
+              title: Text(widget.material.title!, style: TEXT_NORMAL),
+              subtitle: Text(
+                "${widget.material.size?.toStringAsFixed(2)} MP",
+                style: TEXT_NORMAL,
+              ),
               leading: IconButton(
                   onPressed: () {
                     fileExists && dowloading == false
-                        ? openfile()
+                        ? deletafiel()
                         : cancelDownload();
                   },
                   icon: fileExists && dowloading == false
                       ? const Icon(
-                          Icons.window,
-                          color: Colors.green,
+                          Icons.delete,
+                          color: PRIMARY_COLOR,
                         )
                       : const Icon(Icons.close)),
               trailing: IconButton(
@@ -172,27 +308,21 @@ class _TileListState extends State<TileList> {
                   icon: fileExists
                       ? const Icon(
                           Icons.save,
-                          color: Colors.green,
+                          color: SECONDRY_COLOR,
                         )
                       : dowloading
-                          ? Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                CircularProgressIndicator(
-                                  value: DVM.progress,
-                                  strokeWidth: 3,
-                                  backgroundColor: Colors.grey,
-                                  valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
-                                          Colors.blue),
-                                ),
-                                Text(
-                                  "${(DVM.progress * 100).toStringAsFixed(2)}",
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              ],
-                            )
+                          ? Text("${progress.toStringAsFixed(2)} %")
                           : const Icon(Icons.download))),
+          if (dowloading)
+            LinearPercentIndicator(
+              animateFromLastPercent: true,
+              padding: EdgeInsets.all(0),
+              percent: zScore(progress),
+              progressColor: FOURTH_COLOR,
+              animation: true,
+              lineHeight: 10,
+              barRadius: Radius.circular(15),
+            ),
         ],
       ),
     );
