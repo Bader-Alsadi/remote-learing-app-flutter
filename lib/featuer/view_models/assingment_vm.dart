@@ -4,7 +4,7 @@ import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
 import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
-import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
+import 'package:remote_learing_app_frontend/featuer/models/lescutrer_sub.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 
@@ -27,7 +27,8 @@ class AssingmentVM extends ALVM with ChangeNotifier {
     return assingments;
   }
 
-  storeLectuer(ReposteryData repo, int id, Lecturer lecturer) async {
+  storeLectuer(ReposteryData repo, int id, LeacturerSub lecturer) async {
+    print(lecturer.toJson().toString());
     Map result = await repo.stroeData(
         "${APIurl.EROLLMENT}/${id}${APIurl.ASSINGMENT}", lecturer.toJson());
     print(result);
@@ -39,7 +40,7 @@ class AssingmentVM extends ALVM with ChangeNotifier {
   }
 
   updateLectuer(ReposteryData repo, int subjectID, int lectuerID,
-      Lecturer lecturer) async {
+      LeacturerSub lecturer) async {
     Map result = await repo.updateData(
         "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}",
         lecturer.toJson());
@@ -47,9 +48,7 @@ class AssingmentVM extends ALVM with ChangeNotifier {
     if (result["data"] != null && result["status"]) {
       int index = assingments.indexWhere((element) => element.id == lectuerID);
       print(assingments[index].title);
-      if (index != null) {
-        assingments[index] = Assingment.fromJson(result["data"]);
-      }
+      assingments[index] = Assingment.fromJson(result["data"]);
       notifyListeners();
     }
     return result;
@@ -60,12 +59,14 @@ class AssingmentVM extends ALVM with ChangeNotifier {
     int subjectID,
     int assingmentID,
   ) async {
-    print("${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${assingmentID}");
+    print(
+        "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${assingmentID}");
     Map result = await repo.deleteData(
         "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${assingmentID}");
     print(result);
     if (result["data"] != null && result["status"]) {
-      int index = assingments.indexWhere((element) => element.id == assingmentID);
+      int index =
+          assingments.indexWhere((element) => element.id == assingmentID);
       assingments.removeAt(index);
       notifyListeners();
     }

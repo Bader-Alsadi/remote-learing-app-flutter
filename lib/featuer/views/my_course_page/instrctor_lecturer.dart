@@ -66,7 +66,7 @@ class InstroctorSubject extends StatelessWidget {
                         PopupMenuItem(
                           child: Text("Add Assingment"),
                           onTap: () {
-                            // showDialogC(context, LVM);
+                            showDialogC(context, AVM, subject);
                           },
                         )
                       ]);

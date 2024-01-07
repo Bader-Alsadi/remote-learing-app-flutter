@@ -4,6 +4,7 @@ import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
 import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
+import 'package:remote_learing_app_frontend/featuer/models/lescutrer_sub.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 
@@ -25,7 +26,7 @@ class LecturerVM extends ALVM with ChangeNotifier {
     return lectrers;
   }
 
-  storeLectuer(ReposteryData repo, int id, Lecturer lecturer) async {
+  storeLectuer(ReposteryData repo, int id, LeacturerSub lecturer) async {
     Map result = await repo.stroeData(
         "${APIurl.EROLLMENT}/${id}${APIurl.LECTURER}", lecturer.toJson());
     print(result);
@@ -37,7 +38,7 @@ class LecturerVM extends ALVM with ChangeNotifier {
   }
 
   updateLectuer(ReposteryData repo, int subjectID, int lectuerID,
-      Lecturer lecturer) async {
+      LeacturerSub lecturer) async {
     Map result = await repo.updateData(
         "${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}",
         lecturer.toJson());
@@ -45,10 +46,8 @@ class LecturerVM extends ALVM with ChangeNotifier {
     if (result["data"] != null && result["status"]) {
       int index = lectrers.indexWhere((element) => element.id == lectuerID);
       print(lectrers[index].title);
-      if (index != null) {
-        lectrers[index] = Lecturer.fromJson(result["data"]);
-      }
-      notifyListeners();
+      lectrers[index] = Lecturer.fromJson(result["data"]);
+          notifyListeners();
     }
     return result;
   }

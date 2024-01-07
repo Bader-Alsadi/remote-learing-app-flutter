@@ -23,7 +23,7 @@ class Materiall {
     title = json['title'];
     type = json['type'];
     madiaType = json['madia_type'];
-    size = double.parse(json['size']);
+    size = json['size'];
     lecturerId = json['lecturer_id'];
     path = json['path'];
   }

@@ -6,9 +6,11 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_pickdate.dart';
+import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 
 GlobalKey<FormState> FormKey = GlobalKey();
 AutovalidateMode validation = AutovalidateMode.always;
@@ -21,8 +23,9 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
   setValues(lecturer);
   return showDialog(
       context: context,
-      builder: (context) => Dialog(
-            child: SingleChildScrollView(
+      builder: (context) => AlertDialog(
+            title: Text("Add ${LVM.runtimeType.toString().split("V").first}"),
+            content: SingleChildScrollView(
               child: Form(
                 key: FormKey,
                 autovalidateMode: validation,
@@ -36,16 +39,25 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
                       validate: validaterequired,
                     ),
                     CustomTextFiled(
+                      maxLines: 5,
                       title: "Description",
                       lable: "",
                       controller: controllers[1],
                       validate: validaterequired,
                     ),
-                    CustomTextFiled(
-                      title: "Note",
-                      lable: "",
-                      controller: controllers[2],
-                    ),
+                    LVM is LecturerVM
+                        ? CustomTextFiled(
+                            title: "Note",
+                            lable: "",
+                            controller: controllers[2],
+                          )
+                        : CustomTextFiled(
+                            title: "grade",
+                            filedType: TextInputType.number,
+                            lable: "",
+                            controller: controllers[2],
+                            validate: validaterequired,
+                          ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 32.0,
@@ -53,40 +65,67 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
                       ).copyWith(bottom: 0),
                       child: pickDateWidget(selectData: selectData),
                     ),
-                    StatefulBuilder(
-                      builder: (context, setstate) => CustomElevatedBottom(
-                        child: AnimatedButoom(isloaded: isloaded),
-                        lable: "save",
-                        backColor: PRIMARY_COLOR,
-                        onPressedFun: () async {
-                          if (FormKey.currentState!.validate()) {
-                            isloaded = false;
-
-                            if (lecturer != null) {
-                              lecturer.title = controllers[0].text;
-                              lecturer.description = controllers[1].text;
-                              lecturer.note = controllers[2].text;
-                              lecturer.lecturerData = selectData.toString();
-                              updateLecturer(LVM, lecturer, subject.id!,
-                                  context, setstate);
-                              setstate(
-                                () {},
-                              );
-                            } else {
-                              Lecturer lecturer = Lecturer(
-                                  title: controllers[0].text,
-                                  description: controllers[1].text,
-                                  note: controllers[2].text,
-                                  subjectId: subject.id,
-                                  lecturerData: "$selectData".split(" ").first);
-                              addLecturer(LVM, subject.id!, lecturer, context,
-                                  setstate);
-                              setstate(
-                                () {},
-                              );
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 32),
+                      child: StatefulBuilder(
+                        builder: (context, setstate) => CustomElevatedBottom(
+                          child: AnimatedButoom(isloaded: isloaded),
+                          lable: "save",
+                          backColor: PRIMARY_COLOR,
+                          onPressedFun: () async {
+                            if (FormKey.currentState!.validate()) {
+                              isloaded = false;
+                              if (LVM is LecturerVM) {
+                                if (lecturer != null) {
+                                  lecturer.title = controllers[0].text;
+                                  lecturer.description = controllers[1].text;
+                                  lecturer.note = controllers[2].text;
+                                  lecturer.lecturerData =
+                                      selectData.toString();
+                                  updateLecturer(LVM, lecturer, subject.id!,
+                                      context, setstate);
+                                  setstate(
+                                    () {},
+                                  );
+                                } else {
+                                  Lecturer lecturer = Lecturer(
+                                      title: controllers[0].text,
+                                      description: controllers[1].text,
+                                      note: controllers[2].text,
+                                      subjectId: subject.id,
+                                      lecturerData:
+                                          "$selectData".split(" ").first);
+                                  addLecturer(LVM, subject.id!, lecturer,
+                                      context, setstate);
+                                  setstate(
+                                    () {},
+                                  );
+                                }
+                              } else {
+                                Assingment assingment = Assingment(
+                                    title: controllers[0].text,
+                                    description: controllers[1].text,
+                                    grade: int.parse(controllers[2].text),
+                                    enrollmentId: subject.id,
+                                    deadline: "$selectData".split(".").first);
+                                Map resutle;
+                                LVM
+                                    .storeLectuer(ReposteryAPI(), subject.id!,
+                                        assingment)
+                                    .then((value) {
+                                  resutle = value;
+                                  if (resutle["status"])
+                                    Navigator.pop(context);
+                                  isloaded = true;
+                                  showSnackBar(context, resutle["message"]);
+                                  setstate(
+                                    () {},
+                                  );
+                                });
+                              }
                             }
-                          }
-                        },
+                          },
+                        ),
                       ),
                     )
                   ],
@@ -137,4 +176,20 @@ setValues(Lecturer? lecturer) {
       element.clear();
     });
   }
+}
+
+// assinment
+
+addAssingment(ALVM LVM, int subjectId, Assingment assingment, context,
+    void Function(void Function()) setstate) {
+  Map resutle;
+  LVM.storeLectuer(ReposteryAPI(), subjectId, assingment).then((value) {
+    resutle = value;
+    if (resutle["status"]) Navigator.pop(context);
+    isloaded = true;
+    showSnackBar(context, resutle["message"]);
+    setstate(
+      () {},
+    );
+  });
 }

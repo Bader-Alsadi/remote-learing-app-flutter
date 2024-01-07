@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
@@ -22,8 +21,7 @@ class ReposteryAPI extends ReposteryData {
   }
 
   @override
-  Future<Map<String, dynamic>> stroeData(
-      String source, FormData data) async {
+  Future<Map<String, dynamic>> stroeData(String source, FormData data) async {
     Response? response;
     try {
       response = await dioInstance.post(source,
@@ -34,27 +32,24 @@ class ReposteryAPI extends ReposteryData {
     }
   }
 
-   @override
-  Future<Map<String, dynamic>> updateData(
-      String source, FormData data) async {
+  @override
+  Future<Map<String, dynamic>> updateData(String source, FormData data) async {
+    print(data.toString());
     Response? response;
     try {
-      response = await dioInstance.put(source,
-          data: data, options: getOptionshedar());
+      response =
+          await dioInstance.put(source, data: data, options: getOptionshedar());
       return response.data;
     } on DioException catch (e) {
       return responseDioException(e);
     }
   }
 
-
   @override
-  Future<Map<String, dynamic>> deleteData(
-      String source) async {
+  Future<Map<String, dynamic>> deleteData(String source) async {
     Response? response;
     try {
-      response = await dioInstance.delete(source,
-         options: getOptionshedar());
+      response = await dioInstance.delete(source, options: getOptionshedar());
       return response.data;
     } on DioException catch (e) {
       return responseDioException(e);

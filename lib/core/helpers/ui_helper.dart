@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
-import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
-import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
-import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
-import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
-import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
 
 String? validateName(String? value) {
   // String pattern = r'(^[a-zA-Zا-ي]*$)';

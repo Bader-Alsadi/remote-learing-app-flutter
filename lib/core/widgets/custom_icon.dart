@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
-import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 
 class Circalicon extends StatelessWidget {
   Circalicon({

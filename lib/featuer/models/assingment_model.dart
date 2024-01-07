@@ -1,10 +1,15 @@
-class Assingment {
+import 'package:dio/dio.dart';
+import 'package:remote_learing_app_frontend/featuer/models/lescutrer_sub.dart';
+import 'package:remote_learing_app_frontend/featuer/models/submission_model.dart';
+
+class Assingment extends LeacturerSub {
   int? id;
   String? title;
   String? description;
   int? grade;
   int? enrollmentId;
   String? deadline;
+  List<Submission>? submissions;
 
   Assingment(
       {this.id,
@@ -23,14 +28,15 @@ class Assingment {
     deadline = json['deadline'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['grade'] = this.grade;
-    data['enrollment_id'] = this.enrollmentId;
-    data['deadline'] = this.deadline;
+  FormData toJson() {
+    print(this.deadline);
+    final FormData data = new FormData.fromMap({
+      "title": this.title,
+      "description": this.description,
+      "grade": this.grade,
+      "deadline": this.deadline,
+      "enrollment_id": this.enrollmentId,
+    });
     return data;
   }
 }

@@ -9,4 +9,5 @@ class APIurl {
   static const String LECTURER = "/lecturers";
   static const String ASSINGMENT = "/assingments";
   static const String MATERIAL = "/materials";
+  static const String SUBMISSION = "/submissions";
 }

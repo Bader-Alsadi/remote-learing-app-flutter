@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
+import 'package:remote_learing_app_frontend/featuer/models/lescutrer_sub.dart';
 import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
 
-class Lecturer {
+class Lecturer extends LeacturerSub{
   int? id;
   String? title;
   String? description;

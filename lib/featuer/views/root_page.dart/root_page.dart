@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
-import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/my_course_page.dart';
-import 'package:remote_learing_app_frontend/featuer/views/profile_page/profile_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/settings_page.dart/settings_page.dart';
 
 const List<TabItem> items = [

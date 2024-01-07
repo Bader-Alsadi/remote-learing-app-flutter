@@ -9,8 +9,8 @@ import 'package:remote_learing_app_frontend/featuer/view_models/download_vm.dart
 import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/submission_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
-import 'package:remote_learing_app_frontend/featuer/views/material_page/material_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/on_bord.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 
@@ -44,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AssingmentVM>(
           create: (context) => AssingmentVM(),
+        ),
+        ChangeNotifierProvider<SubmissionVM>(
+          create: (context) => SubmissionVM(),
         ),
       ],
       child: MaterialApp(

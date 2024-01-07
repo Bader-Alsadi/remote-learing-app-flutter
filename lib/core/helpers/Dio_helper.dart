@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';

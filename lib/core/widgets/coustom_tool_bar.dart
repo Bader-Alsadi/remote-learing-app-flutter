@@ -24,7 +24,8 @@ class _CustomTabBarState extends State<CustomTabBar>
 
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 2, vsync: this);
+    TabController _tabController = TabController(
+        length: 2, vsync: this, animationDuration: Duration(milliseconds: 700));
 
     return Column(
       children: [
@@ -35,13 +36,13 @@ class _CustomTabBarState extends State<CustomTabBar>
             vertical: MIN_SPACER,
           ),
           decoration: BoxDecoration(
-              color: GRAY_COLOR.withOpacity(0.3),
+              color: FOURTH_COLOR.withOpacity(0.3),
               borderRadius: BorderRadius.circular(SMALL_SPACER)),
           child: TabBar(
             indicator: BoxDecoration(
-                color: BLACK_COLOR, borderRadius: BorderRadius.circular(30)),
+                color: PRIMARY_COLOR, borderRadius: BorderRadius.circular(30)),
             labelColor: Colors.white,
-            unselectedLabelColor: Colors.black,
+            unselectedLabelColor: PRIMARY_COLOR,
             controller: _tabController,
             unselectedLabelStyle: TextStyle(
               overflow: TextOverflow.ellipsis,
