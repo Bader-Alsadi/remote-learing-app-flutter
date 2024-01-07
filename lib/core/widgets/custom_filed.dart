@@ -48,7 +48,7 @@ class CustomTextFiled extends StatelessWidget {
         children: [
           Text(
             title,
-            style: FEILD_TITLE,
+            style: TEXT_NORMAL,
           ),
           SizedBox(
             height: MIN_SPACER,

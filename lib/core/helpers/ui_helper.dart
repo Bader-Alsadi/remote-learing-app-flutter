@@ -23,7 +23,7 @@ String? validaterequired(String? value) {
   RegExp regExp = RegExp(pattern);
   if (value!.isEmpty) {
     return "filed required";
-  } else if (!regExp.hasMatch(value )) {
+  } else if (!regExp.hasMatch(value)) {
     return "الاسم ينبغي ان يكون من ١-ي او من a-z";
   }
   return null;
@@ -118,7 +118,7 @@ showSnackBar(BuildContext context, String message) {
     ..showSnackBar(
       SnackBar(
         showCloseIcon: true,
-        backgroundColor: PRIMARY_COLOR,
+        backgroundColor: SECONDRY_COLOR,
         content: Text(
           message,
           style: TextStyle(color: WHITH_COLOR),

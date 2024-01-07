@@ -70,14 +70,18 @@ class ExpansionTileC extends StatelessWidget {
               softWrap: true,
               textAlign: TextAlign.justify,
             ),
-            IconWithText(
-              icon: Icons.access_time_outlined,
-              title: "${lecturer?.materials?.length} hours",
-            ),
-            IconWithText(
-              icon: Icons.slow_motion_video_rounded,
-              title: "${vidoe} vidoe",
-            ),
+            if (lecturer != null)
+              IconWithText(
+                icon: Icons.access_time_outlined,
+                title: "${lecturer?.materials?.length ?? 0} matrials",
+              ),
+            assingment != null
+                ? IconWithText(
+                    icon: Icons.access_time_outlined,
+                    title:
+                        "${assingment?.submissions?.length ?? 0} submissions",
+                  )
+                : Container(),
           ],
         ),
       ),

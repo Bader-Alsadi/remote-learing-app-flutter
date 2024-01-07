@@ -8,6 +8,7 @@ class Materiall {
   double? size;
   int? lecturerId;
   String? path;
+  double progress=0;
 
   Materiall(
       {this.id,

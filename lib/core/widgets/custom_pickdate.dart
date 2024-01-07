@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
+import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 
@@ -17,11 +18,12 @@ class pickDateWidget extends StatelessWidget {
       return Container(
         // width: double.infinity,
         alignment: Alignment.centerLeft,
-
+        padding: EdgeInsets.all(MIN_SPACER / 2),
+        margin: EdgeInsets.only(top: SMALL_SPACER),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             border: Border.all(
-              width: 2.0,
+              width: 1.0,
               color: GRAY_COLOR,
             )),
         child: TextButton(
@@ -31,7 +33,7 @@ class pickDateWidget extends StatelessWidget {
                   initialDate: DateTime.now(),
                   firstDate: DateTime(2020),
                   lastDate: DateTime(2025));
-
+              print("$selectData");
               if (selectData == null) {
                 showSnackBar(context, "selected date is null");
               }
