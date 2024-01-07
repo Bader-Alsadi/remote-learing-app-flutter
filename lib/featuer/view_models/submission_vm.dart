@@ -4,9 +4,7 @@ import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
 import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
-import 'package:remote_learing_app_frontend/featuer/models/lescutrer_sub.dart';
 import 'package:remote_learing_app_frontend/featuer/models/submission_model.dart';
-
 class SubmissionVM with ChangeNotifier {
   List<Submission>? submissions;
   Dio instanceDio = DioHL.instance();
@@ -29,19 +27,16 @@ class SubmissionVM with ChangeNotifier {
     return submissions;
   }
 
-  updateLectuer(
-      ReposteryData repo, int assingment_id, int submission_id,Submission date) async {
-    print(date.toString());
+  updateSubmission(ReposteryData repo, Submission date, int temp) async {
+    print(date.studentId);
     Map result = await repo.updateData(
-        "${APIurl.ROOT}${APIurl.ASSINGMENT}/${assingment_id}${APIurl.SUBMISSION}/$submission_id",
+        "${APIurl.ROOT}${APIurl.SUBMISSION_GRADE_UPD}/${date.id}",
         date.toJson());
+    if (!result["status"]) {
+      date.grade = temp;
+    }
     print(result);
-    // if (result["data"] != null && result["status"]) {
-    //   int index = lectrers.indexWhere((element) => element.id == lectuerID);
-    //   print(lectrers[index].title);
-    //   lectrers[index] = Lecturer.fromJson(result["data"]);
-    //       notifyListeners();
-    // }
+    notifyListeners();
     return result;
   }
 

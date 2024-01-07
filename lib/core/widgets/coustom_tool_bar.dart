@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
@@ -14,13 +16,13 @@ class CustomTabBar extends StatefulWidget {
 
 class _CustomTabBarState extends State<CustomTabBar>
     with TickerProviderStateMixin {
-  TabController? _tabController;
+  // TabController? _tabController;
 
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _tabController = TabController(length: 2, vsync: this);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

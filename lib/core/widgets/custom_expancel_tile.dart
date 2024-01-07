@@ -44,7 +44,7 @@ class ExpansionTileC extends StatelessWidget {
         ),
         SlidableAction(
           onPressed: (context) async {
-            showDialogC(context, LVM, subject, lecturer: lecturer);
+            showDialogC(context, LVM, subject, assingment: assingment);
           },
           foregroundColor: SECONDRY_COLOR,
           icon: Icons.edit_calendar_rounded,

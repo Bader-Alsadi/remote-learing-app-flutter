@@ -39,14 +39,16 @@ class AssingmentVM extends ALVM with ChangeNotifier {
     return result;
   }
 
-  updateLectuer(ReposteryData repo, int subjectID, int lectuerID,
+  updateLectuer(ReposteryData repo, int subjectID, int assingmentID,
       LeacturerSub lecturer) async {
+    // print("${APIurl.ROOT}${APIurl.ASSINGMENT_UPDATE}/${assingmentID}");
     Map result = await repo.updateData(
-        "${APIurl.EROLLMENT}/${subjectID}${APIurl.ASSINGMENT}/${lectuerID}",
+        "${APIurl.ROOT}${APIurl.ASSINGMENT_UPDATE}/${assingmentID}",
         lecturer.toJson());
     print(result);
     if (result["data"] != null && result["status"]) {
-      int index = assingments.indexWhere((element) => element.id == lectuerID);
+      int index =
+          assingments.indexWhere((element) => element.id == assingmentID);
       print(assingments[index].title);
       assingments[index] = Assingment.fromJson(result["data"]);
       notifyListeners();

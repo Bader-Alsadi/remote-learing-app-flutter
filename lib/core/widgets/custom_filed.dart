@@ -54,7 +54,6 @@ class CustomTextFiled extends StatelessWidget {
             height: MIN_SPACER,
           ),
           TextFormField(
-            
               obscureText: obscureText!,
               enabled: enable,
               onChanged: onchange,

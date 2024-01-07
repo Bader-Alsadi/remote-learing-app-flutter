@@ -40,14 +40,14 @@ class LecturerVM extends ALVM with ChangeNotifier {
   updateLectuer(ReposteryData repo, int subjectID, int lectuerID,
       LeacturerSub lecturer) async {
     Map result = await repo.updateData(
-        "${APIurl.EROLLMENT}/${subjectID}${APIurl.LECTURER}/${lectuerID}",
+        "${APIurl.ROOT}${APIurl.LECTURER_UPDATE}/${lectuerID}",
         lecturer.toJson());
     print(result);
     if (result["data"] != null && result["status"]) {
       int index = lectrers.indexWhere((element) => element.id == lectuerID);
       print(lectrers[index].title);
       lectrers[index] = Lecturer.fromJson(result["data"]);
-          notifyListeners();
+      notifyListeners();
     }
     return result;
   }

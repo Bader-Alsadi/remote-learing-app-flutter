@@ -34,11 +34,11 @@ class ReposteryAPI extends ReposteryData {
 
   @override
   Future<Map<String, dynamic>> updateData(String source, FormData data) async {
-    print(data.toString());
+    print("insaid repo : ${data.fields}");
     Response? response;
     try {
       response =
-          await dioInstance.put(source, data: data, options: getOptionshedar());
+          await dioInstance.post(source, data: data, options: getOptionshedar());
       return response.data;
     } on DioException catch (e) {
       return responseDioException(e);

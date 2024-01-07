@@ -10,4 +10,7 @@ class APIurl {
   static const String ASSINGMENT = "/assingments";
   static const String MATERIAL = "/materials";
   static const String SUBMISSION = "/submissions";
+  static const String SUBMISSION_GRADE_UPD = "/updategrade";
+  static const String LECTURER_UPDATE = "/updatelecturer";
+  static const String ASSINGMENT_UPDATE = "/updateAssingment"; 
 }
