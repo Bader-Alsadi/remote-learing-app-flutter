@@ -37,28 +37,28 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomTextFiled(
-                title: "Title",
-                lable: "",
+                title: "",
+                lable: "Title",
                 controller: controllers[0],
                 validate: validaterequired,
               ),
               CustomTextFiled(
                 // maxLines: 5,
-                title: "Description",
-                lable: "",
+                title: "",
+                lable: "Description",
                 controller: controllers[1],
                 validate: validaterequired,
               ),
               LVM is LecturerVM
                   ? CustomTextFiled(
-                      title: "Note",
-                      lable: "",
+                      title: "",
+                      lable: "Note",
                       controller: controllers[2],
                     )
                   : CustomTextFiled(
-                      title: "grade",
+                      title: "",
                       filedType: TextInputType.number,
-                      lable: "",
+                      lable: "grade",
                       controller: controllers[2],
                       validate: validaterequired,
                     ),
@@ -115,12 +115,13 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
                               () {},
                             );
                           } else {
+                            print("$setstate");
                             Assingment assingment = Assingment(
                                 title: controllers[0].text,
                                 description: controllers[1].text,
                                 grade: int.parse(controllers[2].text),
                                 enrollmentId: subject.id,
-                                deadline: "$selectData".split(".").first);
+                                deadline: "$selectData".split(" ").first);
                             Map resutle;
                             LVM
                                 .storeLectuer(
@@ -134,6 +135,9 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
                                 () {},
                               );
                             });
+                            setstate(
+                              () {},
+                            );
                           }
                         }
                       }
