@@ -38,13 +38,13 @@ class _CustomTabBarState extends State<CustomTabBar>
             vertical: MIN_SPACER,
           ),
           decoration: BoxDecoration(
-              color: FOURTH_COLOR.withOpacity(0.3),
+              color: GRAY_COLOR.withOpacity(.3),
               borderRadius: BorderRadius.circular(SMALL_SPACER)),
           child: TabBar(
             indicator: BoxDecoration(
-                color: PRIMARY_COLOR, borderRadius: BorderRadius.circular(30)),
-            labelColor: Colors.white,
-            unselectedLabelColor: PRIMARY_COLOR,
+                color: BLACK_COLOR, borderRadius: BorderRadius.circular(30)),
+            labelColor: WHITH_COLOR,
+            unselectedLabelColor: BLACK_COLOR,
             controller: _tabController,
             unselectedLabelStyle: TextStyle(
               overflow: TextOverflow.ellipsis,

@@ -44,7 +44,7 @@ class ExpansionTileC extends StatelessWidget {
         ),
         SlidableAction(
           onPressed: (context) async {
-            showDialogC(context, LVM, subject, assingment: assingment);
+            showDialogC(context, LVM, subject, lecturer: lecturer);
           },
           foregroundColor: SECONDRY_COLOR,
           icon: Icons.edit_calendar_rounded,
@@ -60,9 +60,9 @@ class ExpansionTileC extends StatelessWidget {
             style: TEXT_BIG.copyWith(color: BLACK_COLOR),
           ),
           leading: Text(date, style: TEXT_NORMAL.copyWith(color: GRAY_COLOR)),
-          trailing: InkWell(
-              onTap: () {},
-              child: Icon(Icons.file_download_outlined, color: BLACK_COLOR)),
+          // trailing: InkWell(
+          //     onTap: () {},
+          //     child: Icon(Icons.file_download_outlined, color: BLACK_COLOR)),
           children: [
             Text(
               note,
@@ -72,7 +72,7 @@ class ExpansionTileC extends StatelessWidget {
             ),
             IconWithText(
               icon: Icons.access_time_outlined,
-              title: "${hours} hours",
+              title: "${lecturer?.materials?.length} hours",
             ),
             IconWithText(
               icon: Icons.slow_motion_video_rounded,

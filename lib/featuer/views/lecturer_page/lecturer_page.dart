@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
@@ -8,8 +9,7 @@ import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart
 import 'package:remote_learing_app_frontend/featuer/views/material_page/material_page.dart';
 
 class LecturerPage extends StatefulWidget {
-  LecturerPage({super.key, required this.subject, required this.LVM});
-  LecturerVM LVM;
+  LecturerPage({super.key, required this.subject});
   Subject subject;
 
   @override
@@ -19,9 +19,10 @@ class LecturerPage extends StatefulWidget {
 class _LecturerPageState extends State<LecturerPage> {
   @override
   Widget build(BuildContext context) {
+    final LVM = Provider.of<LecturerVM>(context);
     return SingleChildScrollView(
       child: Column(
-        children: widget.LVM.lectrers
+        children: LVM.lectrers
             .map((e) => Container(
                   child: InkWell(
                     onLongPress: () async {
@@ -35,7 +36,7 @@ class _LecturerPageState extends State<LecturerPage> {
                     child: ExpansionTileC(
                       subject: widget.subject,
                       lecturer: e,
-                      LVM: widget.LVM,
+                      LVM: LVM,
                       title: e.title!,
                       date: e.lecturerData!.split(" ").first,
                       vidoe: "",

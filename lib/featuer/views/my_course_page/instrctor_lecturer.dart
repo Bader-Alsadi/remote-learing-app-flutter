@@ -4,6 +4,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/coustom_tool_bar.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
@@ -13,7 +14,9 @@ import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.da
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/assingment_page.dart/assingment_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/lecturer_page/lecturer_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/lecturer_assingment_.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/show_doalog.dart';
+import 'package:shimmer/shimmer.dart';
 
 class InstroctorSubject extends StatefulWidget {
   InstroctorSubject({super.key, required this.subject});
@@ -37,16 +40,20 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
         isconnectd = true;
         setState(() {});
         print("connectd: $value");
-        if (widget.subject.Lecturers.isEmpty)
-          lvm.feachDate(ReposteryAPI(), widget.subject).then(
-            (value) {
-              widget.subject.Lecturers = value;
-              setState(() {
-                lectrersIsLoaded = true;
-              });
-            },
-          );
-        avm.feachDate(ReposteryAPI(), widget.subject).then(
+
+        Provider.of<LecturerVM>(context, listen: false)
+            .feachDate(ReposteryAPI(), widget.subject)
+            .then(
+          (value) {
+            widget.subject.Lecturers = value;
+            setState(() {
+              lectrersIsLoaded = true;
+            });
+          },
+        );
+        Provider.of<AssingmentVM>(context, listen: false)
+            .feachDate(ReposteryAPI(), widget.subject)
+            .then(
           (value) {
             widget.subject.assingments = value;
             setState(() {
@@ -64,6 +71,7 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
 
   @override
   Widget build(BuildContext context) {
+    
     print("${widget.subject.id}");
     final LVM = Provider.of<LecturerVM>(context);
     final AVM = Provider.of<AssingmentVM>(context);
@@ -118,16 +126,26 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: MIN_SPACER,
-                        ),
                         Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: SMALL_SPACER / 2),
-                          child: ImageAndTitle(
-                            imagePath: "assets/images/courses/course1.jpeg",
-                            title:
-                                "${widget.subject.name} | ${widget.subject.department!.name}",
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Chip(
+                                label: Text(
+                                  "${widget.subject.department!.name}",
+                                  style: TITLE,
+                                ),
+                              ),
+                              SizedBox(
+                                height: MIN_SPACER,
+                              ),
+                              ImageAndTitle(
+                                imagePath: "assets/images/courses/course1.jpeg",
+                                title: "${widget.subject.name}",
+                              ),
+                            ],
                           ),
                         ),
                         CustomTabBar(
@@ -135,13 +153,11 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                             Container(
                               child: LecturerPage(
                                 subject: widget.subject,
-                                LVM: LVM,
                               ),
                             ),
                             Container(
                               child: AssingmentPage(
                                 subject: widget.subject,
-                                AVM: AVM,
                               ),
                             )
                           ],
@@ -155,8 +171,6 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
             : Center(
                 child: Text("noct"),
               )
-        : Center(
-            child: Scaffold(body: SpinKitCircle(color: PRIMARY_COLOR)),
-          );
+        : LecturerAssingmentPH();
   }
 }
