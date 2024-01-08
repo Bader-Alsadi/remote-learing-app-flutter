@@ -1,15 +1,22 @@
-import 'package:dio/dio.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
+import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/peremition_hp.dart';
+import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/views/material_page/widgets/card_material.dart';
 import 'package:remote_learing_app_frontend/featuer/views/material_page/widgets/place_holder_matrieal.dart';
 
 class Material2 extends StatefulWidget {
@@ -61,6 +68,8 @@ class _Material2State extends State<Material2> {
   @override
   Widget build(BuildContext context) {
     final SCVM = Provider.of<MaterialVM>(context);
+    MaterialVM MVM = Provider.of<MaterialVM>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -74,14 +83,35 @@ class _Material2State extends State<Material2> {
         ),
         title: Text(widget.lecturer.title!),
       ),
+      floatingActionButton: Builder(builder: (context) {
+        return FloatingActionButton(
+          backgroundColor: FOURTH_COLOR,
+          onPressed: () {
+            GlobalKey<FormState> FormKey = GlobalKey();
+            AutovalidateMode validation = AutovalidateMode.always;
+            List<TextEditingController> controllers =
+                List.generate(2, (index) => TextEditingController());
+
+            showBottomSheetMT(context, FormKey, validation, controllers, MVM);
+          },
+          child: Icon(
+            Icons.add_box_rounded,
+          ),
+        );
+      }),
       body: isConnect != null
           ? isConnect!
-              ? Column(
-                  children: SCVM.materials
-                      .map((e) => CardListtile(
-                            material: e,
-                          ))
-                      .toList(),
+              ? SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: SPACER + 8),
+                    child: Column(
+                      children: SCVM.materials
+                          .map((e) => CardListtile(
+                                material: e,
+                              ))
+                          .toList(),
+                    ),
+                  ),
                 )
               : Center(
                   child: Text("no internet"),
@@ -89,61 +119,100 @@ class _Material2State extends State<Material2> {
           : PlaceHolderMaterial(),
     );
   }
-}
 
-class CardListtile extends StatefulWidget {
-  CardListtile({super.key, required this.material});
-  Materiall material;
-
-  @override
-  State<CardListtile> createState() => _CardListtileState();
-}
-
-class _CardListtileState extends State<CardListtile> {
-  FileHP? instanceFile;
-  @override
-  void initState() {
-    FileHP.getInstanse().then((value) {
-      instanceFile = value;
-    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    instanceFile!.checkFileExit(widget.material.path!).then((valu) {
-      print("exict $valu");
-      widget.material.fileExists = valu;
-      setState(() {});
-    });
-    final SCVM = Provider.of<MaterialVM>(context);
-    return Card(
-      child: ListTile(
-          title: Text(
-            "Title : ${widget.material.title!}",
-            style: TEXT_NORMAL,
-          ),
-          subtitle: Text(
-            "Size : ${widget.material.size!.toStringAsFixed(2)} MP | Madia Type : ${widget.material.madiaType} ${widget.material.progress}",
-            style: TEXT_NORMAL,
-          ),
-          trailing: IconButton(
-            onPressed: () {
-              widget.material.fileExists == null
-                  ? null
-                  : widget.material.fileExists!
-                      ? instanceFile!.openfile(widget.material.path!)
-                      : instanceFile!
-                          .startDownload1(CancelToken(), SCVM, widget.material);
-            },
-            icon: widget.material.fileExists == null
-                ? CircularProgressIndicator()
-                : widget.material.fileExists!
-                    ? Icon(Icons.settings_display_rounded)
-                    : widget.material.dowloading
-                        ? Icon(Icons.circle)
-                        : Icon(Icons.download),
-          )),
-    );
+  Future<dynamic> showBottomSheetMT(
+      BuildContext context,
+      GlobalKey<FormState> FormKey,
+      AutovalidateMode validation,
+      List<TextEditingController> controllers,
+      MaterialVM MVM) {
+    return showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          File? pickFile;
+          return StatefulBuilder(builder: (context, setState) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Container(
+                  child: Form(
+                      key: FormKey,
+                      autovalidateMode: validation,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CustomTextFiled(
+                            title: "",
+                            lable: "Title",
+                            controller: controllers[0],
+                            validate: validaterequired,
+                          ),
+                          CustomTextFiled(
+                            title: "",
+                            lable: "Description",
+                            controller: controllers[1],
+                            validate: validaterequired,
+                          ),
+                          SizedBox(
+                            height: SMALL_SPACER,
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: CustomElevatedBottom(
+                                  backColor: WHITH_COLOR,
+                                  borderColor: BLACK_COLOR,
+                                  titleColor: BLACK_COLOR,
+                                  lable: "Pickup File",
+                                  onPressedFun: () async {
+                                    pickFile = await FileHP().pickupFile();
+                                    setState(() {});
+                                    print("file: ${pickFile?.path}");
+                                  },
+                                ),
+                              ),
+                              Text(
+                                "${pickFile?.path.split("/").last}",
+                                style: TEXT_NORMAL.copyWith(color: BLACK_COLOR),
+                              )
+                            ],
+                          ),
+                          StatefulBuilder(
+                            builder: (context, setstate) =>
+                                CustomElevatedBottom(
+                              child: AnimatedButoom(isloaded: isloaded),
+                              lable: "save",
+                              backColor: PRIMARY_COLOR,
+                              onPressedFun: () async {
+                                if (FormKey.currentState!.validate()) {
+                                  if (pickFile != null) {
+                                    Materiall material = Materiall(
+                                        title: controllers[0].text,
+                                        type: controllers[0].text,
+                                        lecturerId: widget.lecturer.id,
+                                        path: pickFile!.path);
+                                    var result = await MVM.storeMaterial(
+                                        ReposteryAPI(),
+                                        widget.lecturer,
+                                        material);
+                                    showSnackBar(context, result["message"]);
+                                    Navigator.pop(context);
+                                  } else {
+                                    showSnackBar(context, "file path is empty");
+                                  }
+                                }
+                              },
+                            ),
+                          )
+                        ],
+                      )),
+                ),
+              ),
+            );
+          });
+        });
   }
 }
