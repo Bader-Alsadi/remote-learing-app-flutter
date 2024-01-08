@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
-import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
@@ -16,7 +14,6 @@ import 'package:remote_learing_app_frontend/featuer/views/assingment_page.dart/a
 import 'package:remote_learing_app_frontend/featuer/views/lecturer_page/lecturer_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/lecturer_assingment_.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/show_doalog.dart';
-import 'package:shimmer/shimmer.dart';
 
 class InstroctorSubject extends StatefulWidget {
   InstroctorSubject({super.key, required this.subject});

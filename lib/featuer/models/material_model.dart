@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
 
 class Materiall {
   int? id;
@@ -21,6 +20,7 @@ class Materiall {
       this.size,
       this.lecturerId,
       this.path}){
+       
       }
 
   Materiall.fromJson(Map<String, dynamic> json) {

@@ -5,7 +5,6 @@ import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/material_page/materia_page2.dart';
-import 'package:remote_learing_app_frontend/featuer/views/material_page/material_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
 import 'package:remote_learing_app_frontend/featuer/views/profile_page/profile_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';

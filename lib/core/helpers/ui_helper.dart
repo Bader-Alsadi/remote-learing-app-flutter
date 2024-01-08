@@ -136,89 +136,29 @@ Widget? AnimatedButoom({required bool isloaded}) {
         );
 }
 
-
-// showBottomSheet (BuildContext context ){
-
-//    showModalBottomSheet(
-//                       enableDrag: true,
-//                       context: context,
-//                       builder: (context) {
-//                         GlobalKey<FormState> FormKey = GlobalKey();
-//                         AutovalidateMode validation = AutovalidateMode.always;
-//                         List<TextEditingController> controllers = List.generate(
-//                             3, (index) => TextEditingController());
-//                         return SingleChildScrollView(
-//                           child: Form(
-//                             key: FormKey,
-//                             autovalidateMode: validation,
-//                             child: Column(
-//                               mainAxisSize: MainAxisSize.min,
-//                               children: [
-//                                 CustomTextFiled(
-//                                   title: "Title",
-//                                   lable: "",
-//                                   controller: controllers[0],
-//                                   validate: validaterequired,
-//                                 ),
-//                                 CustomTextFiled(
-//                                   title: "Description",
-//                                   lable: "",
-//                                   controller: controllers[1],
-//                                   validate: validaterequired,
-//                                 ),
-//                                 CustomTextFiled(
-//                                   title: "Note",
-//                                   lable: "",
-//                                   controller: controllers[2],
-//                                 ),
-//                                 Padding(
-//                                   padding: const EdgeInsets.symmetric(
-//                                     vertical: 32.0,
-//                                     horizontal: SMALL_SPACER / 2,
-//                                   ).copyWith(bottom: 0),
-//                                   child: pickDateWidget(selectData: selectData),
-//                                 ),
-//                                 StatefulBuilder(
-//                                   builder: (context, setstate) =>
-//                                       CustomElevatedBottom(
-//                                     child: AnimatedButoom(isloaded: isloaded),
-//                                     lable: "save",
-//                                     backColor: PRIMARY_COLOR,
-//                                     onPressedFun: () async {
-//                                       if (FormKey.currentState!.validate()) {
-//                                         Lecturer lecturer = Lecturer(
-//                                             title: controllers[0].text,
-//                                             description: controllers[1].text,
-//                                             note: controllers[2].text,
-//                                             subjectId: subject.id,
-//                                             lecturerData:
-//                                                 "$selectData".split(" ").first);
-//                                         isloaded = false;
-//                                         Map resutle;
-//                                         LVM
-//                                             .storeLectuer(ReposteryAPI(),
-//                                                 subject.id!, lecturer)
-//                                             .then((value) {
-//                                           resutle = value;
-//                                           if (resutle["status"])
-//                                             Navigator.pop(context);
-//                                           isloaded = true;
-//                                           showSnackBar(
-//                                               context, resutle["message"]);
-//                                           setstate(
-//                                             () {},
-//                                           );
-//                                         });
-//                                         setstate(
-//                                           () {},
-//                                         );
-//                                       }
-//                                     },
-//                                   ),
-//                                 )
-//                               ],
-//                             ),
-//                           ),
-//                         );
-//                       });
-// }
+getFormatImage(String type) {
+  switch (type) {
+    case "jpg" || "jpeg":
+      return "assets/images/media_format/icons8-jpg-80.png";
+    case "png":
+      return "assets/images/media_format/icons8-png-80.png";
+    case "pdf":
+      return "assets/images/media_format/icons8-pdf-80.png";
+    case "xls":
+      return "assets/images/media_format/icons8-xls-80.png";
+    case "mp4":
+      return "assets/images/media_format/icons8-video-file-64 (1).png";
+    case "doc" || "docm" || "docx":
+      return "assets/images/media_format/icons8-doc-64.png";
+    case "pptx":
+      return "assets/images/media_format/icons8-pptx-80.png";
+    case "rar":
+      return "assets/images/media_format/icons8-rar-80.png";
+    case "zip":
+      return "assets/images/media_format/icons8-zip-80.png";
+    case "txt":
+      return "assets/images/media_format/icons8-txt-80.png";
+    default:
+      return "assets/images/media_format/icons8-file-80.png";
+  }
+}

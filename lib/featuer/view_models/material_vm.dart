@@ -54,4 +54,9 @@ class MaterialVM with ChangeNotifier {
     materials[index].dowloading = value;
     notifyListeners();
   }
+
+   deleteFromDivese(int index, bool value) {
+    materials[index].fileExists = value;
+    notifyListeners();
+  }
 }

@@ -1,20 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 
 class CustomElevatedBottom extends StatelessWidget {
-  CustomElevatedBottom(
-      {super.key,
-      this.backColor,
-       this.child,
-      this.titleColor,
-      this.onPressedFun,
-      this.lable = "",
-      this.mairgn = 40.0,
-      });
+  CustomElevatedBottom({
+    super.key,
+    this.backColor,
+    this.borderColor,
+    this.child,
+    this.titleColor,
+    this.onPressedFun,
+    this.lable = "",
+    this.mairgn = 40.0,
+  });
   String? lable;
   Color? backColor;
+  Color? borderColor;
   Color? titleColor;
   Widget? child;
   Function()? onPressedFun;
@@ -34,19 +35,21 @@ class CustomElevatedBottom extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
                 side: BorderSide(
-                  color: backColor ?? BLACK_COLOR,
+                  width: 1,
+                  color: borderColor ?? backColor ?? PRIMARY_COLOR,
                 ),
               ),
-              backgroundColor: backColor ?? BLACK_COLOR,
+              backgroundColor: backColor ?? PRIMARY_COLOR,
             ),
             onPressed: onPressedFun ?? () {},
-            child:child?? Text(
-              "  $lable  ",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: titleColor ?? Colors.white,
-              ),
-            )));
+            child: child ??
+                Text(
+                  "  $lable  ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: titleColor ?? Colors.white,
+                  ),
+                )));
   }
 }

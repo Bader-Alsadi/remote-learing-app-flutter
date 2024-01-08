@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:remote_learing_app_frontend/core/helpers/directoryP_path_hb.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/manger_route.dart';
 import 'package:remote_learing_app_frontend/core/them/app_them.dart';
@@ -17,6 +18,7 @@ import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_pa
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init("user");
+  await DirectoryPathHP.getInstanse();
   runApp(MyApp());
 }
 

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
-import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/views/material_page/material_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/material_page/materia_page2.dart';
 
 class LecturerPage extends StatefulWidget {
   LecturerPage({super.key, required this.subject});
@@ -30,7 +27,7 @@ class _LecturerPageState extends State<LecturerPage> {
                       // var result = await MVM.feachDate(ReposteryAPI(), e);
                       // showSnackBar(context, result["message"]);
                       // if (result["status"])
-                      Navigator.pushNamed(context, MaterialP.ROUTE,
+                      Navigator.pushNamed(context, Material2.ROUTE,
                           arguments: e);
                     },
                     child: ExpansionTileC(
