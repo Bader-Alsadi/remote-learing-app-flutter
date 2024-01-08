@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/widgets/shmmier_box.dart';
@@ -16,6 +15,11 @@ class PlaceHolderMaterial extends StatelessWidget {
               10,
               (index) => Column(
                     children: [
+                      shmmierbox(
+                        height: 80,
+                        width: 60,
+                        boardRadius: 10.5,
+                      ),
                       Row(children: [
                         shmmierbox(
                           height: 25,
