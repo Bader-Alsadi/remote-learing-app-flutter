@@ -6,10 +6,11 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
 
-class MaterialVM with ChangeNotifier{
+class MaterialVM with ChangeNotifier {
   List<Materiall> materials = [];
   Dio instanceDio = DioHL.instance();
-  feachDate(ReposteryData repo, Lecturer lecturer) async {
+  Future<List<Materiall>> feachDate(
+      ReposteryData repo, Lecturer lecturer) async {
     print("${APIurl.ROOT}${APIurl.LECTURER}/${lecturer.id}${APIurl.MATERIAL}");
     Map result = await repo.fetcheData(
         "${APIurl.ROOT}${APIurl.LECTURER}/${lecturer.id}${APIurl.MATERIAL}");
@@ -23,16 +24,34 @@ class MaterialVM with ChangeNotifier{
     } else
       materials = [];
     print(materials);
-    return result;
+    return materials;
   }
 
-  storeMaterial(ReposteryData repo,Lecturer lecturer,Materiall material) async {
+  storeMaterial(
+      ReposteryData repo, Lecturer lecturer, Materiall material) async {
     Map result = await repo.stroeData(
-        "${APIurl.ROOT}${APIurl.LECTURER}/${lecturer.id}${APIurl.MATERIAL}", material.toJson());
+        "${APIurl.ROOT}${APIurl.LECTURER}/${lecturer.id}${APIurl.MATERIAL}",
+        material.toJson());
     print(result);
     if (result["data"] != null && result["status"])
       materials.add(Materiall.fromJson(result["data"]));
     notifyListeners();
     return result;
+  }
+
+  download(int index, double value) {
+    materials[index].dowloading = true;
+    materials[index].progress = value;
+    notifyListeners();
+  }
+
+  fileExtis(int index, bool value) {
+    materials[index].fileExists = value;
+    notifyListeners();
+  }
+
+  downloading(int index, bool value) {
+    materials[index].dowloading = value;
+    notifyListeners();
   }
 }

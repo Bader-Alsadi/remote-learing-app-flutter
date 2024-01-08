@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
 
 class Materiall {
   int? id;
@@ -9,6 +10,8 @@ class Materiall {
   int? lecturerId;
   String? path;
   double progress=0;
+   bool dowloading = false;
+  bool? fileExists ;
 
   Materiall(
       {this.id,
@@ -17,7 +20,8 @@ class Materiall {
       this.madiaType,
       this.size,
       this.lecturerId,
-      this.path});
+      this.path}){
+      }
 
   Materiall.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -4,34 +4,33 @@ import 'package:path/path.dart' as Path;
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
 import 'package:remote_learing_app_frontend/core/helpers/directoryP_path_hb.dart';
+import 'package:remote_learing_app_frontend/featuer/models/material_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/submission_model.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/submission_vm.dart';
 
 class FileHP {
   static FileHP? instance;
-  static Future<FileHP> getInstanse() async {
+  static FileHP getInstanse() {
     if (instance == null) instance = FileHP();
-    DirectoryPath = await getPathFile.getPath();
     return instance!;
   }
 
-  static var getPathFile = DirectoryPathHP();
-  static late String DirectoryPath;
+  static var DirectoryPath = DirectoryPathHP.instance!.filePath;
 
   openfile(String path) {
-    print(" : $path");
-    OpenFile.open(path);
+    var filePath = "${DirectoryPath.path}/${Path.basename(path)}";
+    print(" : $filePath");
+    OpenFile.open(filePath);
   }
 
-  checkFileExit(String path) async {
+  Future<bool> checkFileExit(String path) async {
     bool fileExistCheck =
-        await File("${Path.basename(path)}/$DirectoryPath").exists();
+        await File("${DirectoryPath.path}/${Path.basename(path)}").exists();
     return fileExistCheck;
   }
 
   Future<File?> pickupFile() async {
-    // final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: [
       "jpg",
@@ -66,13 +65,8 @@ class FileHP {
       CancelToken cancelToken, SubmissionVM SVM, Submission submission) async {
     print("${submission.path!}");
     cancelToken = CancelToken();
-    var filePath = "$DirectoryPath/${Path.basename(submission.path!)}";
+    var filePath = "${DirectoryPath.path}/${Path.basename(submission.path!)}";
     print(filePath);
-    // filePath = '$storePath/$fileName';
-    // setState(() {
-    //   dowloading = true;
-    //   // DVMprogress = 0;
-    // });
 
     try {
       print("try");
@@ -80,16 +74,40 @@ class FileHP {
           onReceiveProgress: (count, total) {
         SVM.download(SVM.submissions!.indexOf(submission), (count / total));
       }, cancelToken: cancelToken);
-      // setState(() {
-      //   dowloading = false;
-      //   fileExists = true;
-      // });
     } catch (e) {
       print("cach$e");
-      // print(e);
-      // setState(() {
-      //   dowloading = false;
-      // });
     }
+  }
+
+  startDownload1(
+      CancelToken cancelToken, MaterialVM MVM, Materiall material) async {
+    int index = MVM.materials.indexOf(material);
+    print("mate pat ${material.path!}");
+    cancelToken = CancelToken();
+    var filePath = "${DirectoryPath.path}/${Path.basename(material.path!)}";
+    print("path ${filePath}");
+    try {
+      print("try");
+      await Dio().download(material.path!, filePath,
+          onReceiveProgress: (count, total) {
+        MVM.download(index, (count / total));
+      }, cancelToken: cancelToken);
+      MVM.downloading(index, false);
+      MVM.fileExtis(index, true);
+    } catch (e) {
+      print("cach$e");
+    }
+  }
+
+   cancelDownload(CancelToken cancelToken) {
+    cancelToken.cancel();
+  }
+
+  Future<bool> deletafiel(String path) async {
+    var filePath = "${DirectoryPath.path}/${Path.basename(path)}";
+    bool fileExistCheck = await File(filePath).exists();
+    if (fileExistCheck) await File(filePath).delete();
+    print(fileExistCheck);
+    return fileExistCheck;
   }
 }
