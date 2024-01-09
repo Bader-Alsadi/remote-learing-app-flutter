@@ -103,6 +103,9 @@ class ReposteryAPI extends ReposteryData {
   }
 
   Options getOptionshedar() {
-    return Options(headers: {"Authorization": DioHL.getToken()});
+    return Options(headers: {
+      "Authorization": DioHL.getToken(),
+      // "Accept-Language":
+    });
   }
 }

@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
+import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/coustom_settings_row.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
   static const ROUTE = "settings_page";
+  Loaclization instance = Loaclization.getInstance();
+  late AppLocalizations? locale;
+
   @override
   Widget build(BuildContext context) {
+    locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -81,9 +90,50 @@ class SettingsPage extends StatelessWidget {
               imagePath: "assets/icons/user.svg",
             ),
             RowSettings(
+              title: locale!.language,
+              subTitle: " ",
+              imagePath: "assets/icons/exit.svg",
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text(locale!.language),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              RadioListTile(
+                                  title: Text(locale!.arabic),
+                                  value: "ar",
+                                  groupValue: instance.getLanguageCode,
+                                  onChanged: (value) {
+                                    instance.setLanguageCode = value!;
+                                  }),
+                              RadioListTile(
+                                  title: Text("English"),
+                                  value: "en",
+                                  groupValue: instance.getLanguageCode,
+                                  onChanged: (value) {
+                                    instance.setLanguageCode = value!;
+                                  }),
+                            ],
+                          ),
+                        ));
+              },
+            ),
+            RowSettings(
               title: "Exist",
               subTitle: " ",
               imagePath: "assets/icons/exit.svg",
+              onTap: () {
+                ReposteryAPI().logout().then((value) {
+                  Map result = value;
+                  if (result["status"]) {
+                    Navigator.pushReplacementNamed(context, LoginPage.ROUTE);
+                  } else {
+                    showSnackBar(context, result["message"]);
+                  }
+                });
+              },
             ),
           ],
         ),

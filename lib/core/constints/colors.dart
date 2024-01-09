@@ -10,7 +10,7 @@ const Color THIRD_COLOR = Color(0xffbfe7ff);
 // const Color FOURTH_COLOR = Color(0xff80cfff);
 const Color FOURTH_COLOR = Color(0xffCDF5FD);
 const Color WHITH_COLOR = Color(0xffffffff);
-const Color GRAY_COLOR = Color(0xff808080);
+const Color GRAY_COLOR = Color(0xff6F7D90);
 const Color BLACK_COLOR = Color(0xff000000);
 
 /**

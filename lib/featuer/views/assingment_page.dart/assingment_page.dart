@@ -32,7 +32,7 @@ class _LecturerPageState extends State<AssingmentPage> {
                       assingment: e,
                       LVM: AVM,
                       title: e.title!,
-                      date: e.deadline!.split("T").first,
+                      date: e.deadline!.split(" ").first,
                       vidoe: "",
                       hours: "s",
                       note: e.description!,
