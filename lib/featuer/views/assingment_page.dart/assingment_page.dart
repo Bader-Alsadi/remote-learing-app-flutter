@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/views/submission_page.dart/submission_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/submission_page/submission_page.dart';
 
 class AssingmentPage extends StatefulWidget {
   AssingmentPage({super.key, required this.subject});
@@ -23,7 +23,7 @@ class _LecturerPageState extends State<AssingmentPage> {
         children: AVM.assingments
             .map((e) => InkWell(
                   onLongPress: () {
-                    Navigator.pushNamed(context, SubmissionPage.ROUTE,
+                    Navigator.pushNamed(context, SubmissionPage2.ROUTE,
                         arguments: e);
                   },
                   child: Container(

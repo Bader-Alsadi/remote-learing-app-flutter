@@ -5,10 +5,11 @@ import 'package:remote_learing_app_frontend/core/helpers/Dio_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 import 'package:remote_learing_app_frontend/featuer/models/assingment_model.dart';
 import 'package:remote_learing_app_frontend/featuer/models/submission_model.dart';
+
 class SubmissionVM with ChangeNotifier {
-  List<Submission>? submissions;
+  List<Submission> submissions = [];
   Dio instanceDio = DioHL.instance();
-  Future<List<Submission>?> feachDate(
+  Future<List<Submission>> feachDate(
       ReposteryData repo, Assingment assingment) async {
     print(
         "${APIurl.ROOT}${APIurl.ASSINGMENT}/${assingment.id}${APIurl.SUBMISSION}");
@@ -40,8 +41,29 @@ class SubmissionVM with ChangeNotifier {
     return result;
   }
 
+  // download(int index, double value) {
+  //   submissions![index].progress = value;
+  //   notifyListeners();
+  // }
+
   download(int index, double value) {
-    submissions![index].progress = value;
+    submissions[index].dowloading = true;
+    submissions[index].progress = value;
+    notifyListeners();
+  }
+
+  fileExtis(int index, bool value) {
+    submissions[index].fileExists = value;
+    notifyListeners();
+  }
+
+  downloading(int index, bool value) {
+    submissions[index].dowloading = value;
+    notifyListeners();
+  }
+
+  deleteFromDivese(int index, bool value) {
+    submissions[index].fileExists = value;
     notifyListeners();
   }
 }

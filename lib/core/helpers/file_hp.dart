@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as Path;
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
@@ -63,29 +64,29 @@ class FileHP {
 
   startDownload(
       CancelToken cancelToken, SubmissionVM SVM, Submission submission) async {
-    print("${submission.path!}");
+    int index = SVM.submissions.indexOf(submission);
     cancelToken = CancelToken();
     var filePath = "${DirectoryPath.path}/${Path.basename(submission.path!)}";
     print(filePath);
 
     try {
-      print("try");
       await Dio().download(submission.path!, filePath,
           onReceiveProgress: (count, total) {
-        SVM.download(SVM.submissions!.indexOf(submission), (count / total));
+        SVM.download(SVM.submissions.indexOf(submission), (count / total));
+        SVM.download(index, (count / total));
       }, cancelToken: cancelToken);
+      SVM.downloading(index, false);
+      SVM.fileExtis(index, true);
     } catch (e) {
-      print("cach$e");
+      if (kDebugMode) print("cach$e");
     }
   }
 
   startDownload1(
       CancelToken cancelToken, MaterialVM MVM, Materiall material) async {
     int index = MVM.materials.indexOf(material);
-    print("mate pat ${material.path!}");
     cancelToken = CancelToken();
     var filePath = "${DirectoryPath.path}/${Path.basename(material.path!)}";
-    print("path ${filePath}");
     try {
       print("try");
       await Dio().download(material.path!, filePath,
@@ -95,11 +96,11 @@ class FileHP {
       MVM.downloading(index, false);
       MVM.fileExtis(index, true);
     } catch (e) {
-      print("cach$e");
+      if (kDebugMode) print("cach$e");
     }
   }
 
-   cancelDownload(CancelToken cancelToken) {
+  cancelDownload(CancelToken cancelToken) {
     cancelToken.cancel();
   }
 

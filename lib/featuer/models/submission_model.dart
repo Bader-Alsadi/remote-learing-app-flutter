@@ -10,6 +10,8 @@ class Submission {
   bool? state;
   String? studentName;
   double progress = 0;
+   bool dowloading = false;
+  bool? fileExists ;
 
   Submission(
       {this.id,

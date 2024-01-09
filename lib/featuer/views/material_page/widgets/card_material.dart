@@ -27,66 +27,63 @@ class CardListtile extends StatelessWidget {
     return Column(
       children: [
         Card(
-          child: Column(
-            children: [
-              Image.asset(
-                getFormatImage(material.madiaType!),
-                height: 100,
+          child: ListTile(
+              onTap: () {
+                if (!material.fileExists!) {
+                  openMethod(context, SCVM);
+                } else {
+                  instanceFile.openfile(material.path!);
+                }
+              },
+              title: Text(
+                "Title : ${material.title!}",
+                style: TEXT_NORMAL,
               ),
-              ListTile(
-                  onTap: () {
-                    if (!material.fileExists!) {
-                      openMethod(context, SCVM);
-                    } else {
-                      instanceFile.openfile(material.path!);
-                    }
-                  },
-                  title: Text(
-                    "Title : ${material.title!}",
-                    style: TEXT_NORMAL,
-                  ),
-                  subtitle: Text(
-                    "Type : ${material.type} | Size : ${material.size!.toStringAsFixed(2)} MP",
-                    style: TEXT_NORMAL,
-                  ),
-                  leading: material.dowloading
-                      ? InkWell(
-                          onTap: () {
-                            instanceFile.cancelDownload(cancelToken);
-                            SCVM.downloading(index, false);
-                          },
-                          child: Icon(Icons.cancel))
-                      : null,
-                  trailing: IconButton(
-                    onPressed: () {
-                      material.fileExists == null
-                          ? null
-                          : material.fileExists!
-                              ? instanceFile
-                                  .deletafiel(material.path!)
-                                  .then((value) {
-                                  SCVM.deleteFromDivese(index, value);
-                                })
-                              : instanceFile.startDownload1(
-                                  CancelToken(), SCVM, material);
-                    },
-                    icon: material.fileExists == null
-                        ? SpinKitWaveSpinner(
-                            color: THIRD_COLOR,
-                            size: 30,
+              subtitle: Text(
+                "Type : ${material.type} | Size : ${material.size!.toStringAsFixed(2)} MP",
+                style: TEXT_NORMAL,
+              ),
+              leading: material.dowloading
+                  ? InkWell(
+                      onTap: () {
+                        instanceFile.cancelDownload(cancelToken);
+                        SCVM.downloading(index, false);
+                      },
+                      child: Icon(Icons.cancel))
+                  : Image.asset(
+                      getFormatImage(material.madiaType!),
+                      height: 70,
+                      width: 60,
+                      fit: BoxFit.fill,
+                    ),
+              trailing: IconButton(
+                onPressed: () {
+                  material.fileExists == null
+                      ? null
+                      : material.fileExists!
+                          ? instanceFile
+                              .deletafiel(material.path!)
+                              .then((value) {
+                              SCVM.deleteFromDivese(index, value);
+                            })
+                          : instanceFile.startDownload1(
+                              CancelToken(), SCVM, material);
+                },
+                icon: material.fileExists == null
+                    ? SpinKitWaveSpinner(
+                        color: THIRD_COLOR,
+                        size: 30,
+                      )
+                    : material.fileExists!
+                        ? Icon(
+                            Icons.delete,
+                            color: Colors.red,
                           )
-                        : material.fileExists!
-                            ? Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              )
-                            : material.dowloading
-                                ? Text(
-                                    "${(material.progress * 100).toStringAsFixed(2)} %")
-                                : Icon(Icons.download),
-                  )),
-            ],
-          ),
+                        : material.dowloading
+                            ? Text(
+                                "${(material.progress * 100).toStringAsFixed(2)} %")
+                            : Icon(Icons.download),
+              )),
         ),
       ],
     );

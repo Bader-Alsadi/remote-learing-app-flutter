@@ -10,6 +10,7 @@ import 'package:remote_learing_app_frontend/featuer/views/profile_page/profile_p
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/settings_page.dart/settings_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/submission_page.dart/submission_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/submission_page/submission_page.dart';
 
 class RouteManger {
   static Route<dynamic>? genrtedRoute(RouteSettings settings) {
@@ -42,6 +43,10 @@ class RouteManger {
         {
           return MaterialPageRoute(builder: (context) => SettingsPage());
         }
+        case SubmissionPage.ROUTE:
+        {
+          return MaterialPageRoute(builder: (context) => SettingsPage());
+        }
       case SubmissionPage.ROUTE:
         {
           var assingment = settings.arguments as Assingment;
@@ -58,7 +63,17 @@ class RouteManger {
                     lecturer: lecturer,
                   ));
         }
+
+        case SubmissionPage2.ROUTE:
+        {
+          Assingment assingment = settings.arguments as Assingment;
+          return MaterialPageRoute(
+              builder: (context) => SubmissionPage2(
+                    assingment: assingment,
+                  ));
+        }
     }
+    
     return null;
   }
 }
