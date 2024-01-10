@@ -4,6 +4,7 @@ import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
+import 'package:remote_learing_app_frontend/core/widgets/costom_cjhange_langouge_mathod.dart';
 import 'package:remote_learing_app_frontend/core/widgets/coustom_settings_row.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
@@ -94,30 +95,7 @@ class SettingsPage extends StatelessWidget {
               subTitle: " ",
               imagePath: "assets/icons/exit.svg",
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text(locale!.language),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              RadioListTile(
-                                  title: Text(locale!.arabic),
-                                  value: "ar",
-                                  groupValue: instance.getLanguageCode,
-                                  onChanged: (value) {
-                                    instance.setLanguageCode = value!;
-                                  }),
-                              RadioListTile(
-                                  title: Text("English"),
-                                  value: "en",
-                                  groupValue: instance.getLanguageCode,
-                                  onChanged: (value) {
-                                    instance.setLanguageCode = value!;
-                                  }),
-                            ],
-                          ),
-                        ));
+                changeLangauge(context);
               },
             ),
             RowSettings(
@@ -140,4 +118,5 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+
 }

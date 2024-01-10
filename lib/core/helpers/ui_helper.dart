@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
+import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 
 String? validateName(String? value) {
@@ -61,6 +62,8 @@ bool isDarkMode(BuildContext context) {
   }
 }
 
+////////////////////////Text file decortiont Start //////////////////////////////
+
 InputDecoration getInputDecoration(
     {required String hint,
     required bool darkMode,
@@ -111,6 +114,37 @@ InputDecoration getInputDecorationSB(
     ),
   );
 }
+
+InputDecoration textfiledDecortion() {
+  return InputDecoration(
+      prefixIcon: const Icon(
+        Icons.search,
+        color: GRAY_COLOR,
+        size: ICON_SIZE,
+      ),
+      // helperText: "Search your topic",
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      labelText: "Search...",
+      labelStyle: const TextStyle(color: GRAY_COLOR),
+      filled: true,
+      fillColor: WHITH_COLOR,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(40),
+      ),
+      isDense: true);
+}
+////////////////////////Text file decortiont end //////////////////////////////
+
+
+
+///////////////////////BoxShadow design start /////////////////////////////////
+
+var boxShadow2 = BoxShadow(
+              color: BLACK_COLOR.withOpacity(.1),
+              blurRadius: 4.0,
+              spreadRadius: .05,
+            );
+///////////////////////BoxShadow design end  ////////////////////////////////////
 
 showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context)

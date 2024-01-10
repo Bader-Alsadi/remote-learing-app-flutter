@@ -13,4 +13,7 @@ class APIurl {
   static const String SUBMISSION_GRADE_UPD = "/updategrade";
   static const String LECTURER_UPDATE = "/updatelecturer";
   static const String ASSINGMENT_UPDATE = "/updateAssingment"; 
+  static const String DEPARTMENT = "/departmentDetiles"; 
+  static const String STUDENT = "/students"; 
+
 }

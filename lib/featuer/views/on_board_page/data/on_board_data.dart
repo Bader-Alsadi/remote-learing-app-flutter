@@ -1,3 +1,5 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 List <Map> onBoradList = [
   {
 "image_path":"assets/images/courses/Welcome-cuate.png",

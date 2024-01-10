@@ -7,6 +7,7 @@ import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_image_title.dart';
+import 'package:remote_learing_app_frontend/featuer/views/chart_/test.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({
@@ -75,45 +76,48 @@ class _DashboardState extends State<Dashboard> {
                   subtitle: NotmalGrayText(value: instance.read("email")),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: AspectRatio(
-                  aspectRatio: 2,
-                  child: BarChart(
-                    BarChartData(
-                      barGroups: [
-                        generateGroupData(1, 10),
-                        generateGroupData(2, 18),
-                        generateGroupData(3, 4),
-                        generateGroupData(4, 11),
-                      ],
-                      barTouchData: BarTouchData(
-                          enabled: true,
-                          handleBuiltInTouches: false,
-                          touchCallback: (event, response) {
-                            if (response != null &&
-                                response.spot != null &&
-                                event is FlTapUpEvent) {
-                              setState(() {
-                                final x = response.spot!.touchedBarGroup.x;
-                                final isShowing = showingTooltip == x;
-                                if (isShowing) {
-                                  showingTooltip = -1;
-                                } else {
-                                  showingTooltip = x;
-                                }
-                              });
-                            }
-                          },
-                          mouseCursorResolver: (event, response) {
-                            return response == null || response.spot == null
-                                ? MouseCursor.defer
-                                : SystemMouseCursors.click;
-                          }),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(24),
+              //   child: AspectRatio(
+              //     aspectRatio: 2,
+              //     child: BarChart(
+              //       BarChartData(
+              //         barGroups: [
+              //           generateGroupData(1, 5),
+              //           generateGroupData(2, 18),
+              //           generateGroupData(3, 4),
+              //           generateGroupData(4, 11),
+              //           generateGroupData(4, 11),
+              //           generateGroupData(4, 11),
+              //         ],
+              //         barTouchData: BarTouchData(
+              //             enabled: true,
+              //             handleBuiltInTouches: false,
+              //             touchCallback: (event, response) {
+              //               if (response != null &&
+              //                   response.spot != null &&
+              //                   event is FlTapUpEvent) {
+              //                 setState(() {
+              //                   final x = response.spot!.touchedBarGroup.x;
+              //                   final isShowing = showingTooltip == x;
+              //                   if (isShowing) {
+              //                     showingTooltip = -1;
+              //                   } else {
+              //                     showingTooltip = x;
+              //                   }
+              //                 });
+              //               }
+              //             },
+              //             mouseCursorResolver: (event, response) {
+              //               return response == null || response.spot == null
+              //                   ? MouseCursor.defer
+              //                   : SystemMouseCursors.click;
+              //             }),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              BarChartSample7()
             ])),
       ),
     );
@@ -121,18 +125,15 @@ class _DashboardState extends State<Dashboard> {
 }
 
 class NotmalWhitText extends StatelessWidget {
-  const NotmalWhitText({
-    super.key,
-    required this.value,
-  });
-
+  const NotmalWhitText({super.key, required this.value, this.color});
+  final Color? color;
   final String value;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       value,
-      style: TEXT_NORMAL.copyWith(color: WHITH_COLOR),
+      style: TEXT_NORMAL.copyWith(color: color ?? BLACK_COLOR),
     );
   }
 }

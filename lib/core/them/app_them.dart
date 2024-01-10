@@ -7,7 +7,7 @@ ThemeData appThem = ThemeData(
   //   iconColor: WHITH_COLOR,
   // ),
   useMaterial3: true,
-  fontFamily: "Tajawal",
+  fontFamily: "Cairo",
   appBarTheme: AppBarTheme(
     backgroundColor: WHITH_COLOR,
     elevation: 0,

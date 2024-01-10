@@ -29,9 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
-  
     sdk: flutter
-    
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,6 +54,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  video_player: ^2.8.2
+  settings_ui: ^2.0.2
+  hive_cache_interceptor: ^1.0.0-dev.4
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -103,6 +105,11 @@ flutter:
         - asset: assets/fonts/Tajawal-Regular.ttf
         - asset: assets/fonts/Tajawal-Bold.ttf
         - asset: assets/fonts/Tajawal-Light.ttf
+
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

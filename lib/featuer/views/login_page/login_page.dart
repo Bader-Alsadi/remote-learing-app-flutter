@@ -2,15 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/auth_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -22,10 +25,10 @@ class LoginPage extends StatelessWidget {
   bool isDipaly = true;
   AuthVM avm = AuthVM();
   bool isloaded = true;
+  GetStorage getStInstance = GetStorageHelper.instance("user");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: SingleChildScrollView(
         child: Container(
           child: Form(
@@ -105,7 +108,7 @@ class LoginPage extends StatelessWidget {
                           if (resutle["status"])
                             Navigator.pushReplacementNamed(
                               context,
-                              RootPage.ROUTE,
+                              BaseScreen.ROUTE,
                             );
                           isloaded = true;
                           showSnackBar(context, resutle["message"]);

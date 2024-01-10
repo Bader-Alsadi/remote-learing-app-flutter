@@ -1,5 +1,21 @@
 {
   "helloWorld": "Hello World!",
   "language": "language",
-  "arabic": "arabic"
+  "arabic": "arabic",
+  "presonalInformation":"Presonal Information",
+  "editProfile":"Edit Profile",
+  "changePassword":"Change Password",
+  "theme":"Theme",
+  "darkMode":"Dark Mode",
+  "more":"More",
+  "aboutUs":"About us",
+  "logout":"Logout",
+  "privacy":"Privacy",
+  "settings":"Settings",
+  "fristPageDescripct":"Please login first before you start you intesrted trip login first before you start login first before you starts",
+  "fristPageTitle":"welcome",
+  "secondPageDescripct":"Please login first before you start you intesrted trip login first before you start login first before you starts",
+  "secondPageTitle":"Study effortlessly",
+  "thiredPageDescripct":"Please login first before you start you intesrted trip login first before you start login first before you starts",
+  "thiredPageTitle":"Daily analysis and track"
 }

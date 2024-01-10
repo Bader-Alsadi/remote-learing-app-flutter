@@ -9,7 +9,7 @@ import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart'
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_card_cource.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_serash_bar.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/course_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
 
 class MyCourse extends StatelessWidget {
@@ -17,16 +17,15 @@ class MyCourse extends StatelessWidget {
   static const String ROUTE = "dashbord";
   TextEditingController seashCo = TextEditingController();
   GetStorage instance = GetStorageHelper.instance("user");
-
   @override
   Widget build(BuildContext context) {
-    final IVM = Provider.of<InstroctorVM>(context);
+    final IVM = Provider.of<CoucesVM>(context);
     InternetConnectionChecker().hasConnection.then((value) {
       if (!value) {
         if (IVM.subjects.isEmpty)
           IVM.feachDate(ReposteryAPI(), instance.read("id")).then(
             (value) {
-              IVM.insturoctor = value;
+              IVM.subjects = value;
             },
           );
       }

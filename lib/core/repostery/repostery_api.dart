@@ -37,8 +37,8 @@ class ReposteryAPI extends ReposteryData {
     print("insaid repo : ${data.fields}");
     Response? response;
     try {
-      response =
-          await dioInstance.post(source, data: data, options: getOptionshedar());
+      response = await dioInstance.post(source,
+          data: data, options: getOptionshedar());
       return response.data;
     } on DioException catch (e) {
       return responseDioException(e);
@@ -73,7 +73,7 @@ class ReposteryAPI extends ReposteryData {
       final result =
           await dioInstance.get(APIurl.LOGOUT, options: getOptionshedar());
       if (result.data["status"]) {
-        instance.erase();
+        instance.remove("user");
         return result.data;
       } else {
         return {"status": false, "message": "The opretion is faild"};

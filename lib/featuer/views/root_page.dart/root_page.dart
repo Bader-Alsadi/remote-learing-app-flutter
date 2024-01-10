@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
-import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/chat/chat_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/my_course_page.dart';

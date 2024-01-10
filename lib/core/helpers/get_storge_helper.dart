@@ -4,7 +4,9 @@ class GetStorageHelper {
   static GetStorage? _box;
 
   static GetStorage instance(String name) {
-    _box ??= GetStorage(name);
+    if (_box == null) {
+      _box = GetStorage(name);
+    }
     return _box!;
   }
 }

@@ -8,6 +8,7 @@ import 'package:remote_learing_app_frontend/featuer/views/material_page/materia_
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
 import 'package:remote_learing_app_frontend/featuer/views/profile_page/profile_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
 import 'package:remote_learing_app_frontend/featuer/views/settings_page.dart/settings_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/submission_page/submission_page.dart';
 
@@ -41,6 +42,10 @@ class RouteManger {
       case SettingsPage.ROUTE:
         {
           return MaterialPageRoute(builder: (context) => SettingsPage());
+        }
+        case BaseScreen.ROUTE:
+        {
+          return MaterialPageRoute(builder: (context) => BaseScreen());
         }
       //   case SubmissionPage.ROUTE:
       //   {

@@ -8,15 +8,15 @@ import 'package:remote_learing_app_frontend/core/manger_route.dart';
 import 'package:remote_learing_app_frontend/core/them/app_them.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/download_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/view_models/instructor_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/course_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/submission_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/on_bord.dart';
-import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider<Loaclization>(
         create: (context) => Loaclization.getInstance(),
       ),
-      ChangeNotifierProvider<InstroctorVM>(
-        create: (context) => InstroctorVM(),
+      ChangeNotifierProvider<CoucesVM>(
+        create: (context) => CoucesVM(),
       ),
       ChangeNotifierProvider<LecturerVM>(
         create: (context) => LecturerVM(),
@@ -86,7 +86,7 @@ class MateAPP extends StatelessWidget {
           ? Start1()
           : instance.read("token") == null
               ? LoginPage()
-              : RootPage(),
+              : BaseScreen(),
       onGenerateRoute: RouteManger.genrtedRoute,
     );
   }
