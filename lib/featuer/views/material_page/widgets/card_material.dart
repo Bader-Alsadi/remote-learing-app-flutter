@@ -28,6 +28,7 @@ class CardListtile extends StatelessWidget {
       children: [
         Card(
           child: ListTile(
+              tileColor: SECONDRY_COLOR.withOpacity(.2),
               onTap: () {
                 if (!material.fileExists!) {
                   openMethod(context, SCVM);

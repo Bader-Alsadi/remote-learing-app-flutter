@@ -9,6 +9,7 @@ import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/peremition_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
+import 'package:remote_learing_app_frontend/core/widgets/costom_icon_bottom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
@@ -70,11 +71,15 @@ class _Material2State extends State<Material2> {
     MaterialVM MVM = Provider.of<MaterialVM>(context);
 
     return Scaffold(
+      backgroundColor: WHITH_COLOR,
       appBar: AppBar(
+        backgroundColor: SECONDRY_COLOR,
+        foregroundColor: WHITH_COLOR,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Circalicon(
             iconData: Icons.arrow_back_ios_new_rounded,
+            color: WHITH_COLOR,
             onTap: () {
               Navigator.pop(context);
             },
@@ -84,7 +89,7 @@ class _Material2State extends State<Material2> {
       ),
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
-          backgroundColor: FOURTH_COLOR,
+          backgroundColor: SECONDRY_COLOR,
           onPressed: () {
             GlobalKey<FormState> FormKey = GlobalKey();
             AutovalidateMode validation = AutovalidateMode.always;
@@ -94,21 +99,27 @@ class _Material2State extends State<Material2> {
             showBottomSheetMT(context, FormKey, validation, controllers, MVM);
           },
           child: Icon(
-            Icons.add_box_rounded,
+            Icons.add,
+            size: 30,
+            color: WHITH_COLOR,
           ),
         );
       }),
       body: isConnect != null
           ? isConnect!
-              ? SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: SPACER + 8),
-                    child: Column(
-                      children: SCVM.materials
-                          .map((e) => CardListtile(
-                                material: e,
-                              ))
-                          .toList(),
+              ? Container(
+                  color: THIRD_COLOR.withOpacity(0.2),
+                  height: MediaQuery.sizeOf(context).height,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: SPACER + 8),
+                      child: Column(
+                        children: SCVM.materials
+                            .map((e) => CardListtile(
+                                  material: e,
+                                ))
+                            .toList(),
+                      ),
                     ),
                   ),
                 )
@@ -160,11 +171,15 @@ class _Material2State extends State<Material2> {
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              Text(
+                                "${pickFile?.path.split("/").last}",
+                                style: TEXT_NORMAL.copyWith(color: BLACK_COLOR),
+                              ),
                               Flexible(
                                 child: CustomElevatedBottom(
-                                  backColor: WHITH_COLOR,
-                                  borderColor: BLACK_COLOR,
-                                  titleColor: BLACK_COLOR,
+                                  backColor: THIRD_COLOR,
+                                  borderColor: THIRD_COLOR,
+                                  titleColor: SECONDRY_COLOR,
                                   lable: "Pickup File",
                                   onPressedFun: () async {
                                     pickFile = await FileHP().pickupFile();
@@ -173,10 +188,6 @@ class _Material2State extends State<Material2> {
                                   },
                                 ),
                               ),
-                              Text(
-                                "${pickFile?.path.split("/").last}",
-                                style: TEXT_NORMAL.copyWith(color: BLACK_COLOR),
-                              )
                             ],
                           ),
                           StatefulBuilder(

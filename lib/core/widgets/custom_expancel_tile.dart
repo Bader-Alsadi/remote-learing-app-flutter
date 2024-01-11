@@ -46,9 +46,9 @@ class ExpansionTileC extends StatelessWidget {
           onPressed: (context) async {
             showDialogC(context, LVM, subject, lecturer: lecturer);
           },
-          foregroundColor: SECONDRY_COLOR,
+          foregroundColor: BLACK_COLOR,
           icon: Icons.edit_calendar_rounded,
-          backgroundColor: THIRD_COLOR,
+          backgroundColor: FOURTH_COLOR.withOpacity(.2),
         )
       ]),
       child: Padding(
