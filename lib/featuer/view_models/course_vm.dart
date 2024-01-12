@@ -26,7 +26,6 @@ class CoucesVM with ChangeNotifier {
           data.map((e) => Subject.fromJson(e as Map<String, dynamic>)).toList();
     }
     notifyListeners();
-
     return subjects;
   }
 }

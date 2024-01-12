@@ -35,7 +35,7 @@ class pickDateWidget extends StatelessWidget {
                   lastDate: DateTime(2025));
               print("$selectData");
               if (selectData == null) {
-                showSnackBar(context, "selected date is null");
+                showSnackBar(context, "selected date is null", false);
               }
               setstate(() {});
             },

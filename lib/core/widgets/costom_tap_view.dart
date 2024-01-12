@@ -28,7 +28,7 @@ class _CustomTabViewState extends State<CustomTabView> {
               horizontal: MediaQuery.of(context).size.width * .08,
               vertical: 15),
           decoration: BoxDecoration(
-            color: widget.index == index ? SECONDRY_COLOR : null,
+            color: widget.index == index ? PRIMARY_COLOR : null,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
@@ -46,8 +46,9 @@ class _CustomTabViewState extends State<CustomTabView> {
   Widget build(BuildContext context) {
     return Container(
       // padding: const EdgeInsets.all(10),
-      margin:
-          EdgeInsets.symmetric(horizontal: MIN_SPACER, vertical: SMALL_SPACER),
+      margin: EdgeInsets.symmetric(
+        horizontal: MIN_SPACER * .7,
+      ),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),

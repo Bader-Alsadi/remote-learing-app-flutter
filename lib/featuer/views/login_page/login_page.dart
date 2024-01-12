@@ -12,7 +12,6 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/auth_vm.dart';
-import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
 
 class LoginPage extends StatelessWidget {
@@ -111,7 +110,7 @@ class LoginPage extends StatelessWidget {
                               BaseScreen.ROUTE,
                             );
                           isloaded = true;
-                          showSnackBar(context, resutle["message"]);
+                          showSnackBar(context, resutle["message"],resutle["status"]);
                           setstate(
                             () {},
                           );

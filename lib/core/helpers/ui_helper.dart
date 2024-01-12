@@ -135,24 +135,22 @@ InputDecoration textfiledDecortion() {
 }
 ////////////////////////Text file decortiont end //////////////////////////////
 
-
-
 ///////////////////////BoxShadow design start /////////////////////////////////
 
 var boxShadow2 = BoxShadow(
-              color: BLACK_COLOR.withOpacity(.1),
-              blurRadius: 4.0,
-              spreadRadius: .05,
-            );
+  color: BLACK_COLOR.withOpacity(.1),
+  blurRadius: 4.0,
+  spreadRadius: .05,
+);
 ///////////////////////BoxShadow design end  ////////////////////////////////////
 
-showSnackBar(BuildContext context, String message) {
+showSnackBar(BuildContext context, String message, bool state) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
         showCloseIcon: true,
-        backgroundColor: SECONDRY_COLOR,
+        backgroundColor: state ? PRIMARY_COLOR : FOURTH_COLOR,
         content: Text(
           message,
           style: TextStyle(color: WHITH_COLOR),

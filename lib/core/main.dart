@@ -81,7 +81,12 @@ class MateAPP extends StatelessWidget {
         Locale('en', ''),
         Locale('ar', ''),
       ],
-      theme: appThem,
+      theme: appThem.copyWith(
+          textTheme: appThem.textTheme.apply(
+        fontFamily: Provider.of<Loaclization>(context).languageCode == "ar"
+            ? "Tajawal"
+            : "Cairo",
+      )),
       home: isfrist!
           ? Start1()
           : instance.read("token") == null

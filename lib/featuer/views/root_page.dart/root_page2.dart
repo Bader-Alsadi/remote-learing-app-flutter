@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/image_paths.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/widgets/costom_svg_pictuer.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
 import 'package:remote_learing_app_frontend/featuer/views/settings_page/settings_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/student_corces/student_corces.dart';
@@ -14,6 +17,7 @@ class BaseScreen extends StatefulWidget {
   @override
   _BaseScreenState createState() => _BaseScreenState();
 }
+
 class _BaseScreenState extends State<BaseScreen> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
@@ -40,46 +44,38 @@ class _BaseScreenState extends State<BaseScreen> {
           elevation: 0,
           items: [
             BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                icFeatured,
-                height: kBottomNavigationBarItemSize,
-              ),
-              icon: Image.asset(
-                icFeaturedOutlined,
-                height: kBottomNavigationBarItemSize,
+              activeIcon: NavRouteImage(
+                path: "${NAV_BAR_PATH}home${IS_SOLID}",
+              ).animate().scale(duration: 300.ms),
+              icon: NavRouteImage(
+                path: "${NAV_BAR_PATH}home${IS_OUTLINE}",
               ),
               label: "Home Page",
             ),
             BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                icLearning,
-                height: kBottomNavigationBarItemSize,
-              ),
-              icon: Image.asset(
-                icLearningOutlined,
-                height: kBottomNavigationBarItemSize,
+              activeIcon: NavRouteImage(
+                path: "${NAV_BAR_PATH}play${IS_SOLID}",
+              ).animate().scale(duration: 300.ms),
+              icon: NavRouteImage(
+                path: "${NAV_BAR_PATH}play${IS_OUTLINE}",
               ),
               label: "My Learning",
             ),
             BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                icWishlist,
-                height: kBottomNavigationBarItemSize,
-              ),
-              icon: Image.asset(
-                icWishlistOutlined,
-                height: kBottomNavigationBarItemSize,
+              activeIcon: NavRouteImage(
+                path: "${NAV_BAR_PATH}chat${IS_SOLID}",
+              ).animate().scale(duration: 300.ms),
+              icon: NavRouteImage(
+                path: "${NAV_BAR_PATH}chat${IS_OUTLINE}",
               ),
               label: "Chat",
             ),
             BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                icSetting,
-                height: kBottomNavigationBarItemSize,
-              ),
-              icon: Image.asset(
-                icSettingOutlined,
-                height: kBottomNavigationBarItemSize,
+              activeIcon: NavRouteImage(
+                path: "${NAV_BAR_PATH}settings${IS_SOLID}",
+              ).animate().scale(duration: 300.ms),
+              icon: NavRouteImage(
+                path: "${NAV_BAR_PATH}settings${IS_OUTLINE}",
               ),
               label: "Settings",
             ),

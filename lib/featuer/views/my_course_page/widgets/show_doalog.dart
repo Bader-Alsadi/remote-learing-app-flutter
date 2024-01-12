@@ -130,7 +130,7 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
                               resutle = value;
                               if (resutle["status"]) Navigator.pop(context);
                               isloaded = true;
-                              showSnackBar(context, resutle["message"]);
+                              showSnackBar(context, resutle["message"],resutle["status"]);
                               setstate(
                                 () {},
                               );
@@ -160,7 +160,7 @@ addLecturer(ALVM LVM, int subjectId, Lecturer lecturer, context,
     resutle = value;
     if (resutle["status"]) Navigator.pop(context);
     isloaded = true;
-    showSnackBar(context, resutle["message"]);
+    showSnackBar(context, resutle["message"],resutle["status"]);
     setstate(
       () {},
     );
@@ -176,7 +176,7 @@ updateLecturer(ALVM LVM, Lecturer lecturer, int subjectId, context,
     resutle = value;
     if (resutle["status"]) Navigator.pop(context);
     isloaded = true;
-    showSnackBar(context, resutle["message"]);
+    showSnackBar(context, resutle["message"],resutle["status"]);
     setstate(
       () {},
     );
@@ -192,7 +192,7 @@ updateAssingment(ALVM LVM, Assingment assingment, int subjectId, context,
     resutle = value;
     if (resutle["status"]) Navigator.pop(context);
     isloaded = true;
-    showSnackBar(context, resutle["message"]);
+    showSnackBar(context, resutle["message"],resutle["status"]);
     setstate(
       () {},
     );
@@ -234,7 +234,7 @@ addAssingment(ALVM LVM, int subjectId, Assingment assingment, context,
     resutle = value;
     if (resutle["status"]) Navigator.pop(context);
     isloaded = true;
-    showSnackBar(context, resutle["message"]);
+    showSnackBar(context, resutle["message"],resutle["status"]);
     setstate(
       () {},
     );

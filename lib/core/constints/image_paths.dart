@@ -18,3 +18,12 @@ const icDone = '$_path/done.png';
 const icLock = '$_path/lock.png';
 const icPlayNext = '$_path/play_next.png';
 const icPause = '$_path/pause.png';
+
+//nav bar
+
+const NAV_BAR_PATH = "assets/icons/nav_bar_icon/";
+const IS_SOLID = "-solid.svg";
+const IS_OUTLINE = "-outline.svg";
+
+//setting page
+const SETTINGS_PAGE_PATH = "assets/icons/settings_page/";

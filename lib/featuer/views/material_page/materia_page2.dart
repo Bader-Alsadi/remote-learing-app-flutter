@@ -9,7 +9,6 @@ import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/peremition_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
-import 'package:remote_learing_app_frontend/core/widgets/costom_icon_bottom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
@@ -73,7 +72,7 @@ class _Material2State extends State<Material2> {
     return Scaffold(
       backgroundColor: WHITH_COLOR,
       appBar: AppBar(
-        backgroundColor: SECONDRY_COLOR,
+        backgroundColor: PRIMARY_COLOR,
         foregroundColor: WHITH_COLOR,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
@@ -89,7 +88,7 @@ class _Material2State extends State<Material2> {
       ),
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
-          backgroundColor: SECONDRY_COLOR,
+          backgroundColor: PRIMARY_COLOR,
           onPressed: () {
             GlobalKey<FormState> FormKey = GlobalKey();
             AutovalidateMode validation = AutovalidateMode.always;
@@ -208,10 +207,10 @@ class _Material2State extends State<Material2> {
                                         ReposteryAPI(),
                                         widget.lecturer,
                                         material);
-                                    showSnackBar(context, result["message"]);
+                                    showSnackBar(context, result["message"],result["status"]);
                                     Navigator.pop(context);
                                   } else {
-                                    showSnackBar(context, "file path is empty");
+                                    showSnackBar(context, "file path is empty",false);
                                   }
                                 }
                               },

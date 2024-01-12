@@ -8,6 +8,7 @@ import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
+import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_head_line.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
@@ -23,34 +24,51 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   GetStorage instance = GetStorageHelper.instance("user");
-  bool? isconected;
-  @override
-  void initState() {
+  bool isloaded = false;
+  void relodePage() {
     final IVM = Provider.of<CoucesVM>(context, listen: false);
-    InternetConnectionChecker().hasConnection.then((value) {
-      if (!value) {
-        isconected = !value;
+    InternetConnectionChecker().hasConnection.then((internetState) {
+      if (!internetState) {
         if (IVM.subjects.isEmpty)
           IVM.feachDate(ReposteryAPI(), instance.read("id")).then(
             (value) {
               IVM.subjects = value;
+              isloaded = !internetState;
             },
           );
       } else {
-        isconected = false;
+        showSnackBar(context, "no internet", false);
       }
     });
+  }
+
+  @override
+  void initState() {
+    relodePage();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final IVM = Provider.of<CoucesVM>(context);
-    return isconected == null
-        ? Center(
-            child: SpinKitCubeGrid(
-            color: PRIMARY_COLOR,
-          ))
+    return !isloaded
+        ? Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SpinKitFadingCube(
+                  color: PRIMARY_COLOR,
+                ),
+                SizedBox(
+                  height: SMALL_SPACER,
+                ),
+                Text(
+                  "Loading...",
+                  style: TEXT_NORMAL,
+                )
+              ],
+            ),
+          )
         : IVM.subjects.isEmpty
             ? Center(
                 child: Column(
@@ -64,9 +82,16 @@ class _BodyState extends State<Body> {
                       "NO data",
                       style: TEXT_NORMAL,
                     ),
-                    CustomElevatedBottom(
-                      lable: "Try Agine",
-                      onPressedFun: (){},
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width * .6,
+                      child: CustomElevatedBottom(
+                        lable: "Reload Page",
+                        onPressedFun: () {
+                          isloaded = false;
+                          setState(() {});
+                          relodePage();
+                        },
+                      ),
                     )
                   ],
                 ),

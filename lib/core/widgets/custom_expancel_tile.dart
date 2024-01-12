@@ -37,10 +37,10 @@ class ExpansionTileC extends StatelessWidget {
           onPressed: (context) async {
             final result = await LVM.deleteLectuer(ReposteryAPI(), subject.id!,
                 lecturer != null ? lecturer!.id! : assingment!.id!);
-            showSnackBar(context, result["message"]);
+            showSnackBar(context, result["message"],result["status"]);
           },
           icon: Icons.delete,
-          backgroundColor: SECONDRY_COLOR,
+          backgroundColor: PRIMARY_COLOR,
         ),
         SlidableAction(
           onPressed: (context) async {

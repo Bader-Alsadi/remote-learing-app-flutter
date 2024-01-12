@@ -7,15 +7,26 @@ import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart'
 import 'package:remote_learing_app_frontend/core/widgets/costom_crical_bottom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_serash_filed.dart';
 
-class StudentCouresAppBar extends StatelessWidget {
+class StudentCouresAppBar extends StatefulWidget {
   StudentCouresAppBar({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<StudentCouresAppBar> createState() => _StudentCouresAppBarState();
+}
+
+class _StudentCouresAppBarState extends State<StudentCouresAppBar> {
   GetStorage instance = GetStorageHelper.instance("user");
+  late int timeNow;
+  @override
+  void initState() {
+    timeNow = DateTime.now().hour;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    int timeNow = DateTime.now().hour;
     return Container(
       padding: const EdgeInsets.only(
           top: SPACER, left: SMALL_SPACER * .5, right: SMALL_SPACER * .5),
@@ -29,10 +40,10 @@ class StudentCouresAppBar extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomRight,
-          stops: [0.1, 0.5],
+          stops: [0.1, 0.4],
           colors: [
-            PRIMARY_COLOR,
             SECONDRY_COLOR,
+            PRIMARY_COLOR,
           ],
         ),
       ),
@@ -43,12 +54,12 @@ class StudentCouresAppBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Hello,\n${timeNow >= 1 && timeNow < 1 ? "Good Mornikng" : timeNow >= 12 && timeNow < 16 ? "Good Afternoon" : "Good Eveing  ${instance.read("name")}"}",
+                "Hello,\n${timeNow >= 1 && timeNow < 12 ? "Good Mornikng" : timeNow >= 12 && timeNow < 16 ? "Good Afternoon" : "Good Eveing "} ${instance.read("name")}",
                 style: TEXT_BIG.copyWith(color: WHITH_COLOR),
               ),
               Badge(
-                backgroundColor: THIRD_COLOR,
-                textColor: BLACK_COLOR,
+                backgroundColor: FOURTH_COLOR.withOpacity(0.8),
+                textColor: WHITH_COLOR,
                 label: Text("2"),
                 smallSize: 14,
                 child: CircleButton(

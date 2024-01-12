@@ -88,7 +88,7 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
         ? isconnectd!
             ? Scaffold(
                 appBar: AppBar(
-                  backgroundColor: SECONDRY_COLOR,
+                  backgroundColor: PRIMARY_COLOR,
                   foregroundColor: WHITH_COLOR,
                   leading: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
@@ -143,6 +143,7 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                             ],
                           ),
                         ),
+                        SizedBox(height: SMALL_SPACER * .5),
                         CustomTabView(
                           index: _selectedTag,
                           changeTab: changeTab,

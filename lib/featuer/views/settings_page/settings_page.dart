@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/image_paths.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_cjhange_langouge_mathod.dart';
+import 'package:remote_learing_app_frontend/core/widgets/costom_svg_pictuer.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
-import 'package:settings_ui/settings_ui.dart';
+import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key, required this.title}) : super(key: key);
@@ -26,7 +31,12 @@ class _SettingsPageState extends State<SettingsPage> {
     locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: NotmalWhitText(value: widget.title),
+        backgroundColor: PRIMARY_COLOR,
+        foregroundColor: WHITH_COLOR,
+        title: NotmalWhitText(
+          value: widget.title,
+          color: WHITH_COLOR,
+        ),
       ),
       body: SettingsList(
         sections: [
@@ -34,9 +44,12 @@ class _SettingsPageState extends State<SettingsPage> {
             SettingsTile(
               title: ListTile(
                 contentPadding: EdgeInsets.all(0),
-                leading: CircleAvatar(
-                  radius: 35,
-                  backgroundImage: AssetImage(PLACE_HOLDER),
+                leading: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(image: AssetImage(PLACE_HOLDER))),
                 ),
                 title: NotmalWhitText(value: instanceGetStorge.read("name")),
                 subtitle:
@@ -46,38 +59,60 @@ class _SettingsPageState extends State<SettingsPage> {
           ]),
           SettingsSection(
             margin: EdgeInsetsDirectional.all(20),
-            title: NotmalWhitText(value: locale!.presonalInformation),
+            title: NotmalWhitText(
+              value: locale!.presonalInformation,
+              color: FOURTH_COLOR,
+            ),
             tiles: [
               SettingsTile(
                 title: NotmalWhitText(value: locale!.editProfile),
-                leading: Icon(Icons.person),
+                leading: NavRouteImage(
+                  path: "${SETTINGS_PAGE_PATH}person.svg",
+                ),
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile(
                 title: NotmalWhitText(value: locale!.changePassword),
-                leading: Icon(Icons.password_rounded),
+                leading: NavRouteImage(
+                  path: "${SETTINGS_PAGE_PATH}password.svg",
+                ),
                 onPressed: (BuildContext context) {},
               ),
             ],
           ),
           SettingsSection(
             margin: EdgeInsetsDirectional.all(20),
-            title: NotmalWhitText(value: locale!.theme),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Divider(),
+                NotmalWhitText(
+                  value: locale!.theme,
+                  color: FOURTH_COLOR,
+                ),
+              ],
+            ),
             tiles: [
               SettingsTile(
                 title: NotmalWhitText(value: locale!.language),
                 description: NotmalWhitText(
+                    color: BLACK_COLOR.withOpacity(0.3),
                     value:
                         "${locale!.localeName == "ar" ? "العربية" : "English"}"),
-                leading: Icon(Icons.language),
+                leading: NavRouteImage(
+                  path: "${SETTINGS_PAGE_PATH}language.svg",
+                ),
                 onPressed: (BuildContext context) {
                   changeLangauge(context);
                 },
               ),
               SettingsTile.switchTile(
+                activeSwitchColor: FOURTH_COLOR,
                 initialValue: true,
                 title: NotmalWhitText(value: locale!.darkMode),
-                leading: Icon(Icons.phone_android),
+                leading: NavRouteImage(
+                  path: "${SETTINGS_PAGE_PATH}dark-mode.svg",
+                ),
                 onToggle: (value) {
                   setState(() {
                     isSwitched = value;
@@ -88,22 +123,40 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingsSection(
             margin: EdgeInsetsDirectional.all(20),
-            title: NotmalWhitText(value: locale!.more),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Divider(),
+                NotmalWhitText(
+                  value: locale!.more,
+                  color: FOURTH_COLOR,
+                ),
+              ],
+            ),
             tiles: [
               SettingsTile(
                 title: NotmalWhitText(value: locale!.aboutUs),
-                leading: Icon(Icons.info_outline_rounded),
+                leading: NavRouteImage(
+                  path: "${SETTINGS_PAGE_PATH}about-us.svg",
+                ),
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile(
                   title: NotmalWhitText(
                     value: locale!.privacy,
                   ),
-                  leading: Icon(Icons.privacy_tip_outlined),
+                  leading: NavRouteImage(
+                    path: "${SETTINGS_PAGE_PATH}shield-user.svg",
+                  ),
                   onPressed: (BuildContext context) {}),
               SettingsTile(
                   title: NotmalWhitText(value: locale!.logout),
-                  leading: Icon(Icons.login_outlined),
+                  leading: NavRouteImage(
+                    path:
+                        "${SETTINGS_PAGE_PATH}logout-${Provider.of<Loaclization>(
+                              context,
+                            ).languageCode == "ar" ? "ar" : "en"}.svg",
+                  ),
                   onPressed: (BuildContext context) {
                     logout();
                   }),
@@ -120,7 +173,7 @@ class _SettingsPageState extends State<SettingsPage> {
       if (result["status"]) {
         Navigator.pushReplacementNamed(context, LoginPage.ROUTE);
       } else {
-        showSnackBar(context, result["message"]);
+        showSnackBar(context, result["message"], result["status"]);
       }
     });
   }

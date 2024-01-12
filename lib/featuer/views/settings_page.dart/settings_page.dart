@@ -108,7 +108,7 @@ class SettingsPage extends StatelessWidget {
                   if (result["status"]) {
                     Navigator.pushReplacementNamed(context, LoginPage.ROUTE);
                   } else {
-                    showSnackBar(context, result["message"]);
+                    showSnackBar(context, result["message"],result["status"]);
                   }
                 });
               },
