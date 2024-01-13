@@ -14,7 +14,7 @@ class Circalicon extends StatelessWidget {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: WHITH_COLOR, width: 1.0)),
+            border: Border.all(color: PRIMARY_COLOR, width: 1.0)),
         child: Icon(
           iconData,
           color: color ?? BLACK_COLOR,

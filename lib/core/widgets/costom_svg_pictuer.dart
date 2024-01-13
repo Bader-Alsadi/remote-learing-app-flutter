@@ -10,8 +10,7 @@ class NavRouteImage extends StatelessWidget {
     return SvgPicture.asset(
       path,
       colorFilter: ColorFilter.mode(PRIMARY_COLOR, BlendMode.srcIn),
-      height: 30,
-    )
-        ;
+      height: 24,
+    );
   }
 }

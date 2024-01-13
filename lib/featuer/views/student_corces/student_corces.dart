@@ -17,14 +17,13 @@ class _StudentCorcesPageState extends State<StudentCorcesPage> {
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         body: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             StudentCouresAppBar(),
-            Body(),
+            Flexible(child: Body()),
           ],
         ),
       ),
     );
   }
 }
-
-

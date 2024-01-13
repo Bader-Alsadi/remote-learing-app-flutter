@@ -32,8 +32,8 @@ class CourseCard extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: Image.asset(
-                "assets/icons/photography.jpg",
+              child: Image.network(
+                subject.image!,
                 height: CourseImagesize,
               ),
             ),
