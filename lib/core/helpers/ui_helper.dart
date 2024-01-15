@@ -119,7 +119,7 @@ InputDecoration textfiledDecortion() {
   return InputDecoration(
       prefixIcon: const Icon(
         Icons.search,
-        color: GRAY_COLOR,
+        color: PRIMARY_COLOR,
         size: ICON_SIZE,
       ),
       // helperText: "Search your topic",

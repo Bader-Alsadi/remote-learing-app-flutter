@@ -58,6 +58,11 @@ dependencies:
   settings_ui: ^2.0.2
   hive_cache_interceptor: ^1.0.0-dev.4
   carousel_slider: ^4.2.1
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.10
+  firebase_auth: ^4.16.0
+  firebase_storage: ^11.6.0
+  flutter_local_notifications: ^9.6.1
 
 dev_dependencies:
   flutter_test:
@@ -89,7 +94,6 @@ flutter:
     - "assets/images/media_format/"
     - "assets/icons/nav_bar_icon/"
     - "assets/icons/settings_page/"
-    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -6,6 +6,7 @@ import 'package:remote_learing_app_frontend/core/constints/image_paths.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_svg_pictuer.dart';
 import 'package:remote_learing_app_frontend/featuer/models/lecturer_model.dart';
+import 'package:remote_learing_app_frontend/featuer/views/chat/list_chat.dart';
 import 'package:remote_learing_app_frontend/featuer/views/settings_page/settings_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/student_corces/student_corces.dart';
 import 'package:remote_learing_app_frontend/featuer/views/student_materil_page.dart/student_matrial.dart';
@@ -26,7 +27,7 @@ class _BaseScreenState extends State<BaseScreen> {
       title: " ",
       lecturer: Lecturer(),
     ),
-    StudentCorcesPage(),
+    ChatList(),
     SettingsPage(
       title: "settings",
     ),

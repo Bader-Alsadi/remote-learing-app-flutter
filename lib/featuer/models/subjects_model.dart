@@ -8,7 +8,7 @@ class Subject {
   String? description;
   String? image;
   int? houre;
-  double? grade;
+  int? grade;
   String? year;
   String? scientificMethod;
   Department? department;
@@ -33,7 +33,7 @@ class Subject {
     description = json['description'];
     image = json['image'];
     houre = json['houre'];
-    grade = double.parse(json['grade']);
+    grade = json['grade'];
     year = json['year'];
     scientificMethod = json['scientific_method'];
     department = json['department'] != null

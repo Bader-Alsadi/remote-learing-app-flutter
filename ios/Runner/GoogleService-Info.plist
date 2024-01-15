@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCvFzEvU6Qxwgu6XRyKIGPHcJwpQ2tZ3Ps</string>
+	<key>GCM_SENDER_ID</key>
+	<string>962134305325</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.remoteLearingAppFrontend</string>
+	<key>PROJECT_ID</key>
+	<string>final-project-c8451</string>
+	<key>STORAGE_BUCKET</key>
+	<string>final-project-c8451.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:962134305325:ios:dc280d9f99b63b92c1e6a4</string>
+</dict>
+</plist>

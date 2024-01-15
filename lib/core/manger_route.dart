@@ -7,9 +7,11 @@ import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.
 import 'package:remote_learing_app_frontend/featuer/views/material_page/materia_page2.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
 import 'package:remote_learing_app_frontend/featuer/views/profile_page/profile_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/repout_page/report_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
 import 'package:remote_learing_app_frontend/featuer/views/settings_page.dart/settings_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/student_details/student_detials.dart';
 import 'package:remote_learing_app_frontend/featuer/views/submission_page/submission_page.dart';
 
 class RouteManger {
@@ -43,9 +45,21 @@ class RouteManger {
         {
           return MaterialPageRoute(builder: (context) => SettingsPage());
         }
-        case BaseScreen.ROUTE:
+      case BaseScreen.ROUTE:
         {
           return MaterialPageRoute(builder: (context) => BaseScreen());
+        }
+      case RepoutPage.ROUTE:
+        {
+          Subject subject = settings.arguments as Subject;
+          return MaterialPageRoute(
+              builder: (context) => RepoutPage(
+                    subject: subject,
+                  ));
+        }
+      case StudentDetails.ROUTE:
+        {
+          return MaterialPageRoute(builder: (context) => StudentDetails());
         }
       //   case SubmissionPage.ROUTE:
       //   {
@@ -68,7 +82,7 @@ class RouteManger {
                   ));
         }
 
-        case SubmissionPage2.ROUTE:
+      case SubmissionPage2.ROUTE:
         {
           Assingment assingment = settings.arguments as Assingment;
           return MaterialPageRoute(
@@ -77,7 +91,7 @@ class RouteManger {
                   ));
         }
     }
-    
+
     return null;
   }
 }

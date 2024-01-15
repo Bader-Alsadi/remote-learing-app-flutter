@@ -12,6 +12,7 @@ import 'package:remote_learing_app_frontend/featuer/view_models/course_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/report_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/submission_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/on_bord.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
       ),
       ChangeNotifierProvider<SubmissionVM>(
         create: (context) => SubmissionVM(),
+      ),
+      ChangeNotifierProvider<ReportVM>(
+        create: (context) => ReportVM(),
       ),
     ], child: MateAPP());
   }

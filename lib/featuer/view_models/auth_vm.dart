@@ -8,8 +8,6 @@ import 'package:remote_learing_app_frontend/core/repostery/repostery_data.dart';
 class AuthVM {
   GetStorage getStInstance = GetStorageHelper.instance("user");
 
- 
-
   Future<Map> login(ReposteryData repo, Map<String, dynamic> data) async {
     Map resutle = await repo.login(APIurl.LOGIN, data);
 
@@ -31,6 +29,7 @@ class AuthVM {
     getStInstance.write("role", serverData["role_type"]);
     if (serverData["role_type"] == "Student") {
       getStInstance.write("deparment_id", serverData["deparment_id"]);
+      getStInstance.write("student_id", serverData["student_id"]);
       getStInstance.write("department", serverData["department"]);
       getStInstance.write("level", serverData["level"]);
       getStInstance.write("semester", serverData["semester"]);

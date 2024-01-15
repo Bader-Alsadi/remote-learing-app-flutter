@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/file_hp.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/helpers/peremition_hp.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
@@ -28,6 +30,7 @@ class Material2 extends StatefulWidget {
 }
 
 class _Material2State extends State<Material2> {
+  GetStorage instance = GetStorageHelper.instance("user");
   bool isPermission = false;
   var checkAllPermissions = PermissionHL();
   bool? isConnect;
@@ -86,24 +89,26 @@ class _Material2State extends State<Material2> {
         ),
         title: Text(widget.lecturer.title!),
       ),
-      floatingActionButton: Builder(builder: (context) {
-        return FloatingActionButton(
-          backgroundColor: PRIMARY_COLOR,
-          onPressed: () {
-            GlobalKey<FormState> FormKey = GlobalKey();
-            AutovalidateMode validation = AutovalidateMode.always;
-            List<TextEditingController> controllers =
-                List.generate(2, (index) => TextEditingController());
-
-            showBottomSheetMT(context, FormKey, validation, controllers, MVM);
-          },
-          child: Icon(
-            Icons.add,
-            size: 30,
-            color: WHITH_COLOR,
-          ),
-        );
-      }),
+      floatingActionButton: instance.read("role") == "Student"
+          ? null
+          : Builder(builder: (context) {
+              return FloatingActionButton(
+                backgroundColor: PRIMARY_COLOR,
+                onPressed: () {
+                  GlobalKey<FormState> FormKey = GlobalKey();
+                  AutovalidateMode validation = AutovalidateMode.always;
+                  List<TextEditingController> controllers =
+                      List.generate(2, (index) => TextEditingController());
+                  showBottomSheetMT(
+                      context, FormKey, validation, controllers, MVM);
+                },
+                child: Icon(
+                  Icons.add,
+                  size: 30,
+                  color: WHITH_COLOR,
+                ),
+              );
+            }),
       body: isConnect != null
           ? isConnect!
               ? Container(
@@ -176,9 +181,9 @@ class _Material2State extends State<Material2> {
                               ),
                               Flexible(
                                 child: CustomElevatedBottom(
-                                  backColor: THIRD_COLOR,
-                                  borderColor: THIRD_COLOR,
-                                  titleColor: SECONDRY_COLOR,
+                                  backColor: FOURTH_COLOR.withOpacity(0.4),
+                                  borderColor: FOURTH_COLOR.withOpacity(0.4),
+                                  titleColor: WHITH_COLOR,
                                   lable: "Pickup File",
                                   onPressedFun: () async {
                                     pickFile = await FileHP().pickupFile();
@@ -207,10 +212,12 @@ class _Material2State extends State<Material2> {
                                         ReposteryAPI(),
                                         widget.lecturer,
                                         material);
-                                    showSnackBar(context, result["message"],result["status"]);
+                                    showSnackBar(context, result["message"],
+                                        result["status"]);
                                     Navigator.pop(context);
                                   } else {
-                                    showSnackBar(context, "file path is empty",false);
+                                    showSnackBar(
+                                        context, "file path is empty", false);
                                   }
                                 }
                               },

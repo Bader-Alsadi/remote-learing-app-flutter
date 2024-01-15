@@ -6,10 +6,9 @@ import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 
 class LoadingPage extends StatelessWidget {
-  const LoadingPage({
+   LoadingPage({
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -26,6 +25,7 @@ class LoadingPage extends StatelessWidget {
               "Loading...",
               style: TEXT_NORMAL,
             )
+
           ],
         ),
       );

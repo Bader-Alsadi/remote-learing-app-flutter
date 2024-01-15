@@ -108,7 +108,7 @@ class FileHP {
     var filePath = "${DirectoryPath.path}/${Path.basename(path)}";
     bool fileExistCheck = await File(filePath).exists();
     if (fileExistCheck) await File(filePath).delete();
-    print(fileExistCheck);
+    fileExistCheck = await File(filePath).exists();
     return fileExistCheck;
   }
 }

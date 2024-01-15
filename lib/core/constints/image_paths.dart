@@ -5,6 +5,10 @@ const String COURSEC = "${IMAHES}courses/";
 
 //icons
 
+const String ICONS = "assets/icons/";
+
+const String  FILE_UPLODAE= "file-upload.svg";
+
 const _path = 'assets/icons';
 const icFeatured = '$_path/star.png';
 const icFeaturedOutlined = '$_path/star_outlined.png';

@@ -28,11 +28,23 @@ class SubmissionVM with ChangeNotifier {
     return submissions;
   }
 
+  storeSubmission(
+      ReposteryData repo, int assignmentId, Submission submission) async {
+    Map result = await repo.stroeData(
+        "${APIurl.ROOT}${APIurl.ASSINGMENT}/${assignmentId}${APIurl.SUBMISSION}",
+        submission.toJson());
+    print(result);
+    if (result["data"] != null && result["status"])
+      // submission.add(Materiall.fromJson(result["data"]));
+      notifyListeners();
+    return result;
+  }
+
   updateSubmission(ReposteryData repo, Submission date, int temp) async {
     print(date.studentId);
     Map result = await repo.updateData(
         "${APIurl.ROOT}${APIurl.SUBMISSION_GRADE_UPD}/${date.id}",
-        date.toJson());
+        date.toJsonG());
     if (!result["status"]) {
       date.grade = temp;
     }

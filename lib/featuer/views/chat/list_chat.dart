@@ -1,132 +1,141 @@
+import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
+import 'package:remote_learing_app_frontend/core/constints/image_paths.dart';
+import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
+import 'package:remote_learing_app_frontend/core/widgets/costom_tap_view.dart';
+import 'package:remote_learing_app_frontend/core/widgets/custom_icon.dart';
+import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord_page.dart';
+import 'package:remote_learing_app_frontend/featuer/views/student_corces/widgets/student_course_appbar.dart';
 
-// import 'package:flutter/material.dart';
-// import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+class ChatList extends StatefulWidget {
+  ChatList({super.key});
 
-// class ListBasicRoute extends StatefulWidget {
+  @override
+  State<ChatList> createState() => _ChatListState();
+}
 
-//   ListBasicRoute();
+class _ChatListState extends State<ChatList> {
+  int _selectedTag = 0;
 
-//   @override
-//   ListBasicRouteState createState() => new ListBasicRouteState();
-// }
+  void changeTab(int index) {
+    setState(() {
+      _selectedTag = index;
+    });
+  }
 
-// class ListBasicRouteState extends State<ListBasicRoute> {
-//   late BuildContext context;
-//   // void onItemClick(int index, People obj) {
-//   //   MyToast.show(obj.name!, context, duration: MyToast.LENGTH_SHORT);
-//   // }
+  TextEditingController searshCon = TextEditingController();
+  // searsh bar controller
+  GetStorage instanceGetStorge = GetStorageHelper.instance("user");
 
-//   @override
-//   Widget build(BuildContext context) {
-//     this.context = context;
-//     // List<People> items = Dummy.getPeopleData();
-//     // items.addAll(Dummy.getPeopleData());
-//     // items.addAll(Dummy.getPeopleData());
+  List user = List.generate(15, (index) => index);
 
-//     return new Scaffold(
-//       // appBar: CommonAppBar.getPrimarySettingAppbar(context, "Basic") as PreferredSizeWidget?,
-//       body: ListBasicAdapter(items, onItemClick).getView(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: PRIMARY_COLOR,
+        foregroundColor: WHITH_COLOR,
+        centerTitle: true,
+        title: Text(
+          "messages",
+          style: TEXT_BIG,
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Circalicon(
+              iconData: Icons.add,
+              color: WHITH_COLOR,
+              onTap: () {},
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: PRIMARY_COLOR,
+          child: Column(
+            children: [
+              SizedBox(
+                height: SMALL_SPACER,
+              ),
+              CustomTabView(
+                tags: ["person", "groube"],
+                index: _selectedTag,
+                changeTab: changeTab,
+                activeBotton: FOURTH_COLOR.withOpacity(0.9),
+                unactiveBotton: Colors.transparent,
+                activeText: WHITH_COLOR,
+                unactiveText: WHITH_COLOR,
+              ),
+              _selectedTag == 0
+                  ? chatListIndve(
+                      user: user, instanceGetStorge: instanceGetStorge)
+                  : Text("gorub"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
+class chatListIndve extends StatelessWidget {
+  const chatListIndve({
+    super.key,
+    required this.user,
+    required this.instanceGetStorge,
+  });
 
-// class ListBasicAdapter {
-//   List? items = <People>[];
-//   List itemsTile = <ItemTile>[];
+  final List user;
+  final GetStorage instanceGetStorge;
 
-//   ListBasicAdapter(this.items, onItemClick) {
-//     for (var i = 0; i < items!.length; i++) {
-//       itemsTile.add(ItemTile(index: i, object: items![i], onClick: onItemClick));
-//     }
-//   }
-
-//   Widget getView() {
-//     return Container(
-//       child: ListView.builder(
-//         itemBuilder: (BuildContext context, int index) => itemsTile[index],
-//         itemCount: itemsTile.length,
-//         padding: EdgeInsets.symmetric(vertical: 10),
-//       ),
-//     );
-//   }
-// }
-
-// // ignore: must_be_immutable
-// class ItemTile extends StatelessWidget {
-//   final People object;
-//   final int index;
-//   final Function onClick;
-
-//   const ItemTile({
-//     Key? key,
-//     required this.index,
-//     required this.object,
-//     required this.onClick,
-//   })  : super(key: key);
-
-//   void onItemClick(People obj) {
-//     onClick(index, obj);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       onTap: (){
-//         onItemClick(object);
-//       },
-//       child: Padding(
-//         padding: EdgeInsets.symmetric(vertical: 5),
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisSize: MainAxisSize.max,
-//           children: <Widget>[
-//             Container(width: 20),
-//             Container(
-//                 child: CircleAvatar(
-//                   backgroundImage: AssetImage(object.image),
-//                 ),
-//                 width: 50,
-//                 height: 50
-//             ),
-//             Container(width: 20),
-//             Expanded(
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
-//                   Text(
-//                     object.name!,
-//                     style:TEXT_NORMAL
-//                   ),
-//                   Container(height: 5),
-//                   Text(
-//                     "bader",
-//                     maxLines: 2,
-//                     style:TEXT_NORMAL
-//                   ),
-//                   Container(height: 15),
-//                   Divider(color: Colors.grey[300], height: 0),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// class People {
-
-//   late String image;
-//   String? name;
-//   String? email;
-//   bool section = false;
-
-
-//   People();
-
-//   People.section(this.name, this.section);
-
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(MIN_SPACER),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(RADIUS),
+            topRight: Radius.circular(RADIUS)),
+        color: WHITH_COLOR,
+      ),
+      margin: EdgeInsets.only(top: SPACER),
+      child: Column(
+        children: [
+          if (user.isNotEmpty)
+            ...user
+                .map<Widget>(
+                  (e) => ListTile(
+                    contentPadding: EdgeInsets.all(0),
+                    leading: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image:
+                              DecorationImage(image: AssetImage(PLACE_HOLDER))),
+                    ),
+                    title:
+                        NotmalWhitText(value: instanceGetStorge.read("name")),
+                    subtitle:
+                        NotmalGrayText(value: instanceGetStorge.read("email")),
+                    trailing: Text(
+                      "15 Oct",
+                      style: GRAY_TEXT.copyWith(
+                          color: PRIMARY_COLOR.withOpacity(0.7), fontSize: 14),
+                    ),
+                  ),
+                )
+                .toList(),
+          if (user.isEmpty) ...[
+            Expanded(child: Container(child: Center(child: Text("no chat")))),
+          ],
+        ],
+      ),
+    );
+  }
+}

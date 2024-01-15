@@ -82,26 +82,27 @@ class _BodyState extends State<Body> {
                           head: "Explore Your Courses ",
                         ),
                       ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: SMALL_SPACER,
-                          vertical: MIN_SPACER,
+                      if (IVM.subjects.isNotEmpty) ...[
+                        Wrap(
+                            spacing: SMALL_SPACER * .5,
+                            runSpacing: MIN_SPACER,
+                            children: IVM.subjects
+                                .map((e) => SizedBox(
+                                      width:
+                                          MediaQuery.sizeOf(context).width * .4,
+                                      child: CourseCard(
+                                        subject: e,
+                                        //       subject: IVM.subjects[index],
+                                        //     );),
+                                      ),
+                                    ))
+                                .toList())
+                      ] else ...[
+                        SizedBox(
+                          height: SMALL_SPACER,
                         ),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                          crossAxisSpacing: APP_PADDING,
-                          mainAxisSpacing: APP_PADDING,
-                        ),
-                        itemBuilder: (context, index) {
-                          return CourseCard(
-                            subject: IVM.subjects[index],
-                          );
-                        },
-                        itemCount: IVM.subjects.length,
-                      ),
+                        Text("no date")
+                      ]
                     ],
                   ),
                 ),
@@ -121,17 +122,13 @@ class _BodyState extends State<Body> {
             "NO data",
             style: TEXT_NORMAL,
           ),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * .6,
-            child: CustomElevatedBottom(
-              lable: "Reload Page",
-              onPressedFun: () {
-                // isloaded = false;
-                // setState(() {});
-                // relodePage();
+          TextButton(
+              onPressed: () {
+                isloaded = false;
+                setState(() {});
+                relodePage();
               },
-            ),
-          )
+              child: Text("relodae")),
         ],
       ),
     );

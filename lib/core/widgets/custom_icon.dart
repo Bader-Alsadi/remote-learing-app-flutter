@@ -11,7 +11,7 @@ class Circalicon extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: PRIMARY_COLOR, width: 1.0)),

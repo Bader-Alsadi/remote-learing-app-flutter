@@ -4,7 +4,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
-import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_tap_view.dart';
@@ -17,6 +16,7 @@ import 'package:remote_learing_app_frontend/featuer/views/assingment_page.dart/a
 import 'package:remote_learing_app_frontend/featuer/views/lecturer_page/lecturer_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/lecturer_assingment_.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/show_doalog.dart';
+import 'package:remote_learing_app_frontend/featuer/views/repout_page/report_page.dart';
 
 class InstroctorSubject extends StatefulWidget {
   InstroctorSubject({super.key, required this.subject});
@@ -120,23 +120,18 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Chip(
-                                backgroundColor: FOURTH_COLOR.withOpacity(.1),
-                                color: MaterialStatePropertyAll(
-                                    FOURTH_COLOR.withOpacity(.1)),
-                                side: BorderSide(
-                                  width: 0,
-                                ),
-                                label: Text(
-                                  "${widget.subject.department!.name}",
-                                  style: TITLE,
+                              Text(
+                                "${widget.subject.department!.name}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
                                 ),
                               ),
                               SizedBox(
                                 height: MIN_SPACER,
                               ),
                               ImageAndTitle(
-                                imagePath: "assets/images/courses/course1.jpeg",
+                                imagePath: widget.subject.image!,
                                 title: "${widget.subject.name}",
                                 textColor: BLACK_COLOR,
                               ),
@@ -145,8 +140,12 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                         ),
                         SizedBox(height: SMALL_SPACER * .5),
                         CustomTabView(
+                          tags: ["Lectuers", "assignments"],
                           index: _selectedTag,
                           changeTab: changeTab,
+                        ),
+                        SizedBox(
+                          height: MIN_SPACER,
                         ),
                         _selectedTag == 0
                             ? Container(
@@ -188,26 +187,22 @@ class instrctorAddLeactuerAssingment extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: Builder(builder: (context) {
-        return Circalicon(
-          iconData: Icons.list,
-          color: WHITH_COLOR,
-          onTap: () {
-            showMenu(context: context, position: RelativeRect.fill, items: [
-              PopupMenuItem(
-                child: Text("Add Lecturer"),
-                onTap: () {
-                  showDialogC(context, LVM, widget.subject);
-                },
-              ),
-              PopupMenuItem(
-                child: Text("Add Assingment"),
-                onTap: () {
-                  showDialogC(context, AVM, widget.subject);
-                },
-              )
-            ]);
-          },
-        );
+        return PopupMenuButton(
+            itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Text("Add Lecturer"),
+                    onTap: () => showDialogC(context, LVM, widget.subject),
+                  ),
+                  PopupMenuItem(
+                    child: Text("Add Assingment"),
+                    onTap: () => showDialogC(context, AVM, widget.subject),
+                  ),
+                  PopupMenuItem(
+                    child: Text("show student"),
+                    onTap: () => Navigator.pushNamed(context, RepoutPage.ROUTE,
+                        arguments: widget.subject),
+                  )
+                ]);
       }),
     );
   }

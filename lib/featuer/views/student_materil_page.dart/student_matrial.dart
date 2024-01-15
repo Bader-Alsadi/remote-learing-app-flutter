@@ -149,6 +149,7 @@ class _DetailsScreenState extends State<StudentMatrialPadge> {
                   height: 15,
                 ),
                 CustomTabView(
+                  tags: ["vidoe", "description"],
                   index: _selectedTag,
                   changeTab: changeTab,
                 ),
