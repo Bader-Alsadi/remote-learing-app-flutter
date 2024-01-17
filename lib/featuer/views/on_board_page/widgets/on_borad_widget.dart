@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 
@@ -22,11 +23,13 @@ class OnBoradPage extends StatelessWidget {
             interval: 200.ms,
             effects: [FadeEffect(duration: 300.ms)],
             children: [
-              Image.asset(imagePath).animate(
+              Image.asset(imagePath,
+              height: MediaQuery.sizeOf(context).height * .4,
+              ).animate(
                   autoPlay: true, effects: [FadeEffect(duration: 800.ms)]),
-              SizedBox(
-                height: SPACER,
-              ),
+              // SizedBox(
+              //   height: SPACER * .5,
+              // ),
               Text(
                 title,
                 style: TITLE,
@@ -36,11 +39,15 @@ class OnBoradPage extends StatelessWidget {
               ),
               Text(
                 subTitle,
-                style: SUB_TITLE,
+                style: SUB_TITLE.copyWith(color: BLACK_COLOR.withOpacity(.8),
+                fontSize:16 ,
+
+                ),
                 textAlign: TextAlign.center,
+
               ),
               SizedBox(
-                height: SPACER * 4,
+                height: SPACER * 3,
               )
             ],
           ),

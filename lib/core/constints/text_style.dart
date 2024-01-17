@@ -6,10 +6,10 @@ const TextStyle TITLE = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-const TextStyle SUB_TITLE = TextStyle(
-  fontSize: 14,
+ TextStyle SUB_TITLE = TextStyle(
+  color: BLACK_COLOR.withOpacity(.4),
+  fontSize:16 ,
   fontWeight: FontWeight.w500,
-  color: SECONDRY_COLOR,
 );
 
 const TextStyle FEILD_TITLE = TextStyle(

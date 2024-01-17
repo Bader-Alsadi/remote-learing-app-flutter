@@ -94,6 +94,7 @@ flutter:
     - "assets/images/media_format/"
     - "assets/icons/nav_bar_icon/"
     - "assets/icons/settings_page/"
+    - "assets/images/on_bording_pahe/"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

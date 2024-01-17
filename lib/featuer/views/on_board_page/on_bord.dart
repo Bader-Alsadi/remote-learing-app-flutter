@@ -4,8 +4,9 @@ import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
-import 'package:remote_learing_app_frontend/featuer/views/on_board_page/data/on_board_data.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/widgets/on_borad_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Start1 extends StatefulWidget {
   Start1({super.key});
@@ -18,9 +19,29 @@ class _Start1State extends State<Start1> {
   PageController pageController = PageController();
 
   int selsctePage = 0;
+ late AppLocalizations? locale;
 
   @override
   Widget build(BuildContext context) {
+    locale = AppLocalizations.of(context);
+    List <Map> onBoradList = [
+      {
+        "image_path":"assets/images/on_bording_pahe/Welcome.gif",
+        "title": locale!.fristPageTitle,
+        "sub_title":locale!.fristPageDescripct,
+      },
+      {
+        "image_path":"assets/images/on_bording_pahe/Transfer.gif",
+        "title": locale!.secondPageTitle,
+        "sub_title":locale!.secondPageDescripct,
+      },
+      {
+        "image_path":"assets/images/on_bording_pahe/Learning .gif",
+        "title": locale!.thiredPageTitle,
+        "sub_title":locale!.secondPageDescripct,
+      },
+
+    ];
     return Scaffold(
       backgroundColor: WHITH_COLOR,
       body: Stack(
@@ -67,7 +88,7 @@ class _Start1State extends State<Start1> {
             padding: const EdgeInsets.only(bottom: SPACER),
             child: CustomElevatedBottom(
               backColor: PRIMARY_COLOR,
-              lable: "Get Started",
+              lable: locale!.getStrart,
               onPressedFun: () {
                 GetStorageHelper.instance("user").write("isFrist", false);
                 Navigator.pushReplacementNamed(context, LoginPage.ROUTE);

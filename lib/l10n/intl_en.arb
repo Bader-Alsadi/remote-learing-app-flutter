@@ -12,10 +12,11 @@
   "logout":"Logout",
   "privacy":"Privacy",
   "settings":"Settings",
-  "fristPageDescripct":"Please login first before you start you intesrted trip login first before you start login first before you starts",
+  "fristPageDescripct":"Welcome to your virtual classroom! We wish you an enjoyable and effective learning experience.",
   "fristPageTitle":"welcome",
-  "secondPageDescripct":"Please login first before you start you intesrted trip login first before you start login first before you starts",
+  "secondPageDescripct":"Online learning offers flexible, accessible education globally, fostering self-paced, interactive learning despite challenges",
   "secondPageTitle":"Study effortlessly",
-  "thiredPageDescripct":"Please login first before you start you intesrted trip login first before you start login first before you starts",
-  "thiredPageTitle":"Daily analysis and track"
+  "thiredPageDescripct":"Download materials for offline access, ensuring efficiency in learning anytime, anywhere.",
+  "thiredPageTitle":"Access Easily",
+  "getStrart":"Get Strate"
 }
