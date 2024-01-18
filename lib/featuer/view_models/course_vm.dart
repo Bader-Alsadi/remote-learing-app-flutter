@@ -14,6 +14,7 @@ class CoucesVM with ChangeNotifier {
   GetStorage instance = GetStorageHelper.instance("user");
 
   Future<List<Subject>> feachDate(ReposteryData repo, int id) async {
+    print("url ${APIurl.INSTROUCTOR_INFO}/$id");
     String sourseurl = instance.read("role") == "Student"
         ? "${APIurl.ROOT}${APIurl.DEPARTMENT}/$id${APIurl.STUDENT}"
         : "${APIurl.INSTROUCTOR_INFO}/$id";
