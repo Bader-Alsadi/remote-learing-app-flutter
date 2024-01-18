@@ -13,8 +13,10 @@ import 'package:remote_learing_app_frontend/core/widgets/custom_elevated_buttom.
 import 'package:remote_learing_app_frontend/core/widgets/custom_filed.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/auth_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page2.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../core/constints/image_paths.dart';
 class LoginPage extends StatelessWidget {
+  late AppLocalizations? locale;
   LoginPage({super.key});
   static const String ROUTE = "login page";
   final GlobalKey<FormState> FormKey = GlobalKey();
@@ -27,6 +29,7 @@ class LoginPage extends StatelessWidget {
   GetStorage getStInstance = GetStorageHelper.instance("user");
   @override
   Widget build(BuildContext context) {
+    locale= AppLocalizations.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -35,33 +38,39 @@ class LoginPage extends StatelessWidget {
             autovalidateMode: _validate,
             child: Column(
               children: [
+                SizedBox(height: MIN_SPACER ,),
                 Image.asset(
-                  "assets/images/courses/login.png",
+                  "${IMAHES}courses/login.png",
                   height: 200,
                 ).animate(
                     autoPlay: true, effects: [FadeEffect(duration: 800.ms)]),
                 Text(
-                  "Welcom Back",
+                 locale!.fristPageTitle ,
                   style: TITLE,
                 ),
                 SizedBox(
                   height: SMALL_SPACER * .6,
                 ),
-                Text(
-                  "Please login first before you start your intesrted trip",
-                  style: SUB_TITLE,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: SMALL_SPACER),
+                  child: Text(
+                    locale!.start,
+                    style: SUB_TITLE,
+                    textAlign: TextAlign.center,
+
+                  ),
                 ),
                 CustomTextFiled(
-                  title: "Email Address",
-                  lable: "enter your email ",
+                  title:  locale!.emailAddress,
+                  lable:  locale!.enterEmile,
                   controller: email,
                   validate: validateEmail,
                 ),
                 StatefulBuilder(builder: (context, setState) {
                   return CustomTextFiled(
                     validate: validatepassword,
-                    title: "Password",
-                    lable: "Enter your password",
+                    title:  locale!.password,
+                    lable:  locale!.enterPassword,
                     obscureText: isDipaly,
                     suffixIcon: InkWell(
                         onTap: () {
@@ -75,24 +84,27 @@ class LoginPage extends StatelessWidget {
                   );
                 }),
                 SizedBox(
-                  height: SMALL_SPACER,
+                  height: MIN_SPACER,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "Forget Passsword",
+                      locale!.forgetPassword,
                       style: GRAY_TEXT,
                     ),
                     SizedBox(
-                      width: SMALL_SPACER / 2,
+                      width: SMALL_SPACER * .5,
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: SMALL_SPACER * .5,
                 ),
                 StatefulBuilder(
                   builder: (context, setstate) => CustomElevatedBottom(
                     child: AnimatedButoom(isloaded: isloaded),
-                    lable: "save",
+                    lable:  locale!.save,
                     backColor: PRIMARY_COLOR,
                     onPressedFun: () async {
                       if (FormKey.currentState!.validate()) {
@@ -118,6 +130,7 @@ class LoginPage extends StatelessWidget {
                         setstate(
                           () {},
                         );
+
                       }
                     },
                   ),

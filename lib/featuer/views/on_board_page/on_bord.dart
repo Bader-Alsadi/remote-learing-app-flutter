@@ -7,6 +7,8 @@ import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/widgets/on_borad_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../core/constints/image_paths.dart';
+
 
 class Start1 extends StatefulWidget {
   Start1({super.key});
@@ -26,17 +28,17 @@ class _Start1State extends State<Start1> {
     locale = AppLocalizations.of(context);
     List <Map> onBoradList = [
       {
-        "image_path":"assets/images/on_bording_pahe/Welcome.gif",
+        "image_path":"${IMAHES}on_bording_pahe/Welcome.gif",
         "title": locale!.fristPageTitle,
         "sub_title":locale!.fristPageDescripct,
       },
       {
-        "image_path":"assets/images/on_bording_pahe/Transfer.gif",
+        "image_path":"${IMAHES}on_bording_pahe/Transfer.gif",
         "title": locale!.secondPageTitle,
         "sub_title":locale!.secondPageDescripct,
       },
       {
-        "image_path":"assets/images/on_bording_pahe/Learning .gif",
+        "image_path":"${IMAHES}on_bording_pahe/Learning .gif",
         "title": locale!.thiredPageTitle,
         "sub_title":locale!.secondPageDescripct,
       },

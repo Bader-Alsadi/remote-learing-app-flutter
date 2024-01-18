@@ -18,5 +18,12 @@
    "secondPageTitle":"دراسة بلا جهد",
   "thiredPageDescripct":"قم بتحميل المواد للوصول إليها دون الحاجة إلى اتصال بالإنترنت، مما يضمن كفاءة التعلم في أي وقت وأي مكان",
    "thiredPageTitle":"تعلم بسرعة",
-   "getStrart":"هيا نبدا"
+   "getStrart":"هيا نبدا",
+   "start":"ابدأ رحلتك التعليمية هنا",
+   "emailAddress":"البريد الاكترواني",
+   "password":"كلمة السر",
+   "enterEmile":"ادخل البريد الاكترواني",
+   "enterPassword":"ادخل كلمة المرور",
+   "forgetPassword":"نسيت كلمة السر",
+   "save":"حفظ"
 }

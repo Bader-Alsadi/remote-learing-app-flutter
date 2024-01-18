@@ -76,7 +76,7 @@ class _StudentCouresAppBarState extends State<StudentCouresAppBar> {
           const SizedBox(
             height: 20,
           ),
-          const SearchTextField()
+          const SearchTextField(),
         ],
       ),
     );

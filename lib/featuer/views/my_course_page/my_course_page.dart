@@ -21,7 +21,7 @@ class MyCourse extends StatelessWidget {
   Widget build(BuildContext context) {
     final IVM = Provider.of<CoucesVM>(context);
     InternetConnectionChecker().hasConnection.then((value) {
-      if (!value) {
+      if (value) {
         if (IVM.subjects.isEmpty)
           IVM.feachDate(ReposteryAPI(), instance.read("id")).then(
             (value) {

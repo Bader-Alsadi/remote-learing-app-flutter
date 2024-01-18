@@ -18,5 +18,13 @@
   "secondPageTitle":"Study effortlessly",
   "thiredPageDescripct":"Download materials for offline access, ensuring efficiency in learning anytime, anywhere.",
   "thiredPageTitle":"Access Easily",
-  "getStrart":"Get Strate"
+  "getStrart":"Get Strate",
+  "start":"Begin Your Educational Journey Here",
+  "emailAddress":"Email Address",
+  "password":  "Password",
+  "enterEmile":"Enter Your Email",
+  "enterPassword":"Enter The Your Password",
+  "forgetPassword":"Forget Password",
+  "save":"Save"
+
 }

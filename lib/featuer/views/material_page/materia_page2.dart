@@ -51,8 +51,8 @@ class _Material2State extends State<Material2> {
     super.initState();
     checkPermission();
     InternetConnectionChecker().hasConnection.then((value) {
-      if (!value) {
-        isConnect = !value;
+      if (value) {
+        isConnect = value;
         Provider.of<MaterialVM>(context, listen: false)
             .feachDate(ReposteryAPI(), widget.lecturer)
             .then((value) {
@@ -61,7 +61,7 @@ class _Material2State extends State<Material2> {
           setState(() {});
         });
       } else {
-        isConnect = !value;
+        isConnect = value;
       }
       setState(() {});
     });

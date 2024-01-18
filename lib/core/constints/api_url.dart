@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 class APIurl {
-  static const String ROOT = "http://10.42.0.1:8000/api";
+  static const String ROOT = "http://badr.hadramout-bootcamps.com/api";
   static const String LOGIN = "${ROOT}/login";
   static const String LOGOUT = "${ROOT}/logout";
   static const String INSTROUCTOR_INFO = "${ROOT}/instructor-info";
@@ -15,7 +15,7 @@ class APIurl {
   static const String ASSINGMENT_UPDATE = "/updateAssingment";
   static const String DEPARTMENT = "/departmentDetiles";
   static const String STUDENT = "/students";
-  static const String REPORT = "${ROOT}/student_course";
+  static const String REPORT = "${ROOT}/students_courses";
   static const String STUDENT_SUBMISSION  = "${ROOT}/student_submission";
   
 }

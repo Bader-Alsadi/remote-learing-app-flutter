@@ -23,10 +23,6 @@ class _LecturerPageState extends State<LecturerPage> {
             .map((e) => Container(
                   child: InkWell(
                     onLongPress: () async {
-                      // MaterialVM MVM = MaterialVM();
-                      // var result = await MVM.feachDate(ReposteryAPI(), e);
-                      // showSnackBar(context, result["message"]);
-                      // if (result["status"])
                       Navigator.pushNamed(context, Material2.ROUTE,
                           arguments: e);
                     },

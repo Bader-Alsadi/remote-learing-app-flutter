@@ -17,7 +17,7 @@ class Loaclization with ChangeNotifier {
 
   String get getLanguageCode {
     print(languageCode);
-    return _insatncLocal.read("langugae") ?? "ar";
+    return _insatncLocal.read("langugae") ?? "en";
   }
 
   set setLanguageCode(String languageCode) {

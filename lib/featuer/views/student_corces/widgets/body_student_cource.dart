@@ -30,12 +30,12 @@ class _BodyState extends State<Body> {
     final IVM = Provider.of<CoucesVM>(context, listen: false);
     isloaded = IVM.subjects.isNotEmpty;
     InternetConnectionChecker().hasConnection.then((internetState) {
-      if (!internetState) {
+      if (internetState) {
         if (IVM.subjects.isEmpty)
           IVM.feachDate(ReposteryAPI(), instance.read("id")).then(
             (value) {
               IVM.subjects = value;
-              isloaded = !internetState;
+              isloaded = internetState;
             },
           );
       } else {
@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final IVM = Provider.of<CoucesVM>(context);
-    return !isloaded
+    return  !isloaded
         ? LoadingPage()
         : IVM.subjects.isEmpty
             ? reloadMathod(context)

@@ -39,8 +39,8 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
   @override
   void initState() {
     InternetConnectionChecker().hasConnection.then((value) {
-      if (!value) {
-        isconnectd = true;
+      if (value) {
+        isconnectd = value;
         setState(() {});
         print("connectd: $value");
 
