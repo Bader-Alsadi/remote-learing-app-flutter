@@ -13,6 +13,7 @@ class StudentDetails extends StatelessWidget {
          backgroundColor: PRIMARY_COLOR,
           foregroundColor: WHITH_COLOR,
       ),
+
     );
   }
 }

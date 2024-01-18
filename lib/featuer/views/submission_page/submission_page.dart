@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/helpers/peremition_hp.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
@@ -41,8 +42,8 @@ class _SubmissionState extends State<SubmissionPage2> {
     super.initState();
     checkPermission();
     InternetConnectionChecker().hasConnection.then((value) {
-      if (!value) {
-        isConnect = !value;
+      if (value) {
+        isConnect = value;
         Provider.of<SubmissionVM>(context, listen: false)
             .feachDate(ReposteryAPI(), widget.assingment)
             .then((value) {
@@ -51,7 +52,7 @@ class _SubmissionState extends State<SubmissionPage2> {
           setState(() {});
         });
       } else {
-        isConnect = !value;
+        isConnect = value;
       }
       setState(() {});
     });
@@ -63,9 +64,12 @@ class _SubmissionState extends State<SubmissionPage2> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: PRIMARY_COLOR,
+        foregroundColor: WHITH_COLOR,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Circalicon(
+            color: WHITH_COLOR,
             iconData: Icons.arrow_back_ios_new_rounded,
             onTap: () {
               Navigator.pop(context);
