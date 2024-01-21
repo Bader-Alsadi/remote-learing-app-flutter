@@ -5,7 +5,9 @@ ThemeData appThem = ThemeData(
   //   tilePadding: EdgeInsets.all(0),
   //   iconColor: WHITH_COLOR,
   // ),
-  
+  cardTheme: CardTheme(
+    color: WHITH_COLOR
+  ),
   bottomAppBarTheme: BottomAppBarTheme(color: SECONDRY_COLOR),
   useMaterial3: true,
   fontFamily:"Cairo",

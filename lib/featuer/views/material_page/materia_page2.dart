@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -93,7 +94,7 @@ class _Material2State extends State<Material2> {
           ? null
           : Builder(builder: (context) {
               return FloatingActionButton(
-                backgroundColor: PRIMARY_COLOR,
+                backgroundColor: FOURTH_COLOR,
                 onPressed: () {
                   GlobalKey<FormState> FormKey = GlobalKey();
                   AutovalidateMode validation = AutovalidateMode.always;
@@ -133,7 +134,6 @@ class _Material2State extends State<Material2> {
           : PlaceHolderMaterial(),
     );
   }
-
   Future<dynamic> showBottomSheetMT(
       BuildContext context,
       GlobalKey<FormState> FormKey,
@@ -181,13 +181,16 @@ class _Material2State extends State<Material2> {
                               ),
                               Flexible(
                                 child: CustomElevatedBottom(
-                                  backColor: FOURTH_COLOR.withOpacity(0.4),
+                                  backColor: WHITH_COLOR,
                                   borderColor: FOURTH_COLOR.withOpacity(0.4),
-                                  titleColor: WHITH_COLOR,
+                                  titleColor: BLACK_COLOR,
                                   lable: "Pickup File",
                                   onPressedFun: () async {
-                                    pickFile = await FileHP().pickupFile();
-                                    setState(() {});
+                                      FileHP().pickupFile().then((value){
+                                      pickFile = value;
+                                      setState(() {});
+                                    });
+
                                     print("file: ${pickFile?.path}");
                                   },
                                 ),

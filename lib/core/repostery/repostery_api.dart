@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:remote_learing_app_frontend/core/constints/api_url.dart';
@@ -74,6 +75,7 @@ class ReposteryAPI extends ReposteryData {
           await dioInstance.get(APIurl.LOGOUT, options: getOptionshedar());
       if (result.data["status"]) {
         instance.remove("user");
+        FirebaseFirestore.instance.clearPersistence();
         return result.data;
       } else {
         return {"status": false, "message": "The opretion is faild"};

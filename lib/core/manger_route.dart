@@ -6,6 +6,7 @@ import 'package:remote_learing_app_frontend/featuer/views/dashbord_page/dashbord
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/material_page/materia_page2.dart';
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/instrctor_lecturer.dart';
+import 'package:remote_learing_app_frontend/featuer/views/notifction_page/nofiction_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/profile_page/profile_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/repout_page/report_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_page.dart';
@@ -45,6 +46,10 @@ class RouteManger {
         {
           return MaterialPageRoute(builder: (context) => SettingsPage());
         }
+      case NotifctionPage.ROUTE:
+        {
+          return MaterialPageRoute(builder: (context) => NotifctionPage());
+        }
       case BaseScreen.ROUTE:
         {
           return MaterialPageRoute(builder: (context) => BaseScreen());
@@ -59,7 +64,8 @@ class RouteManger {
         }
       case StudentDetails.ROUTE:
         {
-          return MaterialPageRoute(builder: (context) => StudentDetails());
+          List<int?> arrgument= settings.arguments as List<int?>;
+          return MaterialPageRoute(builder: (context) => StudentDetails(student_id: arrgument[0]!,subject_id:arrgument[1]!));
         }
       //   case SubmissionPage.ROUTE:
       //   {

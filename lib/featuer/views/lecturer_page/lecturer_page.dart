@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_expancel_tile.dart';
 import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
@@ -20,12 +21,8 @@ class _LecturerPageState extends State<LecturerPage> {
     return SingleChildScrollView(
       child: Column(
         children: LVM.lectrers
-            .map((e) => Container(
-                  child: InkWell(
-                    onLongPress: () async {
-                      Navigator.pushNamed(context, Material2.ROUTE,
-                          arguments: e);
-                    },
+            .map((e) => Card(
+          color: THIRD_COLOR,
                     child: ExpansionTileC(
                       subject: widget.subject,
                       lecturer: e,
@@ -35,7 +32,8 @@ class _LecturerPageState extends State<LecturerPage> {
                       vidoe: "",
                       hours: "s",
                       note: e.description!,
-                    ),
+                      onPress: (){Navigator.pushNamed(context, Material2.ROUTE,
+                          arguments: e);}
                   ),
                 ))
             .toList(),

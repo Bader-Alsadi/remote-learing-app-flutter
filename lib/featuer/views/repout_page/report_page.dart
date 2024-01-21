@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
@@ -50,16 +51,29 @@ class _RepoutPageState extends State<RepoutPage> {
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * .4,
                     child: BarChart(BarChartData(
+                      maxY: 100,
+                      titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: true,
+                            getTitlesWidget: (value,mate){
+                            return  Text(repoartVM.reports.firstWhere((element) => element.studentId==value).name!);
+                            }
+                          )
+                        )
+                      ),
                         barGroups: List.generate(
                       repoartVM.reports.sublist(0, 5).length,
-                      (index) => BarChartGroupData(x: index + 1, barRods: [
+                      (index) {
+                        Report report =  repoartVM.reports[index];
+                        return BarChartGroupData(x: report.studentId!, barRods: [
                         BarChartRodData(
                             color: index.isEven
                                 ? PRIMARY_COLOR
                                 : FOURTH_COLOR.withOpacity(.4),
-                            toY: (repoartVM.reports[index].finalMark ?? 0.0)
+                            toY: (report.finalMark ?? 0.0)
                                 .toDouble()),
-                      ]),
+                      ]);
+                      },
                     ).toList())),
                   ),
                 ],
@@ -98,7 +112,7 @@ class _RepoutPageState extends State<RepoutPage> {
                           (index) => DataRow(
                                   onSelectChanged: (value) {
                                     Navigator.pushNamed(
-                                        context, StudentDetails.ROUTE);
+                                        context, StudentDetails.ROUTE,arguments: [repoartVM.reports[index].studentId,widget.subject.id]);
                                   },
                                   color: MaterialStatePropertyAll(index.isOdd
                                       ? WHITH_COLOR
@@ -125,6 +139,6 @@ class _RepoutPageState extends State<RepoutPage> {
               ],
             ),
           ),
-        ));
+        ).animate().fadeIn());
   }
 }

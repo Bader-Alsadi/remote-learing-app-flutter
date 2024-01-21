@@ -62,14 +62,15 @@ class _BodyState extends State<Body> {
                   child: Column(
                     children: [
                       CarouselSlider.builder(
-                          itemCount: 3,
+                          itemCount: omages.length,
                           itemBuilder: (context, index, _) => Container(
                                 width: double.infinity,
                                 margin: EdgeInsets.all(MIN_SPACER),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(RADIUS),
                                     color: PRIMARY_COLOR.withOpacity(0.4)),
-                                child: Center(child: Text("$index")),
+                                child: Image.asset(omages[index],
+                                fit: BoxFit.fill,),
                               ),
                           options: CarouselOptions(
                               height: MediaQuery.sizeOf(context).height * .2)),
@@ -134,3 +135,10 @@ class _BodyState extends State<Body> {
     );
   }
 }
+
+List<String> omages= [
+  "assets/images/slide/slide.jpg",
+  "assets/images/slide/slid2.jpg",
+  "assets/images/slide/slid3.jpg",
+
+];

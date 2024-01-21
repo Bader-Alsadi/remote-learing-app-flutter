@@ -9,6 +9,9 @@ class AuthVM {
   GetStorage getStInstance = GetStorageHelper.instance("user");
 
   Future<Map> login(ReposteryData repo, Map<String, dynamic> data) async {
+    String fcm_token = GetStorageHelper.instance("FCMToken").read("FCMToken");
+    data["fcm_token"]= fcm_token;
+    print("fcm_aut${fcm_token}");
     Map resutle = await repo.login(APIurl.LOGIN, data);
 
     if (!resutle["status"]) {

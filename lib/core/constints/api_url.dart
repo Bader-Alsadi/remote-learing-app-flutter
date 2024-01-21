@@ -17,6 +17,8 @@ class APIurl {
   static const String DEPARTMENT = "/departmentDetiles";
   static const String STUDENT = "/students";
   static const String REPORT = "${ROOT}/students_courses";
-  static const String STUDENT_SUBMISSION  = "${ROOT}/student_submission";
+  static const String STUDENT_SUBMISSION  = "${ROOT}/student_info";
+  static const String GET_NOTIFCTION  = "${ROOT}/get_notifction/";
+
   
 }

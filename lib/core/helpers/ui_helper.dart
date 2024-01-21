@@ -149,6 +149,7 @@ showSnackBar(BuildContext context, String message, bool state) {
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
+        dismissDirection: DismissDirection.startToEnd,
         showCloseIcon: true,
         backgroundColor: state ? PRIMARY_COLOR : FOURTH_COLOR,
         content: Text(
@@ -170,27 +171,26 @@ Widget? AnimatedButoom({required bool isloaded}) {
 
 getFormatImage(String type) {
   switch (type) {
-    case "jpg" || "jpeg":
-      return "assets/images/media_format/icons8-jpg-80.png";
-    case "png":
-      return "assets/images/media_format/icons8-png-80.png";
+
+    case "png" || "jpg" || "jpeg":
+      return "assets/images/media_format/png-svgrepo-com.svg";
     case "pdf":
-      return "assets/images/media_format/icons8-pdf-80.png";
-    case "xls":
-      return "assets/images/media_format/icons8-xls-80.png";
-    case "mp4":
-      return "assets/images/media_format/icons8-video-file-64 (1).png";
-    case "doc" || "docm" || "docx":
-      return "assets/images/media_format/icons8-doc-64.png";
-    case "pptx":
-      return "assets/images/media_format/icons8-pptx-80.png";
-    case "rar":
-      return "assets/images/media_format/icons8-rar-80.png";
-    case "zip":
-      return "assets/images/media_format/icons8-zip-80.png";
-    case "txt":
-      return "assets/images/media_format/icons8-txt-80.png";
+      return "assets/images/media_format/pdf-svgrepo-com.svg";
+    // case "xls":
+    //   return "assets/images/media_format/icons8-xls-80.png";
+    // case "mp4":
+    //   return "assets/images/media_format/doc-svgrepo-com.svg";
+    // case "doc" || "docm" || "docx":
+    //   return "assets/images/media_format/icons8-doc-64.png";
+    case "pptx" || "ppt":
+      return "assets/images/media_format/ppt-svgrepo-com.svg";
+    // case "rar":
+    //   return "assets/images/media_format/icons8-rar-80.png";
+    // case "zip":
+    //   return "assets/images/media_format/icons8-zip-80.png";
+    // case "txt":
+    //   return "assets/images/media_format/icons8-txt-80.png";
     default:
-      return "assets/images/media_format/icons8-file-80.png";
+      return "assets/images/media_format/file-minus-svgrepo-com.svg";
   }
 }

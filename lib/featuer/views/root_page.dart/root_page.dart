@@ -49,7 +49,7 @@ class _MyHomePageState extends State<RootPage> {
           child: Text(selectPage.toString()),
         ),
         MyCourse(),
-        ChatTelegramRoute(),
+        // ChatTelegramRoute(),
         Center(
           child: SettingsPage(),
         ),

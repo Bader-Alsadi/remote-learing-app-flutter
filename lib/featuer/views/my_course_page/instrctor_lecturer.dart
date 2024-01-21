@@ -18,6 +18,9 @@ import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets
 import 'package:remote_learing_app_frontend/featuer/views/my_course_page/widgets/show_doalog.dart';
 import 'package:remote_learing_app_frontend/featuer/views/repout_page/report_page.dart';
 
+import '../../../core/widgets/custom_icon_title.dart';
+import '../student_details/student_detials.dart';
+
 class InstroctorSubject extends StatefulWidget {
   InstroctorSubject({super.key, required this.subject});
   static const String ROUTE = "instrictor_subject";
@@ -101,9 +104,9 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                     ),
                   ),
                   actions: [
-                    instance.read("role") == "Student"
-                        ? Container()
-                        : instrctorAddLeactuerAssingment(
+
+                        // ? Container()
+                         instrctorAddLeactuerAssingment(
                             LVM: LVM, widget: widget, AVM: AVM),
                   ],
                 ),
@@ -120,23 +123,62 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "${widget.subject.department!.name}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              SizedBox(
-                                height: MIN_SPACER,
-                              ),
                               ImageAndTitle(
                                 imagePath: widget.subject.image!,
                                 title: "${widget.subject.name}",
                                 textColor: BLACK_COLOR,
                               ),
+                              SizedBox(
+                                height: MIN_SPACER,
+                              ),
+                              Text(widget.subject.description!),
+
+                              SizedBox(
+                                width: MediaQuery.sizeOf(context).width,
+                                child: Wrap(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                  IconWithText(
+                                    iconColor: FOURTH_COLOR.withOpacity(.5),
+                                    icon: Icons.grade,
+                                    title:
+                                    "${widget.subject.grade} grade",
+                                  ),
+                                  SizedBox(
+                                    width: MIN_SPACER,
+                                  ),
+                                  IconWithText(
+                                    iconColor: FOURTH_COLOR.withOpacity(.5),
+                                    icon: Icons.access_time_outlined,
+                                    title:
+                                    "${widget.subject.houre} houres",
+                                  ),
+                                    SizedBox(
+                                      width: MIN_SPACER,
+                                    ),
+                                  IconWithText(
+                                    iconColor: FOURTH_COLOR.withOpacity(.5),
+                                    icon: Icons.assessment,
+                                    title:
+                                    "${widget.subject.assingments.length} assessments",
+                                  ),
+                                    SizedBox(
+                                      width: MIN_SPACER,
+                                    ),
+                                    IconWithText(
+                                      iconColor: FOURTH_COLOR.withOpacity(.5),
+                                      icon: Icons.book,
+                                      title:
+                                      "${widget.subject.Lecturers.length} lecturers",
+                                    ),
+                                ],),
+                              ),
+
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: MIN_SPACER,
                         ),
                         SizedBox(height: SMALL_SPACER * .5),
                         CustomTabView(
@@ -149,6 +191,7 @@ class _InstroctorSubjectState extends State<InstroctorSubject> {
                         ),
                         _selectedTag == 0
                             ? Container(
+
                                 child: LecturerPage(
                                   subject: widget.subject,
                                 ),
@@ -189,6 +232,9 @@ class instrctorAddLeactuerAssingment extends StatelessWidget {
       child: Builder(builder: (context) {
         return PopupMenuButton(
             itemBuilder: (context) => [
+              if( GetStorageHelper.instance("user").read("role") != "Student")
+                ...[
+
                   PopupMenuItem(
                     child: Text("Add Lecturer"),
                     onTap: () => showDialogC(context, LVM, widget.subject),
@@ -202,6 +248,15 @@ class instrctorAddLeactuerAssingment extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(context, RepoutPage.ROUTE,
                         arguments: widget.subject),
                   )
+
+                ] else ...[
+                PopupMenuItem(
+                  child: Text("show my info"),
+                  onTap: () =>   Navigator.pushNamed(
+                      context, StudentDetails.ROUTE,arguments: [GetStorageHelper.instance("user").read("student_id") as int,widget.subject.id]),
+                )
+              ]
+
                 ]);
       }),
     );

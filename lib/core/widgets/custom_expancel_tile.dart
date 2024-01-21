@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/helpers/ui_helper.dart';
 import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/custom_icon_title.dart';
@@ -22,6 +23,7 @@ class ExpansionTileC extends StatelessWidget {
       required this.vidoe,
       required this.LVM,
       required this.subject,
+       this.onPress,
       this.lecturer,
       this.assingment});
   String title, date, note, hours, vidoe;
@@ -29,8 +31,13 @@ class ExpansionTileC extends StatelessWidget {
   Lecturer? lecturer;
   Assingment? assingment;
   ALVM LVM;
+  VoidCallback? onPress;
   @override
   Widget build(BuildContext context) {
+    bool? assinmentState;
+    if(assingment != null){
+       assinmentState= DateTime.parse(date).difference(DateTime.now()).isNegative;
+    }
     return Slidable(
       startActionPane: ActionPane(motion: ScrollMotion(), children: [
         SlidableAction(
@@ -55,33 +62,67 @@ class ExpansionTileC extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: SMALL_SPACER / 2),
         child: ExpansionTile(
           tilePadding: EdgeInsets.all(0),
+
           title: Text(
             title,
-            style: TEXT_BIG.copyWith(color: BLACK_COLOR),
+            style: TEXT_NORMAL.copyWith(color: BLACK_COLOR),
           ),
-          leading: Text(date, style: TEXT_NORMAL.copyWith(color: GRAY_COLOR)),
-          // trailing: InkWell(
-          //     onTap: () {},
-          //     child: Icon(Icons.file_download_outlined, color: BLACK_COLOR)),
+          leading: Text(lecturer != null ? "${DateTime.parse(date).weekday} week": " ${(assingment != null && assinmentState!) ? "":"still"} ${DateTime.parse(date).difference(DateTime.now()).inDays} days" , style: TEXT_NORMAL.copyWith(color: (assingment != null && assinmentState!) ? Colors.red :FOURTH_COLOR.withOpacity(.7))),
           children: [
             Text(
               note,
-              style: SUB_TITLE,
+              style: SUB_TITLE.copyWith(color: BLACK_COLOR),
               softWrap: true,
               textAlign: TextAlign.justify,
             ),
             if (lecturer != null)
-              IconWithText(
-                icon: Icons.access_time_outlined,
-                title: "${lecturer?.materials?.length ?? 0} matrials",
-              ),
-            assingment != null
-                ? IconWithText(
-                    icon: Icons.access_time_outlined,
-                    title:
-                        "${assingment?.submissions?.length ?? 0} submissions",
-                  )
-                : Container(),
+              ...[
+                SizedBox(
+                  height: MIN_SPACER,
+                ),
+                if(lecturer!.note != null)
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Note : ${lecturer!.note}",style: TEXT_NORMAL.copyWith(color: FOURTH_COLOR),)),
+                SizedBox(
+                  height: SMALL_SPACER,
+                ),
+
+                Align(
+                    alignment: Alignment.center,
+                    child:
+                FilledButton(onPressed: onPress, child: Text("Show Material",style: TEXT_NORMAL,),
+                  style: ButtonStyle(
+                     backgroundColor: MaterialStatePropertyAll( PRIMARY_COLOR)
+                  ),
+                )),
+                SizedBox(
+                  height: MIN_SPACER,
+                ),
+              ]
+            else
+              ...[
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Grade : ${assingment!.grade }",style: TEXT_NORMAL.copyWith(color: FOURTH_COLOR),)),
+                SizedBox(
+                  height: SMALL_SPACER,
+                ),
+              GetStorageHelper.instance("user").read("role") != "Student"?
+                Align(
+                    alignment: Alignment.center,
+                    child:
+                    FilledButton(onPressed: onPress, child: Text("Show Submissions",style: TEXT_NORMAL,),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll( PRIMARY_COLOR)
+                      ),
+                    )):Container(),
+                SizedBox(
+                  height: MIN_SPACER,
+                ),
+
+                ]
+
           ],
         ),
       ),

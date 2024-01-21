@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
@@ -36,14 +37,22 @@ class CardListtile extends StatelessWidget {
                   instanceFile.openfile(material.path!);
                 }
               },
-              title: Text(
-                "Title : ${material.title!}",
-                style: TEXT_NORMAL,
-              ),
-              subtitle: Text(
-                "Type : ${material.type} | Size : ${material.size!.toStringAsFixed(2)} MP",
-                style: TEXT_NORMAL,
-              ),
+              title:RichText(text: TextSpan(
+                children: [
+                  TextSpan(text: "Title",style:TEXT_NORMAL.copyWith(color: FOURTH_COLOR) ),
+                  TextSpan(text: "  ${material.title!}",style:TEXT_NORMAL.copyWith(color: BLACK_COLOR) ),
+                ]
+              )) ,
+              subtitle: RichText(text: TextSpan(
+                children:
+                  [
+                    // TextSpan(text: "Type",style:TEXT_NORMAL.copyWith(color: FOURTH_COLOR) ),
+                    // TextSpan(text: " ${material.type}  ",style:TEXT_NORMAL.copyWith(color: BLACK_COLOR) ),
+                    TextSpan(text: "Size ",style:TEXT_NORMAL.copyWith(color: FOURTH_COLOR) ),
+                    TextSpan(text: "  ${material.size!.toStringAsFixed(2)} MP",style:TEXT_NORMAL.copyWith(color: BLACK_COLOR) ),
+                    // TextSpan(text: " MP",style:TEXT_NORMAL.copyWith(color: FOURTH_COLOR) ),
+                  ]
+              )),
               leading: material.dowloading
                   ? InkWell(
                       onTap: () {
@@ -51,12 +60,14 @@ class CardListtile extends StatelessWidget {
                         SCVM.downloading(index, false);
                       },
                       child: Icon(Icons.cancel))
-                  : Image.asset(
-                      getFormatImage(material.madiaType!),
-                      height: 70,
-                      width: 60,
-                      fit: BoxFit.fill,
-                    ),
+                  :
+              SvgPicture.asset(getFormatImage(material.madiaType!)),
+              // Image.asset(
+              //         getFormatImage(material.madiaType!),
+              //         height: 70,
+              //         width: 60,
+              //         fit: BoxFit.fill,
+              //       ),
               trailing: IconButton(
                 onPressed: () {
                   material.fileExists == null
@@ -78,12 +89,12 @@ class CardListtile extends StatelessWidget {
                     : material.fileExists!
                         ? Icon(
                             Icons.delete,
-                            color: Colors.red,
+                            color: FOURTH_COLOR,
                           )
                         : material.dowloading
                             ? Text(
                                 "${(material.progress * 100).toStringAsFixed(2)} %")
-                            : Icon(Icons.download),
+                            : Icon(Icons.download,color: FOURTH_COLOR,),
               )),
         ),
       ],

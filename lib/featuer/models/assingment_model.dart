@@ -23,7 +23,7 @@ class Assingment extends LeacturerSub {
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    grade = json['grade'];
+    grade =json['grade'] ;
     enrollmentId = json['enrollment_id'];
     deadline = json['deadline'];
   }

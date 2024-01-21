@@ -15,12 +15,12 @@ class PlaceHolderMaterial extends StatelessWidget {
               10,
               (index) => Column(
                     children: [
-                      shmmierbox(
-                        height: 80,
-                        width: 60,
-                        boardRadius: 10.5,
-                      ),
                       Row(children: [
+                        shmmierbox(
+                          height: 80,
+                          width: 60,
+                          boardRadius: 10.5,
+                        ),
                         shmmierbox(
                           height: 25,
                           width: 25,

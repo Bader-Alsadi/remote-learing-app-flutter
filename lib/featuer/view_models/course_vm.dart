@@ -29,4 +29,9 @@ class CoucesVM with ChangeNotifier {
     notifyListeners();
     return subjects;
   }
+
+  List<int?> enrolmentIds (){
+    return subjects.map((e) => e.id).toList();
+  }
+
 }

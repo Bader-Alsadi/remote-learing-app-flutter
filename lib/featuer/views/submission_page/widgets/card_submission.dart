@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
@@ -48,7 +49,9 @@ class CardListtile extends StatelessWidget {
                         SVM.downloading(index, false);
                       },
                       child: Icon(Icons.cancel))
-                  : Image.asset(getFormatImage(submission.studentName!)),
+                  :
+              SvgPicture.asset((getFormatImage(submission.studentName!)),
+              height: 50,),
               trailing: IconButton(
                 onPressed: () {
                   submission.fileExists == null
@@ -78,6 +81,20 @@ class CardListtile extends StatelessWidget {
                             : Icon(Icons.download),
               )),
         ),
+        IconButton(
+            onPressed: () {
+
+            },
+            icon: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "To UpLoad -> ",
+                  style: TEXT_NORMAL,
+                ),
+               Icon(Icons.grade),
+              ],
+            ))
       ],
     );
   }

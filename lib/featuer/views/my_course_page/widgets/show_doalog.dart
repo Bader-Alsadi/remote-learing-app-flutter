@@ -12,6 +12,8 @@ import 'package:remote_learing_app_frontend/featuer/models/subjects_model.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/Assingment_lecturer.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 
+import '../../../../core/constints/text_style.dart';
+
 GlobalKey<FormState> FormKey = GlobalKey();
 AutovalidateMode validation = AutovalidateMode.always;
 List<TextEditingController> controllers =
@@ -67,10 +69,11 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
                   vertical: 32.0,
                   horizontal: SMALL_SPACER / 2,
                 ).copyWith(bottom: 0),
-                child: pickDateWidget(selectData: selectData),
+                child: showDatePickerC(),
+                // pickDateWidget(selectData: selectData),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 32),
+                padding: EdgeInsets.symmetric(vertical: SMALL_SPACER/2),
                 child: StatefulBuilder(
                   builder: (context, setstate) => CustomElevatedBottom(
                     child: AnimatedButoom(isloaded: isloaded),
@@ -151,6 +154,41 @@ Future<dynamic> showDialogC(BuildContext context, ALVM LVM, Subject subject,
       ),
     ),
   );
+
+}
+
+Widget showDatePickerC() {
+  return StatefulBuilder(builder: (context, setstate) {
+    return Container(
+      // width: double.infinity,
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.all(MIN_SPACER / 2),
+      margin: EdgeInsets.only(top: SMALL_SPACER),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(
+            width: 1.0,
+            color: GRAY_COLOR,
+          )),
+      child: TextButton(
+          onPressed: () async {
+            selectData = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2020),
+                lastDate: DateTime(2025));
+            print("$selectData");
+            if (selectData == null) {
+              showSnackBar(context, "selected date is null", false);
+            }
+            setstate(() {});
+          },
+          child: Text(
+            "Date : ${selectData?.year}-${selectData?.month}-${selectData?.day}",
+            style: TEXT_NORMAL.copyWith(color: BLACK_COLOR),
+          )),
+    );
+  });
 }
 
 addLecturer(ALVM LVM, int subjectId, Lecturer lecturer, context,
@@ -234,9 +272,11 @@ addAssingment(ALVM LVM, int subjectId, Assingment assingment, context,
     resutle = value;
     if (resutle["status"]) Navigator.pop(context);
     isloaded = true;
-    showSnackBar(context, resutle["message"],resutle["status"]);
+    showSnackBar(context, resutle["message"], resutle["status"]);
     setstate(
-      () {},
+          () {},
     );
   });
+
+
 }

@@ -3,16 +3,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/helpers/directoryP_path_hb.dart';
+import 'package:remote_learing_app_frontend/core/helpers/fcm_service.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
 import 'package:remote_learing_app_frontend/core/manger_route.dart';
 import 'package:remote_learing_app_frontend/core/them/app_them.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/assingment_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/chat_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/download_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/course_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/lectuer_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/loaclixation_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/material_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/notifction_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/report_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/student_submission_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/view_models/submission_vm.dart';
 import 'package:remote_learing_app_frontend/featuer/views/login_page/login_page.dart';
 import 'package:remote_learing_app_frontend/featuer/views/on_board_page/on_bord.dart';
@@ -22,6 +26,7 @@ import 'package:remote_learing_app_frontend/featuer/views/root_page.dart/root_pa
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init("user");
+  await FCMService.initialize();
   await DirectoryPathHP.getInstanse();
   runApp(MyApp());
 }
@@ -58,6 +63,15 @@ class MyApp extends StatelessWidget {
       ),
       ChangeNotifierProvider<ReportVM>(
         create: (context) => ReportVM(),
+      ),
+      ChangeNotifierProvider<StudentSubmissionVM>(
+        create: (context) => StudentSubmissionVM(),
+      ),
+      ChangeNotifierProvider<ChatVM>(
+        create: (context) => ChatVM(),
+      ),
+      ChangeNotifierProvider<NotifctionVM>(
+        create: (context) => NotifctionVM(),
       ),
     ], child: MateAPP());
   }

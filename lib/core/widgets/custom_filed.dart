@@ -40,7 +40,7 @@ class CustomTextFiled extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 32.0,
+        vertical: SMALL_SPACER /2,
         horizontal: SMALL_SPACER / 2,
       ).copyWith(bottom: 0),
       child: Column(

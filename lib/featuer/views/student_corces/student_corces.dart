@@ -20,7 +20,7 @@ class _StudentCorcesPageState extends State<StudentCorcesPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             StudentCouresAppBar(),
-            Flexible(child: Body()),
+            Flexible( flex: 1, child: Body()),
           ],
         ),
       ),

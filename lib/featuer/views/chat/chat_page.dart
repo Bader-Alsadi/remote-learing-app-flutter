@@ -1,14 +1,25 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/image_paths.dart';
-import 'package:remote_learing_app_frontend/featuer/models/message_model.dart';
+import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
+import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/chat_vm.dart';
+
+import '../../models/chat_model.dart';
+import '../../models/message_models.dart';
 
 class ChatTelegramRoute extends StatefulWidget {
-  ChatTelegramRoute();
+  ChatTelegramRoute({
+    required this.subjectChat
+});
+ late Chat subjectChat ;
 
   @override
   ChatTelegramRouteState createState() => new ChatTelegramRouteState();
@@ -19,27 +30,24 @@ class ChatTelegramRouteState extends State<ChatTelegramRoute> {
   final TextEditingController inputController = new TextEditingController();
   List<Message> items = [];
   late ChatTelegramAdapter adapter;
+  ChatVM? chatVm;
+  ScrollController scrollController = new ScrollController();
 
   @override
   void initState() {
+   Provider.of<ChatVM>(context,listen: false).loadMessages(widget.subjectChat);
     super.initState();
-    items.add(Message.time(items.length, "Hai..", false, items.length % 5 == 0,
-        Tools.getFormattedTimeEvent(DateTime.now().millisecondsSinceEpoch)));
-    items.add(Message.time(items.length, "Hello!", true, items.length % 5 == 0,
-        Tools.getFormattedTimeEvent(DateTime.now().millisecondsSinceEpoch)));
   }
 
   @override
   Widget build(BuildContext context) {
-    adapter = ChatTelegramAdapter(context, items, onItemClick);
-
     return Scaffold(
       backgroundColor: Color(0xffD0DBE2),
       appBar: AppBar(
-          backgroundColor: Color(0xff527DA3),
+          backgroundColor: PRIMARY_COLOR,
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.light,
-              statusBarColor: Color(0xff4C7596)),
+              statusBarColor: PRIMARY_COLOR),
           title: Row(
             children: <Widget>[
               CircleImage(
@@ -50,21 +58,19 @@ class ChatTelegramRouteState extends State<ChatTelegramRoute> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Mary Jackson",
+                  Text(widget.subjectChat.subjectName!,
                       style:
                           MyText.body1(context)!.copyWith(color: Colors.white)),
                   Container(height: 2),
-                  Text("Online",
-                      style:
-                          MyText.caption(context)!.copyWith(color: GRAY_COLOR)),
                 ],
               )
             ],
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back,color: WHITH_COLOR,),
             onPressed: () {
               Navigator.pop(context);
+              chatVm!.messages.clear();
             },
           ),
           actions: <Widget>[
@@ -85,7 +91,8 @@ class ChatTelegramRouteState extends State<ChatTelegramRoute> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Expanded(
-              child: adapter.getView(),
+              child:getView(),
+
             ),
             Container(
               color: Colors.white,
@@ -105,8 +112,9 @@ class ChatTelegramRouteState extends State<ChatTelegramRoute> {
                       decoration:
                           new InputDecoration.collapsed(hintText: 'Message'),
                       onChanged: (term) {
+                        showSend = true;
                         setState(() {
-                          showSend = (term.length > 0);
+
                         });
                       },
                     ),
@@ -114,12 +122,32 @@ class ChatTelegramRouteState extends State<ChatTelegramRoute> {
                   IconButton(
                       icon: Icon(Icons.attach_file, color: GRAY_COLOR),
                       onPressed: () {}),
-                  IconButton(
-                      icon: Icon(showSend ? Icons.send : Icons.mic,
-                          color: Colors.blue),
-                      onPressed: () {
-                        if (showSend) sendMessage();
-                      }),
+                  Consumer<ChatVM>(
+                    builder: (context,cvm,w) {
+                      return IconButton(
+                          icon: Icon(showSend ? Icons.send : Icons.mic,
+                              color: Colors.blue),
+                          onPressed: () {
+
+                            String message = inputController.text;
+                            inputController.clear();
+                            showSend = false;
+                            GetStorage instance = GetStorageHelper.instance("user");
+                            Message messageObjsct = Message(
+                              senderId: instance.read("id"),
+                              senderName: instance.read("name"),
+                              message: message,
+                              sendDate: DateTime.now() ,
+                            );
+                            print("befor send");
+                            cvm.sendMessage(messageObjsct,widget.subjectChat.docId!);
+
+
+                            //sendMessage();
+
+                          });
+                    }
+                  ),
                 ],
               ),
             ),
@@ -135,61 +163,45 @@ class ChatTelegramRouteState extends State<ChatTelegramRoute> {
     String message = inputController.text;
     inputController.clear();
     showSend = false;
-    setState(() {
-      adapter.insertSingleItem(Message.time(
-          adapter.getItemCount(),
-          message,
-          true,
-          adapter.getItemCount() % 5 == 0,
-          Tools.getFormattedTimeEvent(DateTime.now().millisecondsSinceEpoch)));
-    });
-    generateReply(message);
+    GetStorage instance = GetStorageHelper.instance("user");
+    Message messageObjsct = Message(
+      senderId: instance.read("id"),
+      senderName: instance.read("name"),
+      message: message,
+      sendDate: DateTime.timestamp()
+        // DateTime.now() ,
+    );
+    print("befor send");
+    chatVm!.sendMessage(messageObjsct,widget.subjectChat.docId!);
+    // setState(() {
+    //
+    //   // insertSingleItem(Message.time(
+    //   //     3,//getItemCount(),
+    //   //     "hello",
+    //   //     true,
+    //   //     chatVm!.messages.length % 5 == 0,
+    //   //     Tools.getFormattedTimeEvent(DateTime.now().millisecondsSinceEpoch)));
+    // });
+
   }
 
-  void generateReply(String msg) {
-    Timer(Duration(seconds: 1), () {
-      setState(() {
-        adapter.insertSingleItem(Message.time(
-            adapter.getItemCount(),
-            msg,
-            false,
-            adapter.getItemCount() % 5 == 0,
-            Tools.getFormattedTimeEvent(
-                DateTime.now().millisecondsSinceEpoch)));
-      });
-    });
-  }
-}
 
-class ChatTelegramAdapter {
-  List items = <Message>[];
-  BuildContext context;
-  Function onItemClick;
-  ScrollController scrollController = new ScrollController();
-
-  ChatTelegramAdapter(this.context, this.items, this.onItemClick);
-
-  void insertSingleItem(Message msg) {
-    int insertIndex = items.length;
-    items.insert(insertIndex, msg);
-    scrollController.animateTo(scrollController.position.maxScrollExtent + 100,
-        duration: Duration(milliseconds: 100), curve: Curves.easeOut);
-  }
 
   Widget getView() {
-    return ListView.builder(
-      itemCount: items.length,
+    return Consumer<ChatVM>(builder: (ctx,cvm,w)=>ListView.builder(
+      itemCount:  cvm.messages.length,
       padding: EdgeInsets.symmetric(vertical: 10),
       controller: scrollController,
       itemBuilder: (context, index) {
-        Message item = items[index];
+        Message item = cvm.messages[index];
+        print("the item is ${item.senderName}");
         return buildListItemView(index, item);
       },
-    );
+    ));
   }
 
   Widget buildListItemView(int index, Message item) {
-    bool isMe = item.fromMe;
+    bool isMe =GetStorageHelper.instance("user").read("id") == item.senderId!;
     return Wrap(
       alignment: isMe ? WrapAlignment.end : WrapAlignment.start,
       children: <Widget>[
@@ -207,16 +219,30 @@ class ChatTelegramAdapter {
                 children: <Widget>[
                   Container(
                     constraints: BoxConstraints(minWidth: 150),
-                    child: Text(item.content,
-                        style: MyText.body1(context)!
-                            .copyWith(color: Colors.black)),
+                    child: Column(
+                      crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                      children: [
+                        Text(
+
+                         GetStorageHelper.instance("user").read("role") == "Student"?  "${item.senderName!}" : " ${item.senderName!}"
+
+
+                        ,
+                          style: TEXT_NORMAL,
+                          textAlign: TextAlign.start,
+                        ),
+                        Text(item.message!,
+                            style: MyText.body1(context)!
+                                .copyWith(color: Colors.black)),
+                      ],
+                    ),
                   ),
                   Container(height: 3, width: 0),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text(item.date,
+                      Text("${item.sendDate!.second}!",
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontSize: 12,
@@ -224,7 +250,7 @@ class ChatTelegramAdapter {
                       Container(width: 3),
                       isMe
                           ? Icon(Icons.done_all,
-                              size: 12, color: Color(0xff58B346))
+                          size: 12, color: Color(0xff58B346))
                           : Container(width: 0, height: 0)
                     ],
                   )
@@ -234,6 +260,21 @@ class ChatTelegramAdapter {
       ],
     );
   }
+
+  void insertSingleItem(Message msg) {
+    int insertIndex = items.length;
+    items.insert(insertIndex, msg);
+    scrollController.animateTo(scrollController.position.maxScrollExtent + 100,
+        duration: Duration(milliseconds: 100), curve: Curves.easeOut);
+  }
+}
+
+class ChatTelegramAdapter {
+  List items = <Message>[];
+  BuildContext context;
+  Function onItemClick;
+
+  ChatTelegramAdapter(this.context, this.items, this.onItemClick);
 
   int getItemCount() => items.length;
 }
@@ -266,137 +307,9 @@ class CircleImage extends StatelessWidget {
 }
 
 class MyText {
-  static TextStyle? display4(BuildContext context) {
-    return Theme.of(context).textTheme.displayLarge;
-  }
-
-  static TextStyle? display3(BuildContext context) {
-    return Theme.of(context).textTheme.displayMedium;
-  }
-
-  static TextStyle? display2(BuildContext context) {
-    return Theme.of(context).textTheme.displaySmall;
-  }
-
-  static TextStyle? display1(BuildContext context) {
-    return Theme.of(context).textTheme.headlineMedium;
-  }
-
-  static TextStyle? headline(BuildContext context) {
-    return Theme.of(context).textTheme.headlineSmall;
-  }
-
-  static TextStyle? title(BuildContext context) {
-    return Theme.of(context).textTheme.titleLarge;
-  }
-
-  static TextStyle medium(BuildContext context) {
-    return Theme.of(context).textTheme.titleMedium!.copyWith(
-          fontSize: 18,
-        );
-  }
-
-  static TextStyle? subhead(BuildContext context) {
-    return Theme.of(context).textTheme.titleMedium;
-  }
-
-  static TextStyle? body2(BuildContext context) {
-    return Theme.of(context).textTheme.bodyLarge;
-  }
-
   static TextStyle? body1(BuildContext context) {
     return Theme.of(context).textTheme.bodyMedium;
   }
-
-  static TextStyle? caption(BuildContext context) {
-    return Theme.of(context).textTheme.bodySmall;
-  }
-
-  static TextStyle? button(BuildContext context) {
-    return Theme.of(context).textTheme.labelLarge!.copyWith(letterSpacing: 1);
-  }
-
-  static TextStyle? subtitle(BuildContext context) {
-    return Theme.of(context).textTheme.titleSmall;
-  }
-
-  static TextStyle? overline(BuildContext context) {
-    return Theme.of(context).textTheme.labelSmall;
-  }
 }
 
-class Tools {
-  static void setStatusBarColor(Color color) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: color));
-  }
 
-  static String allCaps(String str) {
-    if (str.isNotEmpty) {
-      return str.toUpperCase();
-    }
-    return str;
-  }
-
-  static String getFormattedDateShort(int time) {
-    DateFormat newFormat = new DateFormat("MMM dd, yyyy");
-    return newFormat.format(new DateTime.fromMillisecondsSinceEpoch(time));
-  }
-
-  static String getFormattedDateSimple(int time) {
-    DateFormat newFormat = new DateFormat("MMMM dd, yyyy");
-    return newFormat.format(new DateTime.fromMillisecondsSinceEpoch(time));
-  }
-
-  static String getFormattedDateEvent(int time) {
-    DateFormat newFormat = new DateFormat("EEE, MMM dd yyyy");
-    return newFormat.format(new DateTime.fromMillisecondsSinceEpoch(time));
-  }
-
-  static String getFormattedTimeEvent(int time) {
-    DateFormat newFormat = new DateFormat("h:mm a");
-    return newFormat.format(new DateTime.fromMillisecondsSinceEpoch(time));
-  }
-
-  static String getFormattedCardNo(String cardNo) {
-    if (cardNo.length < 5) return cardNo;
-    return cardNo.replaceAllMapped(
-        RegExp(r".{4}"), (match) => "${match.group(0)} ");
-  }
-
-  // static void directUrl(String link) async {
-  //   Uri uri = Uri.parse(link);
-  //   if (!await launchUrl(
-  //     uri,
-  //     mode: LaunchMode.externalApplication,
-  //   )) {
-
-  //   }
-  // }
-
-  // // static String parseHtmlString(String htmlString) {
-  //   final document = parse(htmlString);
-  //   final String parsedString = parse(document.body!.text).documentElement!.text;
-  //   return parsedString;
-  // }
-
-  // static Widget displayImage(String url) {
-  //   return CachedNetworkImage(
-  //     imageUrl: url, fit: BoxFit.cover,
-  //     placeholder: (context, url) => Container(color: MyColors.grey_20),
-  //     errorWidget: (context, url, error) => Container(color: MyColors.grey_20),
-  //   );
-  // }
-
-  // static String getFormattedDate(String date, bool simple) {
-  //   try{
-  //     DateTime tempDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
-  //     String format = simple ? "dd MMM yyyy" : "dd MMMM yyyy, hh:mm";
-  //     DateFormat newFormat = DateFormat(format);
-  //     return newFormat.format(tempDate);
-  //   } catch (e) {
-  //     return date;
-  //   }
-}
-
-// }

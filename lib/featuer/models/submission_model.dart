@@ -30,7 +30,7 @@ class Submission {
     submissionsDate = json['submissions_date'];
     path = json['path'];
     grade = json['grade'];
-    state = json['state'];
+    state = json['state'] == 1;
     studentName = json['student_name'];
   }
 

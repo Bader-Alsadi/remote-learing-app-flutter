@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 import 'package:remote_learing_app_frontend/core/constints/colors.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
 import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 import 'package:remote_learing_app_frontend/core/helpers/get_storge_helper.dart';
+import 'package:remote_learing_app_frontend/core/repostery/repostery_api.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_crical_bottom.dart';
 import 'package:remote_learing_app_frontend/core/widgets/costom_serash_filed.dart';
+import 'package:remote_learing_app_frontend/featuer/view_models/notifction_vm.dart';
+import 'package:remote_learing_app_frontend/featuer/views/notifction_page/nofiction_page.dart';
 
 class StudentCouresAppBar extends StatefulWidget {
   StudentCouresAppBar({
@@ -22,6 +26,7 @@ class _StudentCouresAppBarState extends State<StudentCouresAppBar> {
   @override
   void initState() {
     timeNow = DateTime.now().hour;
+    Provider.of<NotifctionVM>(context,listen: false).feachDate(ReposteryAPI(), instance.read("id"));
     super.initState();
   }
 
@@ -60,15 +65,25 @@ class _StudentCouresAppBarState extends State<StudentCouresAppBar> {
               Badge(
                 backgroundColor: FOURTH_COLOR.withOpacity(0.8),
                 textColor: WHITH_COLOR,
-                label: Text("2"),
+                label: Selector<NotifctionVM,int>(
+                  selector: (_,provider)=>provider.notifction.length,
+              builder: (context,lenth,_)=>Text("$lenth"),
+              ) ,
                 smallSize: 14,
-                child: CircleButton(
-                  icon: Icon(
-                    Icons.notifications,
-                    color: PRIMARY_COLOR,
+                child: InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, NotifctionPage.ROUTE);
+                  },
+                  child: CircleButton(
+                    icon: Icon(
+                      Icons.notifications,
+                      color: PRIMARY_COLOR,
+                    ),
+                    color: WHITH_COLOR,
+                    onPressed: () {
+
+                    },
                   ),
-                  color: WHITH_COLOR,
-                  onPressed: () {},
                 ),
               ),
             ],

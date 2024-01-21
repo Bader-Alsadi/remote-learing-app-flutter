@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remote_learing_app_frontend/core/constints/padding.dart';
+import 'package:remote_learing_app_frontend/core/constints/text_style.dart';
 class ImageAndTitle extends StatelessWidget {
   ImageAndTitle(
       {super.key,
@@ -25,10 +26,7 @@ class ImageAndTitle extends StatelessWidget {
         Flexible(
           child: Text(
             title,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
+            style:TEXT_NORMAL
           ),
         )
       ],

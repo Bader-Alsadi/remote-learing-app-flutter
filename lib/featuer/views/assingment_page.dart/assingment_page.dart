@@ -32,7 +32,7 @@ class AssingmentPage extends StatefulWidget {
 class _LecturerPageState extends State<AssingmentPage> {
   GetStorage instance = GetStorageHelper.instance("user");
   File? pickFile;
-  bool isloaded = false;
+  bool isloaded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +43,8 @@ class _LecturerPageState extends State<AssingmentPage> {
         children: AVM.assingments
             .map((e) => Column(
                   children: [
-                    InkWell(
-                      onLongPress: instance.read("role") == "Student"
-                          ? null
-                          : () {
-                              Navigator.pushNamed(
-                                  context, SubmissionPage2.ROUTE,
-                                  arguments: e);
-                            },
-                      child: Container(
+                    Card(
+                        color: THIRD_COLOR,
                         child: ExpansionTileC(
                           subject: widget.subject,
                           assingment: e,
@@ -61,7 +54,9 @@ class _LecturerPageState extends State<AssingmentPage> {
                           vidoe: "",
                           hours: "s",
                           note: e.description!,
-                        ),
+                          onPress: (){  Navigator.pushNamed(
+                              context, SubmissionPage2.ROUTE,
+                              arguments: e);},
                       ),
                     ),
                     instance.read("role") == "Student"
@@ -90,8 +85,11 @@ class _LecturerPageState extends State<AssingmentPage> {
   Future<dynamic> uploadeSubmisson(
       BuildContext context, Assingment e, SubmissionVM SubmmissonVM) {
     return showDialog(
+
       context: context,
       builder: (context) => StatefulBuilder(builder: (context, setState) {
+
+        setState((){});
         return AlertDialog(
           title: Row(
             children: [
@@ -129,6 +127,8 @@ class _LecturerPageState extends State<AssingmentPage> {
                         instance.read("student_id"),
                       );
                       if (pickFile != null) {
+                        isloaded=false;
+
                         Submission submission = Submission(
                             studentId: instance.read("student_id"),
                             assingmentId: e.id,
@@ -138,6 +138,8 @@ class _LecturerPageState extends State<AssingmentPage> {
                         showSnackBar(
                             context, result["message"], result["status"]);
                         Navigator.pop(context);
+                        isloaded=true;
+                        setState((){});
                       } else {
                         showSnackBar(context, "file path is empty", false);
                       }
